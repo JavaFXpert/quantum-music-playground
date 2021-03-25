@@ -1060,7 +1060,7 @@ function populateCircGridFromClip() {
           outlet(5, 'int', halfScale ? 1 : 0);
           outlet(8, 'int', restPitchNum15 ? 1 : 0);
 
-          outlet(10, 'int', 0); // Lock by pitch
+          //outlet(10, 'int', 0); // Lock by pitch
         }
         else {
           var noteCol = Math.floor(adjNoteStart * 4 / qpo.js.NUM_GRID_ROWS);

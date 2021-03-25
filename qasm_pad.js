@@ -292,12 +292,6 @@ function msg_int(val) {
   }
 }
 
-function surface_bg(themeInfo) {
-  if (inlet == 4) {
-    post("\nsurface_bg contains", arguments.length, "elements\n ");
-  }
-}
-
 function control_fg(themeInfo) {
   if (inlet == 4) {
     controlFgColor = [arguments[0], arguments[1], arguments[2], arguments[3]];
