@@ -299,6 +299,9 @@ function control_fg(themeInfo) {
   }
 }
 
+function surface_bg(themeInfo) {
+  // TODO: Remove a device wire?
+}
 
 function getPathByClipNameIdx(clipNameIdx) {
   if (clipNameIdx < clipsPaths.length) {
