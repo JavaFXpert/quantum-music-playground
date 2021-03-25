@@ -18,7 +18,7 @@
  * Quantum DJ device circuit pad that may be used even when
  * a Push 2 device is not connected.
  *
- * TODO: Why do phases shift now????
+ * TODO: Conditionally disable shift gates up/down buttons
  * TODO: Identify color scheme that accommodate pi/8
  * TODO: Inquire surface number for Push
  * TODO: Implement cry gate
@@ -145,8 +145,8 @@ var CircuitNodeTypes = {
 // Inlet 0 receives note messages that include velocity.
 // Inlet 1 receives bang message to update clips
 // Inlet 2 receives gate rotation messages
-// Inlet 3 receives shift gates up/down messages
-// Inlet 4 receives theme change messages
+// Inlet 3 receives shift gates down messages
+// Inlet 4 receives shift gates up messages
 this.inlets = 5;
 
 // Outlet 0 sends message to a simulator with generated QASM
@@ -236,10 +236,14 @@ function bang() {
     populateMidiClipsList();
   }
   if (inlet == 3) {
+    post('\nShifting gates down\n');
+
     // bang received to shift all gates down
     shiftAllGatesVertically(true);
   }
   if (inlet == 4) {
+    post('\nShifting gates up\n');
+
     // bang received to shift all gates up
     shiftAllGatesVertically(false);
   }
@@ -280,15 +284,6 @@ function msg_int(val) {
         createQasmFromGrid();
       }
     }
-  }
-  else if (inlet == 3) {
-    if (val < 0) {
-      shiftAllGatesVertically(true);
-    }
-    else if (val > 0) {
-      shiftAllGatesVertically(false);
-    }
-    outlet(4, 'int', 0);
   }
 }
 
