@@ -49,7 +49,7 @@ function draw() {
     gllinewidth(defLineWidth);
 
     //var curNodeType = qasmPadObj.js.curCircNodeType;
-    if (midiNum != 51 && midiNum != 59) {
+    if (midiNum != 43 && midiNum != 51 && midiNum != 59) {
       moveto(-0.8, -0.8);
 
       // Draw square
@@ -194,9 +194,9 @@ function draw() {
 
     else if (midiNum == 43) {
       // Draw delete character
-      moveto(0.0, 0.0);
-      glcolor(1.0, 1.0, 1.0, 1.0);
-      plane(0.75, 0.75, 0.75, 0.75);
+      // moveto(0.0, 0.0);
+      // glcolor(1.0, 1.0, 1.0, 1.0);
+      // plane(0.75, 0.75, 0.75, 0.75);
       glcolor(0.008, 0.176, 0.609, 1.0);
       moveto(-0.6, -0.4);
       text("\u232b");

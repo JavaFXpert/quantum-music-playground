@@ -205,7 +205,14 @@ function msg_int(val) {
     // Conditionally hide phase shift
     var phaseShiftDial = this.patcher.getnamed("phase_shift_dial");
     phaseShiftDial.setattr('ignoreclick', val == 0);
-    phaseShiftDial.setattr('fontface', val == 0 ? 'italic' : 'regular');
+
+    var tc = phaseShiftDial.getattr('textcolor', 1, 1, 1, 1);
+    var alpha = val > 0 ? 1 : 0.2;
+    phaseShiftDial.setattr('textcolor', tc[0], tc[1], tc[2], alpha);
+    phaseShiftDial.setattr('slidercolor', tc[0], tc[1], tc[2], alpha);
+    phaseShiftDial.setattr('tribordercolor', tc[0], tc[1], tc[2], alpha);
+    //phaseShiftDial.setattr('tricolor', tc[0], tc[1], tc[2], alpha);
+    //phaseShiftDial.setattr('trioncolor', tc[0], tc[1], tc[2], alpha);
   }
   else if (inlet == 5) {
     //preserveGlobalPhaseShift = true;
