@@ -147,12 +147,16 @@ var CircuitNodeTypes = {
 // Inlet 2 receives gate rotation messages
 // Inlet 3 receives shift gates down messages
 // Inlet 4 receives shift gates up messages
-this.inlets = 5;
+// Inlet 5 receives shift gates right messages
+// Inlet 6 receives shift gates left messages
+this.inlets = 7;
 
 // Outlet 0 sends message to a simulator with generated QASM
 // Outlet 1 sends messages to the midi clips list box
 // Outlet 2 sends messages to the clip selector dial
 // Outlet 3 sends messages to the gate rotator dial
+
+// TODO: Modify, perhaps using four outlets (down, up, right, left)
 // Outlet 4 sends messages to the gates shifter dial
 this.outlets = 5;
 
@@ -235,17 +239,25 @@ function bang() {
     // bang received to refresh list of clips
     populateMidiClipsList();
   }
-  if (inlet == 3) {
-    post('\nShifting gates down\n');
-
+  else if (inlet == 3) {
     // bang received to shift all gates down
     shiftAllGatesVertically(true);
   }
-  if (inlet == 4) {
-    post('\nShifting gates up\n');
-
+  else if (inlet == 4) {
     // bang received to shift all gates up
     shiftAllGatesVertically(false);
+  }
+  else if (inlet == 5) {
+    //post('\nShifting gates right\n');
+
+    // bang received to shift all gates right
+    shiftAllGatesHorizontally(true);
+  }
+  else if (inlet == 6) {
+    //post('\nShifting gates left\n');
+
+    // bang received to shift all gates left
+    shiftAllGatesHorizontally(false);
   }
 }
 
@@ -402,6 +414,41 @@ function shiftAllGatesVertically(shiftDown) {
 }
 
 
+function shiftAllGatesHorizontally(shiftRight) {
+  if (shiftRight) {
+    if (colIsEmpty(NUM_GRID_COLS - 1)) {
+      for (colIdx = NUM_GRID_COLS - 2; colIdx >= 0; colIdx--) {
+        for (rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
+          circGrid[rowIdx][colIdx + 1] = circGrid[rowIdx][colIdx];
+          circGrid[rowIdx][colIdx] = CircuitNodeTypes.EMPTY;
+
+          selCircGridRow = -1;
+          selCircGridCol = -1;
+          informCircuitBtn(rowIdx, colIdx);
+          informCircuitBtn(rowIdx, colIdx + 1);
+        }
+      }
+    }
+  }
+  else {
+    if (colIsEmpty(0)) {
+      for (colIdx = 1; colIdx < NUM_GRID_COLS; colIdx++) {
+        for (rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
+          circGrid[rowIdx][colIdx - 1] = circGrid[rowIdx][colIdx];
+          circGrid[rowIdx][colIdx] = CircuitNodeTypes.EMPTY;
+
+          selCircGridRow = -1;
+          selCircGridCol = -1;
+          informCircuitBtn(rowIdx, colIdx - 1);
+          informCircuitBtn(rowIdx, colIdx);
+        }
+      }
+    }
+  }
+  createQasmFromGrid();
+}
+
+
 function rowIsEmpty(rowIdx) {
   var rowEmpty = true;
   for (colIdx = 0; colIdx < NUM_GRID_COLS; colIdx++) {
@@ -411,6 +458,18 @@ function rowIsEmpty(rowIdx) {
     }
   }
   return rowEmpty;
+}
+
+
+function colIsEmpty(colIdx) {
+  var colEmpty = true;
+  for (rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
+    if (circGrid[rowIdx][colIdx] != CircuitNodeTypes.EMPTY) {
+      colEmpty = false;
+      break;
+    }
+  }
+  return colEmpty;
 }
 
 
