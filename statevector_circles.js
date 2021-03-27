@@ -33,6 +33,9 @@ var SV_GRID_STEP_WIDTH = 3.125;
 var SV_GRID_HORIZ_PADDING = 2; // pixels between each of the four grids
 var SV_GRID_FULL_SIZE_MAX_BASIS_STATES = 64;
 
+var SCALES_SHORT_NAME = 'Scales';
+var RAGAS_SHORT_NAME = 'Ragas';
+
 function pitchIdxToGamaka(pitchIdx, scaleType, formerPitchNum) {
   var qpo = this.patcher.getnamed("qasmpad");
   var gamakas = qpo.js.musicalScales[0].ascGamakas; // Default to Major scale ascending gamakas
@@ -83,8 +86,10 @@ var numSvGrids = 4;
 //     7: diatonic octave 5
 //     8: diatonic octave 6
 // Inlet 3 receives name of current clip
-// Inlet 4 receives bang messages to shift global phase in such a way
-//   that makes the first basis state have a 0 phase (if possible).
+// Inlet 4 receives 0 to shift global phase in such a way
+//   that makes the first basis state (with probability above a threshold)
+//   have a 0 pitch index (if possible).
+//   Receiving 1 indicates that global phase should be locked.
 // Inlet 5 receives number of semitones to transpose
 // Inlet 6 receives messages that indicate whether notes are to be legato
 // Inlet 7 receives messages that indicate whether scale is to be reversed
@@ -93,7 +98,9 @@ var numSvGrids = 4;
 // Inlet 10 receives messages that indicate current beats in cycle A
 // Inlet 11 receives messages that indicate whether pitch num 15 is a rest
 // Inlet 12 receives messages that indicate current beats in cycle B
-this.inlets = 13;
+// Inlet 13 receives 0 for scales, and 1 for ragas, to populate
+//   the Scales/Ragas slider in the UI.
+this.inlets = 14;
 
 // Outlet 0 sends global phase shift
 // Outlet 1 sends pitch transform index
@@ -107,7 +114,8 @@ this.inlets = 13;
 // Outlet 9 sends the current beats in a cycle B
 // Outlet 10 sends 0 if pitch is to be locked, or 1 if phase is to be locked
 // Outlet 11 sends width messages to this.device
-this.outlets = 12;
+// Outlet 12 sends 0 if scales, or 1 if ragas, are to be displayed in the UI
+this.outlets = 13;
 
 sketch.default2d();
 var vbrgb = [1., 1., 1., 1.];
@@ -125,6 +133,9 @@ var globalPhaseShiftMidi = 0;
 
 // Flag that indicates not to zero the globalPhaseShift
 var preserveGlobalPhaseShift = false;
+
+// Flag that indicates whether to use ragas instead of scales
+var useRagasInsteadOfScales = false;
 
 // Flag that indicates whether note duration should be
 // until the the next note begins playing.
@@ -202,7 +213,7 @@ function msg_int(val) {
     // Preserve either global phase, or first pitch with above threshold probability
     preserveGlobalPhaseShift = (val > 0);
 
-    // Conditionally hide phase shift
+    // Conditionally disable phase shift
     var phaseShiftDial = this.patcher.getnamed("phase_shift_dial");
     phaseShiftDial.setattr('ignoreclick', val == 0);
 
@@ -263,6 +274,17 @@ function msg_int(val) {
     // Set cycle B length
     curCycleLengthB = val;
     computeProbsPhases();
+  }
+  else if (inlet == 13) {
+    // Value 0 for scales, 1 for ragas
+    useRagasInsteadOfScales = (val > 0);
+
+    var scaleTypeDial = this.patcher.getnamed("scale_type");
+    //post('\nscaleTypeDial.getattrnames(): ' + scaleTypeDial.getattrnames());
+    scaleTypeDial.setattr('_parameter_shortname',
+      val == 0 ? SCALES_SHORT_NAME : RAGAS_SHORT_NAME);
+    // TODO: Load slider/dial with scales or raga names
+
   }
 }
 
