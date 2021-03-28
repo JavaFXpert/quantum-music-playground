@@ -224,8 +224,6 @@ function msg_int(val) {
     phaseShiftDial.setattr('textcolor', tc[0], tc[1], tc[2], alpha);
     phaseShiftDial.setattr('slidercolor', tc[0], tc[1], tc[2], alpha);
     phaseShiftDial.setattr('tribordercolor', tc[0], tc[1], tc[2], alpha);
-    //phaseShiftDial.setattr('tricolor', tc[0], tc[1], tc[2], alpha);
-    //phaseShiftDial.setattr('trioncolor', tc[0], tc[1], tc[2], alpha);
   }
   else if (inlet == 5) {
     //preserveGlobalPhaseShift = true;

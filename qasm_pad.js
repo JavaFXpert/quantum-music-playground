@@ -274,6 +274,9 @@ function msg_int(val) {
       var selNodeType = circGrid[selCircGridRow][selCircGridCol];
       var newNodeType = CircuitNodeTypes.EMPTY;
 
+      var rotateGateDial = this.patcher.getnamed("rotate_gate");
+      var rotateGateSelected = true;
+
       if ((selNodeType >= CircuitNodeTypes.RX_0 && selNodeType <= CircuitNodeTypes.RX_15) ||
         selNodeType == CircuitNodeTypes.CTRL_X) {
 
@@ -289,6 +292,19 @@ function msg_int(val) {
 
         newNodeType = CircuitNodeTypes.PHASE_0 + piOver8Rotation;
       }
+      else {
+        var rotateGateSelected = false;
+      }
+
+      // Conditionally disable rotate gate dial
+      rotateGateDial.setattr('ignoreclick', !rotateGateSelected);
+
+      var tc = rotateGateDial.getattr('textcolor', 1, 1, 1, 1);
+      var alpha = rotateGateSelected ? 1 : 0.2;
+      rotateGateDial.setattr('textcolor', tc[0], tc[1], tc[2], alpha);
+      rotateGateDial.setattr('slidercolor', tc[0], tc[1], tc[2], alpha);
+      rotateGateDial.setattr('tribordercolor', tc[0], tc[1], tc[2], alpha);
+
 
       if (newNodeType != CircuitNodeTypes.EMPTY) {
         circGrid[selCircGridRow][selCircGridCol] = newNodeType;
