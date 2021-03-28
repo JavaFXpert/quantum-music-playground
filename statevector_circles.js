@@ -282,7 +282,7 @@ function msg_int(val) {
 
     // Value 0 for scales, 1 for ragas
     useRagasInsteadOfScales = (val > 0);
-    curScaleType = 0;
+    //curScaleType = 0;
 
     // TODO: Decide how to handle
     //outlet(6, 'int', 0); // Set to scale/raga index 0
