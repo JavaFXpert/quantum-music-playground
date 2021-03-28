@@ -1108,8 +1108,9 @@ function populateCircGridFromClip() {
         else if (adjNoteStart * 4 == qpo.js.NUM_GRID_CELLS + 3) {
           curScaleType = noteMidi;
 
-          // Send current scale type value
-          outlet(6, 'int', curScaleType);
+          // Note that current scale type value is sent later,
+          // after useRagasInsteadOfScales is known
+          //outlet(6, 'int', curScaleType);
         }
         else if (adjNoteStart * 4 == qpo.js.NUM_GRID_CELLS + 4) {
           curCycleLengthA = noteMidi;
@@ -1136,6 +1137,9 @@ function populateCircGridFromClip() {
           outlet(5, 'int', halfScale ? 1 : 0);
           outlet(8, 'int', restPitchNum15 ? 1 : 0);
           outlet(12, 'int', useRagasInsteadOfScales ? 1 : 0);
+
+          // Send current scale type value, after useRagasInsteadOfScales is known.
+          outlet(6, 'int', curScaleType);
 
           //outlet(10, 'int', 0); // Lock by pitch
 
