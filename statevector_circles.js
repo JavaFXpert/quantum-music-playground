@@ -283,7 +283,9 @@ function msg_int(val) {
     // Value 0 for scales, 1 for ragas
     useRagasInsteadOfScales = (val > 0);
     curScaleType = 0;
-    outlet(6, 'int', 0); // Set to scale/raga index 0
+
+    // TODO: Decide how to handle
+    //outlet(6, 'int', 0); // Set to scale/raga index 0
 
     var qpo = this.patcher.getnamed("qasmpad");
 
@@ -1015,6 +1017,7 @@ function computeProbsPhases() {
   //   - 0b0000010 place represents reverseScale
   //   - 0b0000100 place represents halfScale
   //   - 0b0001000 place represents restPitchNum15
+  //   - 0b0010000 place represents useRagasInsteadOfScales
   var miscFlagsVal = 0;
   if (legato) {
     miscFlagsVal += 1;
@@ -1027,6 +1030,9 @@ function computeProbsPhases() {
   }
   if (restPitchNum15) {
     miscFlagsVal += 8;
+  }
+  if (useRagasInsteadOfScales) {
+    miscFlagsVal += 16;
   }
 
   notesDict.notes.push(
@@ -1122,17 +1128,17 @@ function populateCircGridFromClip() {
           reverseScale = (noteMidi & 2) == 2; // reverseScale is represented in 0b0000010 place
           halfScale = (noteMidi & 4) == 4; // halfScale is represented in 0b0000100 place
           restPitchNum15 = (noteMidi & 8) == 8; // restPitchNum15 is represented in 0b0001000 place
+          useRagasInsteadOfScales = (noteMidi & 16) == 16; // useRagasInsteadOfScales is represented in 0b0010000 place
 
           // Send states to UI controls
           outlet(3, 'int', legato ? 1 : 0);
           outlet(4, 'int', reverseScale ? 1 : 0);
           outlet(5, 'int', halfScale ? 1 : 0);
           outlet(8, 'int', restPitchNum15 ? 1 : 0);
+          outlet(12, 'int', useRagasInsteadOfScales ? 1 : 0);
 
           //outlet(10, 'int', 0); // Lock by pitch
 
-          // TODO: Retrieve from clip
-          outlet(12, 'int', 0); // Set to scales (rather than ragas)
         }
         else {
           var noteCol = Math.floor(adjNoteStart * 4 / qpo.js.NUM_GRID_ROWS);
