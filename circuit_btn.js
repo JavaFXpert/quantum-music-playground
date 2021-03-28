@@ -29,7 +29,10 @@ this.prevDragY = 0;
 
 this.controlFgColor = [0., 0., 0., 1.];
 
-function updateDisplay(nodeType, controlFgList) {
+this.selected = false;
+
+function updateDisplay(nodeType, controlFgList, selected) {
+  this.selected = selected;
   this.controlFgColor = controlFgList;
   box.size(24.0, 19.5);
   this.circNodeType = nodeType;
@@ -77,7 +80,6 @@ function draw() {
       lineto(1.2, 0.0);
       moveto(0.0, 0.2);
       lineto(0.0, -0.2);
-
     }
     else if (curNodeType == qpo.js.CircuitNodeTypes.CTRL_X ||
       curNodeType == qpo.js.CircuitNodeTypes.CTRL ||
@@ -92,10 +94,12 @@ function draw() {
       moveto(-0.8, -0.8);
 
       // Draw square
+      gllinewidth(this.selected ? defLineWidth * 4 : defLineWidth);
       lineto(0.8, -0.8);
       lineto(0.8, 0.8);
       lineto(-0.8, 0.8);
       lineto(-0.8, -0.8);
+      gllinewidth(defLineWidth);
 
       // Draw connector
       moveto(-1.2, 0.0);
@@ -136,13 +140,6 @@ function draw() {
       circle(0.8, 0, 360);
       glcolor(1.0, 1.0, 1.0, 1.0);
     }
-    // else {
-    //   moveto(0.0, 0.0);
-    //   glcolor(0.0, 0.0, 0.0, 0.0);
-    //   plane(0.8, 0.8, 0.8, 0.8);
-    //   glcolor(1.0, 1.0, 1.0, 1.0);
-    // }
-
 
     if (curNodeType == qpo.js.CircuitNodeTypes.H) {
       moveto(0.0, 0.0);

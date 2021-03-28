@@ -292,7 +292,10 @@ function msg_int(val) {
 
       if (newNodeType != CircuitNodeTypes.EMPTY) {
         circGrid[selCircGridRow][selCircGridCol] = newNodeType;
-        informCircuitBtn(selCircGridRow, selCircGridCol);
+
+        refreshCircGrid();
+        //informCircuitBtn(selCircGridRow, selCircGridCol);
+
         createQasmFromGrid();
       }
     }
@@ -370,9 +373,6 @@ function resetCircGrid() {
 function refreshCircGrid() {
   for (rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
     for (colIdx = 0; colIdx < NUM_GRID_COLS; colIdx++) {
-      selCircGridRow = -1;
-      selCircGridCol = -1;
-
       informCircuitBtn(rowIdx, colIdx);
     }
   }
@@ -533,7 +533,9 @@ function setCircGridGate(notePitchVelocity) {
         // Set the current rotation on the gate rotator dial
         outlet(3, 'int', newPiOver8Rotation);
 
-        informCircuitBtn(gridRow, gridCol);
+        refreshCircGrid();
+        //informCircuitBtn(gridRow, gridCol);
+
         createQasmFromGrid();
       }
       else {
@@ -697,7 +699,9 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
         circNodeType = CircuitNodeTypes.RX_8;
       }
       circGrid[gridRow][gridCol] = circNodeType;
-      informCircuitBtn(gridRow, gridCol);
+
+      refreshCircGrid();
+      //informCircuitBtn(gridRow, gridCol);
     }
 
     if (ctrlWires.length == 0) {
@@ -1081,7 +1085,10 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
     var otherSwapGateWireNum = swapGateRowInColumn(gridCol, gridRow);
     if (otherSwapGateWireNum != -1 && otherSwapGateWireNum < gridRow) {
       circGrid[gridRow][gridCol] = CircuitNodeTypes.SWAP;
-      informCircuitBtn(gridRow, gridCol);
+
+      refreshCircGrid();
+      //informCircuitBtn(gridRow, gridCol);
+
       qasmStr += ' swap q[' + otherSwapGateWireNum + '],' + 'q[' + gridRow + '];';
     }
   }
@@ -1355,7 +1362,8 @@ function computeNumWires() {
 function informCircuitBtn(gridRowIdx, gridColIdx) {
   var midiPitch = LOW_MIDI_PITCH + ((NUM_GRID_ROWS - gridRowIdx - 1) * CONTR_MAT_COLS) + gridColIdx;
   var circBtnObj = this.patcher.getnamed('circbtn' + midiPitch);
-  circBtnObj.js.updateDisplay(circGrid[gridRowIdx][gridColIdx], controlFgColor);
+  circBtnObj.js.updateDisplay(circGrid[gridRowIdx][gridColIdx], controlFgColor,
+    gridRowIdx == selCircGridRow && gridColIdx == selCircGridCol);
 }
 
 
