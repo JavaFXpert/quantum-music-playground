@@ -142,7 +142,6 @@ var CircuitNodeTypes = {
 };
 
 
-
 // Inlet 0 receives note messages that include velocity.
 // Inlet 1 receives bang message to update clips
 // Inlet 2 receives gate rotation messages
@@ -504,8 +503,9 @@ function setCircGridGate(notePitchVelocity) {
         selCircGridRow = gridRow;
         selCircGridCol = gridCol;
 
-        if (circGrid[gridRow][gridCol] == CircuitNodeTypes.EMPTY ||
-          curCircNodeType == CircuitNodeTypes.EMPTY) {
+        if (curCircNodeType != CircuitNodeTypes.HAND &&
+          (circGrid[gridRow][gridCol] == CircuitNodeTypes.EMPTY ||
+            curCircNodeType == CircuitNodeTypes.EMPTY)) {
           circGrid[gridRow][gridCol] = curCircNodeType;
         }
         else {
