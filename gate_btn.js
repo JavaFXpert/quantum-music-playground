@@ -182,6 +182,13 @@ function draw() {
       fontsize(defFontSize);
     }
 
+    else if (midiNum == 51) {
+      // Draw hand character
+      glcolor(0.008, 0.176, 0.609, 1.0);
+      moveto(-0.6, -0.4);
+      text("\u270b");
+    }
+
     else if (midiNum == 42) {
       // CircuitNodeTypes.IDEN
       moveto(0.0, 0.0);
@@ -194,9 +201,6 @@ function draw() {
 
     else if (midiNum == 43) {
       // Draw delete character
-      // moveto(0.0, 0.0);
-      // glcolor(1.0, 1.0, 1.0, 1.0);
-      // plane(0.75, 0.75, 0.75, 0.75);
       glcolor(0.008, 0.176, 0.609, 1.0);
       moveto(-0.6, -0.4);
       text("\u232b");

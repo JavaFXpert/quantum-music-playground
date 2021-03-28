@@ -68,6 +68,7 @@ var MIN_CIRCUIT_WIRES = 2;
 // Circuit node types
 var CircuitNodeTypes = {
   EMPTY: -1,
+  HAND: 0,
   // X: 1,
   // Y: 2,
   // Z: 3,
@@ -551,6 +552,9 @@ function setCircGridGate(notePitchVelocity) {
             // TODO: Uncomment next line after making it not easy to accidentally clear the circuit
             //clearCircuitWhenEmptyKeyNextPressed = true;
           }
+        }
+        else if (pitch == 51) {
+          curCircNodeType = CircuitNodeTypes.HAND;
         }
         else {
           clearCircuitWhenEmptyKeyNextPressed = false;
