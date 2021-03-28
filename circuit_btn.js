@@ -71,8 +71,15 @@ function draw() {
 
     var curNodeType = circNodeType;
 
-    if (curNodeType == qpo.js.CircuitNodeTypes.EMPTY ||
-      curNodeType == qpo.js.CircuitNodeTypes.CTRL_X ||
+    if (curNodeType == qpo.js.CircuitNodeTypes.EMPTY) {
+      // Draw empty circuit wire with a center mark
+      moveto(-1.2, 0.0);
+      lineto(1.2, 0.0);
+      moveto(0.0, 0.2);
+      lineto(0.0, -0.2);
+
+    }
+    else if (curNodeType == qpo.js.CircuitNodeTypes.CTRL_X ||
       curNodeType == qpo.js.CircuitNodeTypes.CTRL ||
       curNodeType == qpo.js.CircuitNodeTypes.ANTI_CTRL ||
       curNodeType == qpo.js.CircuitNodeTypes.SWAP ||
