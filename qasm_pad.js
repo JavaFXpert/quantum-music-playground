@@ -1447,7 +1447,7 @@ function populateMidiClipsList() {
  * Given a track path, pad/note names in display
  * @param trackPath
  */
-function populatePadNoteNames(trackPath, pitchTransformIdx, transposeSemitones, reverseScale, halfScale, scaleType, restPitchNum15) {
+function populatePadNoteNames(trackPath, pitchTransformIdx, transposeSemitones, reverseScale, halfScale, scaleType, useRagas, restPitchNum15) {
   if (padNoteNamesDirty) {
     padNoteNamesDirty = false;
     var track = new LiveAPI(trackPath);
@@ -1477,7 +1477,7 @@ function populatePadNoteNames(trackPath, pitchTransformIdx, transposeSemitones, 
         }
         else {
           noteName = padNoteNames[pitchIdxToMidi(midiPitchIdx, pitchTransformIdx, transposeSemitones,
-            reverseScale, halfScale, scaleType, false)];
+            reverseScale, halfScale, scaleType, useRagas, false)];
         }
 
         // Update textbox
@@ -1882,6 +1882,34 @@ var musicalScales = [
 ];
 
 
+function getMusicalScaleNames(retrieveRagas) {
+  var scaleNames = [];
+  for (var scalesIdx = 0; scalesIdx < musicalScales.length; scalesIdx++) {
+    if (musicalScales[scalesIdx].isRaga() == retrieveRagas) {
+      scaleNames.push(musicalScales[scalesIdx].name);
+    }
+  }
+  return scaleNames;
+}
+
+
+function getMusicalScaleIndex(scaleRagaIdx, retrieveRaga) {
+  var musicalScaleIdx = 0;
+
+  for (var scalesIdx = 0; scalesIdx < musicalScales.length; scalesIdx++) {
+    if (musicalScales[scalesIdx].isRaga() == retrieveRaga) {
+      if (musicalScaleIdx >= scaleRagaIdx) {
+        return scalesIdx;
+      }
+      else {
+        musicalScaleIdx++;
+      }
+    }
+  }
+  return 0;
+}
+
+
 /**
  * Given a pi/8 rotation, returns a String that expresses
  * it in radians
@@ -2167,8 +2195,10 @@ function circNodeType2Color(circNodeTypeNum) {
  * @returns {number}
  */
 function pitchIdxToMidi(pitchIdx, octaveNumPlus2, transposeSemitones,
-                        reverseScale, halfScale, scaleType, useDescOffsets) {
+                        reverseScale, halfScale, scaleRagaIdx, useRagas, useDescOffsets) {
   var scaleOffsets = musicalScales[0].ascOffsets; // Default to Major scale
+
+  var scaleType = getMusicalScaleIndex(scaleRagaIdx, useRagas);
 
   if (scaleType < musicalScales.length) {
     scaleOffsets = useDescOffsets ? musicalScales[scaleType].descOffsets : musicalScales[scaleType].ascOffsets;

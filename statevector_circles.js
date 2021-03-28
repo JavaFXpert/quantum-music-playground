@@ -36,10 +36,12 @@ var SV_GRID_FULL_SIZE_MAX_BASIS_STATES = 64;
 var SCALES_SHORT_NAME = 'Scales';
 var RAGAS_SHORT_NAME = 'Ragas';
 
-function pitchIdxToGamaka(pitchIdx, scaleType, formerPitchNum) {
+function pitchIdxToGamaka(pitchIdx, scaleRagaIdx, useRagas, formerPitchNum) {
   var qpo = this.patcher.getnamed("qasmpad");
   var gamakas = qpo.js.musicalScales[0].ascGamakas; // Default to Major scale ascending gamakas
   var scaleOffsets = qpo.js.musicalScales[0].ascOffsets; // Default to Major scale ascending offsets
+
+  var scaleType = qpo.js.getMusicalScaleIndex(scaleRagaIdx, useRagas);
 
   if (scaleType < qpo.js.musicalScales.length) {
     gamakas = pitchIdx <= formerPitchNum ? qpo.js.musicalScales[scaleType].descGamakas : qpo.js.musicalScales[scaleType].ascGamakas;
@@ -134,9 +136,6 @@ var globalPhaseShiftMidi = 0;
 // Flag that indicates not to zero the globalPhaseShift
 var preserveGlobalPhaseShift = false;
 
-// Flag that indicates whether to use ragas instead of scales
-var useRagasInsteadOfScales = false;
-
 // Flag that indicates whether note duration should be
 // until the the next note begins playing.
 var legato = false;
@@ -161,6 +160,9 @@ var restPitchNum15 = true;
 
 // Type of scale to use
 var curScaleType = 0; //Major
+
+// Flag that indicates whether to use ragas instead of scales
+var useRagasInsteadOfScales = false;
 
 
 // Length of cycle A
@@ -276,15 +278,25 @@ function msg_int(val) {
     computeProbsPhases();
   }
   else if (inlet == 13) {
+    //post('\ninlet 13, val: ' + val);
+
     // Value 0 for scales, 1 for ragas
     useRagasInsteadOfScales = (val > 0);
+    curScaleType = 0;
+    outlet(6, 'int', 0); // Set to scale/raga index 0
+
+    var qpo = this.patcher.getnamed("qasmpad");
 
     var scaleTypeDial = this.patcher.getnamed("scale_type");
     //post('\nscaleTypeDial.getattrnames(): ' + scaleTypeDial.getattrnames());
     scaleTypeDial.setattr('_parameter_shortname',
       val == 0 ? SCALES_SHORT_NAME : RAGAS_SHORT_NAME);
     // TODO: Load slider/dial with scales or raga names
+    scaleTypeDial.setattr('_parameter_range',
+      qpo.js.getMusicalScaleNames(val > 0));
 
+    qpo.js.padNoteNamesDirty = true;
+    computeProbsPhases();
   }
 }
 
@@ -431,6 +443,7 @@ function computeProbsPhases() {
         reverseScale,
         halfScale,
         curScaleType,
+        useRagasInsteadOfScales,
         pitchNums[pnIdx] <= formerPitchNum);
 
       if (pitchNums[pnIdx] > -1 && !(restPitchNum15 && pitchNums[pnIdx] == 15) && currentMidiNum < 127) {
@@ -449,6 +462,7 @@ function computeProbsPhases() {
             reverseScale,
             halfScale,
             curScaleType,
+            useRagasInsteadOfScales,
             pitchNums[remPnIdx] <= formerPitchNum);
           if (pitchNums[remPnIdx] > -1 && !(restPitchNum15 && pitchNums[remPnIdx] == 15) && remMidiNum < 127) {
             successorNoteFound = true;
@@ -480,7 +494,8 @@ function computeProbsPhases() {
 
         }
         else {
-          gamakaType = pitchIdxToGamaka(pitchNums[pnIdx], curScaleType, formerPitchNum);
+          gamakaType = pitchIdxToGamaka(pitchNums[pnIdx], curScaleType,
+            useRagasInsteadOfScales, formerPitchNum);
           var gamakaPlayed = false;
 
           if (gamakaType == qpo.js.GamakaTypes.SLIDE_UP_2_PITCHES) {
@@ -494,6 +509,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration * 0.30,
@@ -508,6 +524,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.25,
                   duration: duration * 0.75,
@@ -529,6 +546,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration * 0.30,
@@ -543,6 +561,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.25,
                   duration: duration * 0.75,
@@ -567,6 +586,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration * 0.50,
@@ -582,6 +602,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.33, // 1/3
                   //duration: duration * 0.25,
@@ -598,6 +619,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   //start_time: beatIdx / beatsPerMeasure + duration * 0.375, // 6/16
 									start_time: beatIdx / beatsPerMeasure + duration * 0.66, // 2/3
@@ -617,6 +639,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.5625, // 9/16
                   duration: duration * 0.25,
@@ -632,6 +655,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.75, // 12/16
                   duration: duration * 0.25,
@@ -657,6 +681,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration * 0.30,
@@ -672,6 +697,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.25,
                   duration: duration * 0.30,
@@ -687,6 +713,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.5,
                   duration: duration * 0.30,
@@ -702,6 +729,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.75,
                   duration: duration * 0.25,
@@ -725,6 +753,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration * 0.30,
@@ -740,6 +769,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.25,
                   duration: duration * 0.30,
@@ -755,6 +785,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.5,
                   duration: duration * 0.30,
@@ -770,6 +801,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.75,
                   duration: duration * 0.25,
@@ -790,6 +822,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum) - 1,
                   start_time: beatIdx / beatsPerMeasure,
                   //duration: duration * 0.15,
@@ -805,6 +838,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   //start_time: beatIdx / beatsPerMeasure + duration * 0.10,
                   start_time: beatIdx / beatsPerMeasure + 0.10,
@@ -827,6 +861,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   //duration: duration * 0.15,
@@ -842,6 +877,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   //start_time: beatIdx / beatsPerMeasure + duration * 0.10,
                   start_time: beatIdx / beatsPerMeasure + 0.10,
@@ -861,6 +897,7 @@ function computeProbsPhases() {
               reverseScale,
               halfScale,
               curScaleType,
+              useRagasInsteadOfScales,
               pitchNums[pnIdx] < formerPitchNum);
 
             if (midiPitch < 127) {
@@ -872,6 +909,7 @@ function computeProbsPhases() {
                     reverseScale,
                     halfScale,
                     curScaleType,
+                    useRagasInsteadOfScales,
                     pitchNums[pnIdx] < formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration,
@@ -1008,8 +1046,10 @@ function computeProbsPhases() {
   var trackPathTokens = curClipPath.split(' ');
   trackPathTokens.length = 3;
   var trackPath = trackPathTokens.join(' ');
+
   // Display the pads/notes corresponding to each phase
-  qpo.js.populatePadNoteNames(trackPath, pitchTransformIndex, numTransposeSemitones, reverseScale, halfScale, curScaleType, restPitchNum15);
+  qpo.js.populatePadNoteNames(trackPath, pitchTransformIndex,
+    numTransposeSemitones, reverseScale, halfScale, curScaleType, useRagasInsteadOfScales, restPitchNum15);
 }
 
 
@@ -1090,6 +1130,9 @@ function populateCircGridFromClip() {
           outlet(8, 'int', restPitchNum15 ? 1 : 0);
 
           //outlet(10, 'int', 0); // Lock by pitch
+
+          // TODO: Retrieve from clip
+          outlet(12, 'int', 0); // Set to scales (rather than ragas)
         }
         else {
           var noteCol = Math.floor(adjNoteStart * 4 / qpo.js.NUM_GRID_ROWS);
@@ -1122,6 +1165,7 @@ function populateCircGridFromClip() {
     outlet(8, 'int', 0);
     outlet(9, 'int', 2);
     outlet(10, 'int', 0); // Lock by pitch
+    outlet(12, 'int', 0); // Set to scales (rather than ragas)
   }
 
   // TODO: Refactor code below and its occurrence elsewhere into separate method
@@ -1132,7 +1176,8 @@ function populateCircGridFromClip() {
   var trackPath = trackPathTokens.join(' ');
 
   // Display the pads/notes corresponding to each phase
-  qpo.js.populatePadNoteNames(trackPath, pitchTransformIndex, numTransposeSemitones, reverseScale, halfScale, curScaleType, restPitchNum15);
+  qpo.js.populatePadNoteNames(trackPath, pitchTransformIndex, numTransposeSemitones,
+    reverseScale, halfScale, curScaleType, useRagasInsteadOfScales, restPitchNum15);
 
 
   qpo.js.createQasmFromGrid();
