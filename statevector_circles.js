@@ -195,8 +195,18 @@ function msg_int(val) {
     setGlobalPhaseShift(val);
   }
   else if (inlet == 2) {
-    //preserveGlobalPhaseShift = true;
     pitchTransformIndex = val;
+
+    // Conditionally disable Folded and Inverted toggle buttons
+    var foldedToggle = this.patcher.getnamed("folded_toggle");
+    var invertedToggle = this.patcher.getnamed("inverted_toggle");
+
+    foldedToggle.setattr('active', pitchTransformIndex == 0 ? 0 : 1);
+    foldedToggle.setattr('ignoreclick', pitchTransformIndex == 0 ? 1 : 0);
+
+    invertedToggle.setattr('active', pitchTransformIndex == 0 ? 0 : 1);
+    invertedToggle.setattr('ignoreclick', pitchTransformIndex == 0 ? 1 : 0);
+
     var qpo = this.patcher.getnamed("qasmpad");
     qpo.js.padNoteNamesDirty = true;
     computeProbsPhases();
