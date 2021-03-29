@@ -1448,7 +1448,12 @@ function populateMidiClipsList() {
           var clip = new LiveAPI('live_set tracks ' + trackIdx + ' clip_slots ' + clipSlotIdx + ' clip');
 
           var clipName = clip.getstring('name');
-          if (clipName.length > 2) {
+          if (clipName.length >= 1 && clipName.substring(0, 1) != '\"') {
+            outlet(1, 'append', clipName);
+            clipsPaths.push(clipName + '^' + clip.unquotedpath);
+            clipsNames.push(clipName);
+          }
+          else if (clipName.length > 2) {
             if (clipName.substring(0, 1) == '\"') {
               clipName = clipName.substring(1, clipName.length - 1);
             }
@@ -1501,6 +1506,7 @@ function populatePadNoteNames(trackPath, pitchTransformIdx, transposeSemitones, 
           noteName = 'REST';
         }
         else if (pitchTransformIdx == 0) {
+          // For kits, index is the raw MIDI value
           noteName = padNoteNames[midiPitchIdx];
         }
         else {
