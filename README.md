@@ -21,6 +21,11 @@ At the bottom of the screenshot is the Quantum Music Playground device, shown he
 
 
 
-The bar graph shows that four of the basis states in the statevector have non-zero amplitudes, and that they all have a phase angle of 0. Examining the following musical representation of the same statevector reveals that the phase of a basis stated is represented by the row in which a cell is filled.
+The bar graph shows that four of the basis states in the statevector have non-zero amplitudes, and that they all have a phase angle of 0 (as noted by the popup as well as the **Phase** color legend). Examining the following musical representation of the same statevector reveals that the phase of a basis state is represented by the row in which a cell is filled. If we consider each cell a 16th note in 4/4 time, the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern. 
 
 <img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=70%/>
+
+
+
+As you interact with the Quantum Music Composer device, the MIDI information in the selected clip is updated.
+
