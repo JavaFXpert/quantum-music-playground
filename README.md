@@ -1,5 +1,7 @@
 # Quantum Music Playground
-TDLR: Playground for composing music using quantum states. Implemented as a Max for Live device in Ableton Live 11. Apache 2.0 licensed. Developed by James L. Weaver.
+## Summary
+
+Playground for composing music using quantum states. Implemented as a Max for Live device in Ableton Live 11. Apache 2.0 licensed. Developed by James L. Weaver.
 
 ![Quantum Music Playground screenshot](./images/qmp_0_9_screenshot.png)
 
@@ -11,5 +13,14 @@ The Quantum Music Playground is a tool for composing music, as well as an enjoya
 
 ![Twinkle song kick drum part](./images/twinkle_kick_screenshot.png)
 
-At the bottom of the screenshot is the Quantum Music Playground device, shown here expressing the kick drum part contained in the **Kick** clip in one of the tracks labeled **808 Core Kit**. In the center of the device is a quantum circuit TODO: LEFT OFF HERE
 
+
+At the bottom of the screenshot is the Quantum Music Playground device, shown here composing the kick drum part contained in the **Kick** clip in one of the tracks labeled **808 Core Kit**. In the center of the device is a [quantum circuit](https://qiskit.org/documentation/qc_intro.html#quantum-circuits) whose resultant [statevector](https://qiskit.org/textbook/ch-states/representing-qubit-states.html#statevectors) is represented musically in the grid to the right of the circuit. For comparison, if you entered this circuit in the [IBM Quantum Composer](https://quantum-computing.ibm.com/) the circuit and resultant statevector would appear similar to the following image.
+
+<img src="./images/twinkle_kick_ibm_quantum_composer.png" alt="Quantum Music Playground screenshot" style="zoom:40%;"/>
+
+
+
+The bar graph shows that four of the basis states in the statevector have non-zero amplitudes, and that they all have a phase angle of 0. Examining the following musical representation of the same statevector reveals that the phase of a basis stated is represented by the row in which a cell is filled.
+
+<img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" style="zoom:60%;"/>
