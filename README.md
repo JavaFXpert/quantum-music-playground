@@ -17,7 +17,7 @@ The Quantum Music Playground is a tool for composing music, as well as an enjoya
 
 At the bottom of the screenshot is the Quantum Music Playground device, shown here composing the kick drum part contained in the **Kick** clip in one of the tracks labeled **808 Core Kit**. In the center of the device is a [quantum circuit](https://qiskit.org/documentation/qc_intro.html#quantum-circuits) whose resultant [statevector](https://qiskit.org/textbook/ch-states/representing-qubit-states.html#statevectors) is represented musically in the grid to the right of the circuit. For comparison, if you entered this circuit in the [IBM Quantum Composer](https://quantum-computing.ibm.com/) the circuit and resultant statevector would appear similar to the following image.
 
-<img src="./images/twinkle_kick_ibm_quantum_composer.png" alt="Quantum Music Playground screenshot" style="zoom:40%;"/>
+<img src="./images/twinkle_kick_ibm_quantum_composer.png" alt="Quantum Music Playground screenshot" width=70%/>
 
 
 
