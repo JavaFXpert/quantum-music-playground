@@ -36,42 +36,6 @@ var SV_GRID_FULL_SIZE_MAX_BASIS_STATES = 64;
 var SCALES_SHORT_NAME = 'Scales';
 var RAGAS_SHORT_NAME = 'Ragas';
 
-function pitchIdxToGamaka(pitchIdx, scaleRagaIdx, useRagas, formerPitchNum) {
-  var qpo = this.patcher.getnamed("qasmpad");
-  var gamakas = qpo.js.musicalScales[0].ascGamakas; // Default to Major scale ascending gamakas
-  var scaleOffsets = qpo.js.musicalScales[0].ascOffsets; // Default to Major scale ascending offsets
-
-  var scaleType = qpo.js.getMusicalScaleIndex(scaleRagaIdx, useRagas);
-
-  if (scaleType < qpo.js.musicalScales.length) {
-    gamakas = pitchIdx <= formerPitchNum ? qpo.js.musicalScales[scaleType].descGamakas : qpo.js.musicalScales[scaleType].ascGamakas;
-    scaleOffsets = pitchIdx <= formerPitchNum ? qpo.js.musicalScales[scaleType].descOffsets : qpo.js.musicalScales[scaleType].ascOffsets;
-  }
-
-  if (pitchIdx < 0 || pitchIdx >= qpo.js.NUM_PITCHES) {
-    post('\nIn pitchIdxToGamaka, pitchIdx unexpectedly: ' + pitchIdx + ', setting to 0');
-    pitchIdx = 0;
-  }
-
-  var gamakaType = qpo.js.GamakaTypes.NONE;
-
-  // Only return a gamaka if there is an associated pitch in the scale
-  if (scaleOffsets[pitchIdx] != -1) {
-    // For Ragas, if pitch and former pitch are the same (repeated note), hammer on second note
-    if (qpo.js.musicalScales[scaleType].isRaga() && pitchIdx == formerPitchNum) {
-      //gamakaType = qpo.js.GamakaTypes.HAMMER_ON_CHROMATIC;
-      gamakaType = qpo.js.GamakaTypes.HAMMER_ON_1_PITCH;
-    }
-    else {
-      gamakaType = gamakas[pitchIdx];
-    }
-  }
-  return gamakaType;
-}
-
-
-
-
 var maxDisplayedSteps = 256;
 var numSvGrids = 4;
 
@@ -1199,6 +1163,40 @@ function populateCircGridFromClip() {
 
 
   qpo.js.createQasmFromGrid();
+}
+
+
+function pitchIdxToGamaka(pitchIdx, scaleRagaIdx, useRagas, formerPitchNum) {
+  var qpo = this.patcher.getnamed("qasmpad");
+  var gamakas = qpo.js.musicalScales[0].ascGamakas; // Default to Major scale ascending gamakas
+  var scaleOffsets = qpo.js.musicalScales[0].ascOffsets; // Default to Major scale ascending offsets
+
+  var scaleType = qpo.js.getMusicalScaleIndex(scaleRagaIdx, useRagas);
+
+  if (scaleType < qpo.js.musicalScales.length) {
+    gamakas = pitchIdx <= formerPitchNum ? qpo.js.musicalScales[scaleType].descGamakas : qpo.js.musicalScales[scaleType].ascGamakas;
+    scaleOffsets = pitchIdx <= formerPitchNum ? qpo.js.musicalScales[scaleType].descOffsets : qpo.js.musicalScales[scaleType].ascOffsets;
+  }
+
+  if (pitchIdx < 0 || pitchIdx >= qpo.js.NUM_PITCHES) {
+    post('\nIn pitchIdxToGamaka, pitchIdx unexpectedly: ' + pitchIdx + ', setting to 0');
+    pitchIdx = 0;
+  }
+
+  var gamakaType = qpo.js.GamakaTypes.NONE;
+
+  // Only return a gamaka if there is an associated pitch in the scale
+  if (scaleOffsets[pitchIdx] != -1) {
+    // For Ragas, if pitch and former pitch are the same (repeated note), hammer on second note
+    if (qpo.js.musicalScales[scaleType].isRaga() && pitchIdx == formerPitchNum) {
+      //gamakaType = qpo.js.GamakaTypes.HAMMER_ON_CHROMATIC;
+      gamakaType = qpo.js.GamakaTypes.HAMMER_ON_1_PITCH;
+    }
+    else {
+      gamakaType = gamakas[pitchIdx];
+    }
+  }
+  return gamakaType;
 }
 
 

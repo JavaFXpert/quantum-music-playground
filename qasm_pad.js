@@ -211,6 +211,18 @@ var padsToBlink = [];
 var numConsecutiveQftRowsInCol = 0;
 
 
+sketch.default2d();
+var val = 0;
+var vbrgb = [1., 1., 1., 1.];
+var last_x = 0;
+var last_y = 0;
+
+resetCircGrid();
+
+draw();
+refresh();
+
+
 /**
  * Represents a control or anti-control, and the wire
  * on which it is present
@@ -238,14 +250,10 @@ function bang() {
     shiftAllGatesVertically(false);
   }
   else if (inlet == 5) {
-    //post('\nShifting gates right\n');
-
     // bang received to shift all gates right
     shiftAllGatesHorizontally(true);
   }
   else if (inlet == 6) {
-    //post('\nShifting gates left\n');
-
     // bang received to shift all gates left
     shiftAllGatesHorizontally(false);
   }
@@ -334,18 +342,6 @@ function getPathByClipNameIdx(clipNameIdx) {
     return "";
   }
 }
-
-
-sketch.default2d();
-var val = 0;
-var vbrgb = [1., 1., 1., 1.];
-var last_x = 0;
-var last_y = 0;
-
-resetCircGrid();
-
-draw();
-refresh();
 
 
 function list(lst) {
