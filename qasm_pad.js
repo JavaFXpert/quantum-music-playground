@@ -155,10 +155,7 @@ this.inlets = 7;
 // Outlet 1 sends messages to the midi clips list box
 // Outlet 2 sends messages to the clip selector dial
 // Outlet 3 sends messages to the gate rotator dial
-
-// TODO: Modify, perhaps using four outlets (down, up, right, left)
-// Outlet 4 sends messages to the gates shifter dial
-this.outlets = 5;
+this.outlets = 4;
 
 
 // Flag that indicates whether the currently displayed pads/notes
