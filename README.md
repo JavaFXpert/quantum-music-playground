@@ -23,4 +23,4 @@ At the bottom of the screenshot is the Quantum Music Playground device, shown he
 
 The bar graph shows that four of the basis states in the statevector have non-zero amplitudes, and that they all have a phase angle of 0. Examining the following musical representation of the same statevector reveals that the phase of a basis stated is represented by the row in which a cell is filled.
 
-<img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" style="zoom:60%;"/>
+<img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=70%/>
