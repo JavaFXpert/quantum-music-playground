@@ -66,7 +66,8 @@ var numSvGrids = 4;
 // Inlet 12 receives messages that indicate current beats in cycle B
 // Inlet 13 receives 0 for scales, and 1 for ragas, to populate
 //   the Scales/Ragas slider in the UI.
-this.inlets = 14;
+// Inlet 14 receives messages that indicate whether notes are to be stochastic
+this.inlets = 15;
 
 // Outlet 0 sends global phase shift
 // Outlet 1 sends pitch transform index
@@ -81,7 +82,8 @@ this.inlets = 14;
 // Outlet 10 sends 0 if pitch is to be locked, or 1 if phase is to be locked
 // Outlet 11 sends width messages to this.device
 // Outlet 12 sends 0 if scales, or 1 if ragas, are to be displayed in the UI
-this.outlets = 13;
+// Outlet 13 sends indication of whether notes are to be stochastic
+this.outlets = 14;
 
 sketch.default2d();
 var vbrgb = [1., 1., 1., 1.];
@@ -121,6 +123,9 @@ var halfScale = false;
 // Make pitch number 15 a rest
 var restPitchNum15 = true;
 
+// Compute note pitches with stochastic approach
+var stochasticPitches = false;
+
 
 // Type of scale to use
 var curScaleType = 0; //Major
@@ -147,6 +152,17 @@ var curNumBasisStates = 4;
 var notesDict = {
   notes: []
 };
+
+
+// Array booleans indicating whether probability is above threshold
+var basisStatesSignificantProbs = [];
+
+// Array of cumulative probabilities for all basis states
+var accumBasisStatesProbs = [];
+
+// The phase for each basis state
+var basisStatePiOver8Phases = [];
+
 
 draw();
 refresh();
@@ -272,6 +288,16 @@ function msg_int(val) {
     qpo.js.padNoteNamesDirty = true;
     computeProbsPhases();
   }
+  else if (inlet == 14) {
+    // Use stochastic approach for note pitches
+    stochasticPitches = (val > 0);
+    post('\nstochasticPitches now: ' + stochasticPitches);
+
+    var tempPreserveGlobalPhaseShift = preserveGlobalPhaseShift;
+    preserveGlobalPhaseShift = true;
+    computeProbsPhases();
+    preserveGlobalPhaseShift = tempPreserveGlobalPhaseShift;
+  }
 }
 
 
@@ -312,12 +338,42 @@ function clearSvGrid() {
   }
 }
 
-function setSvGridCell(colIdx, rowIdx) {
+function setSvGridCell(colIdx, rowIdx, measured) {
   var svGridIdx = Math.floor(colIdx / curNumBasisStates * numSvGrids);
   var svGrid = this.patcher.getnamed('svgrid[' + svGridIdx + ']');
   var svGridColIdx = colIdx % (curNumBasisStates / numSvGrids);
 
+  if (measured) {
+    svGrid.setattr('stepcolor', 0.0, 0.0, 1.0, 1.0);
+  }
+  else {
+    svGrid.setattr('stepcolor', 0.0, 1.0, 0.0, 1.0);
+  }
+
   svGrid.message('setcell', svGridColIdx + 1, rowIdx + 1, 127);
+}
+
+
+/**
+ * Sample from the probability distribution of all basis states,
+ * simulating a measurement
+ */
+function sampleBasisStatesProbDist() {
+  var retBasisState = 0;
+  var qpo = this.patcher.getnamed("qasmpad");
+
+  if (accumBasisStatesProbs != null && accumBasisStatesProbs.length == curNumBasisStates) {
+    var rand = Math.random();
+    post('\nrand: ' + rand);
+
+    for (var idx = 0; idx < accumBasisStatesProbs.length; idx++) {
+      retBasisState = idx;
+      if (rand <= accumBasisStatesProbs[idx]) {
+        break;
+      }
+    }
+  }
+  return retBasisState;
 }
 
 
@@ -337,6 +393,18 @@ function computeProbsPhases() {
 
   var globalPhaseShifted = false;
 
+  var cumulativeProbs = 0;
+
+  accumBasisStatesProbs = [];
+
+  basisStatePiOver8Phases = [];
+  basisStatesSignificantProbs = [];
+
+  for (var i = 0; i < curNumBasisStates; i++) {
+    basisStatePiOver8Phases.push(0);
+    basisStatesSignificantProbs.push(false);
+  }
+
   for (var svIdx = 0; svIdx < svArray.length; svIdx += 2) {
     var real = svArray[svIdx];
     var imag = svArray[svIdx + 1];
@@ -345,6 +413,14 @@ function computeProbsPhases() {
     var probability = Math.pow(Math.abs(amplitude), 2);
     if (probability > 0) {
       numBasisStatesWithNonZeroProbability++;
+    }
+
+    // For stochastic option, store the probabilities of all the states
+    if (stochasticPitches) {
+      cumulativeProbs += probability;
+      accumBasisStatesProbs.push(cumulativeProbs);
+      post('\npushing accumBasisStatesProbs: ' + cumulativeProbs +
+        ', length now : ' + accumBasisStatesProbs.length);
     }
   }
 
@@ -381,19 +457,58 @@ function computeProbsPhases() {
       }
       pitchNum = Math.round(shiftedPhase / (2 * Math.PI) * qpo.js.NUM_PITCHES + qpo.js.NUM_PITCHES, 0) % qpo.js.NUM_PITCHES;
 
+      if (basisStatePiOver8Phases.length > svIdx / 2 &&
+        basisStatesSignificantProbs.length > svIdx / 2) {
+        basisStatePiOver8Phases[svIdx / 2] = pitchNum;
+        basisStatesSignificantProbs[svIdx / 2] = true;
+      }
+      else {
+        post('\nUnexpected basisStatePiOver8Phases length: ' + basisStatePiOver8Phases.length +
+        ' or basisStatesSignificantProbs length: ' + basisStatesSignificantProbs.length);
+      }
+
       if (svIdx / 2 < maxDisplayedSteps) {
-        setSvGridCell((svIdx / 2), pitchNum);
+        setSvGridCell((svIdx / 2), pitchNum, false);
       }
     }
     if (svIdx / 2 < maxDisplayedSteps) {
       if (!basisStateIncluded(svIdx / 2, numBasisStates, curCycleLengthA, curCycleLengthB)) {
         for (var pIdx = 0; pIdx < qpo.js.NUM_PITCHES; pIdx++) {
-          setSvGridCell((svIdx / 2), pIdx);
+          setSvGridCell((svIdx / 2), pIdx, false);
         }
       }
     }
-    pitchNums.push(pitchNum);
+    if (!stochasticPitches) {
+      pitchNums.push(pitchNum);
+    }
   }
+
+
+  // In the case that stochastic pitches are desired,
+  // iterate once again over the basis states and push
+  // stochastic pitches into pitchNums
+  if (stochasticPitches) {
+    for (var basisStateIdx = 0; basisStateIdx < basisStatePiOver8Phases.length; basisStateIdx++) {
+      if (basisStatesSignificantProbs[basisStateIdx]) {
+        post('\nbasisStateIdx: ' + basisStateIdx + ' has significant prob');
+
+        var measBasisState = sampleBasisStatesProbDist();
+        post('\nmeasBasisState: ' + measBasisState);
+
+        var po8Phase = basisStatePiOver8Phases[measBasisState];
+        post('\npo8Phase: ' + po8Phase);
+
+        pitchNums.push(po8Phase);
+        if (basisStateIdx < maxDisplayedSteps) {
+          setSvGridCell(basisStateIdx, po8Phase, true);
+        }
+      }
+      else {
+        pitchNums.push(-1);
+      }
+    }
+  }
+
 
   // Set the notes into the clip
   notesDict.notes = [];
@@ -580,7 +695,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.33, // 1/3
                   //duration: duration * 0.25,
-									duration: duration * 0.50,
+                  duration: duration * 0.50,
                   velocity: 100
                 }
               );
@@ -596,9 +711,9 @@ function computeProbsPhases() {
                     useRagasInsteadOfScales,
                     pitchNums[pnIdx] <= formerPitchNum),
                   //start_time: beatIdx / beatsPerMeasure + duration * 0.375, // 6/16
-									start_time: beatIdx / beatsPerMeasure + duration * 0.66, // 2/3
+                  start_time: beatIdx / beatsPerMeasure + duration * 0.66, // 2/3
                   //duration: duration * 0.25,
-									duration: duration * 0.34,
+                  duration: duration * 0.34,
                   velocity: 100
                 }
               );
@@ -1110,6 +1225,10 @@ function populateCircGridFromClip() {
           outlet(8, 'int', restPitchNum15 ? 1 : 0);
           outlet(12, 'int', useRagasInsteadOfScales ? 1 : 0);
 
+          //TODO: Change to stored flag
+          outlet(13, 'int', 0); // Set to non stochastic note generation
+
+
           // Send current scale type value, after useRagasInsteadOfScales is known.
           outlet(6, 'int', curScaleType);
 
@@ -1148,6 +1267,7 @@ function populateCircGridFromClip() {
     outlet(9, 'int', 2);
     outlet(10, 'int', 0); // Lock by pitch
     outlet(12, 'int', 0); // Set to scales (rather than ragas)
+    outlet(13, 'int', 0); // Set to non stochastic note generation
   }
 
   // TODO: Refactor code below and its occurrence elsewhere into separate method
