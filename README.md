@@ -7,9 +7,11 @@ Playground for composing music using quantum states. Implemented as a Max for Li
 
 
 
+> Please note that it is ***not*** necessary to have prior knowledge of quantum computing in order to use Quantum Music Playground. We'll sneak in what you need to know as we go along, and will reference helpful (but not essential to internalize) resources.
+
 ## Introduction
 
-The Quantum Music Playground is a tool for composing music, as well as an enjoyable way of gaining intuition about quantum circuits and states. It is implemented as a Max for Live device in the Ableton Live 11 digital audio workstation (DAW). The following screenshot shows an Ableton Live Session View that contains [MIDI](https://en.wikipedia.org/wiki/MIDI) clips that play the well known song entitled *Twinkle Twinkle Little Star*.
+The Quantum Music Playground is a tool for composing music, as well as an enjoyable way of gaining intuition about quantum circuits and states. It is implemented as a Max for Live device in the Ableton Live 11 digital audio workstation (DAW). The following screenshot shows an Ableton Live Session View that contains [MIDI](https://en.wikipedia.org/wiki/MIDI) clips that play an arrangement of the well known song entitled *Twinkle Twinkle Little Star*.
 
 ![Twinkle song kick drum part](./images/twinkle_kick_screenshot.png)
 
@@ -21,11 +23,16 @@ At the bottom of the screenshot is the Quantum Music Playground device, shown he
 
 
 
-The bar graph shows that four of the basis states in the statevector have non-zero amplitudes, and that they all have a phase angle of 0 (as noted by the popup as well as the **Phase** color legend). Examining the following musical representation of the same statevector reveals that the phase of a basis state is represented by the row in which a cell is filled. If we consider each cell a 16th note in 4/4 time, the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern. 
+The bar graph shows that four of the basis states in the statevector have non-zero amplitudes, and that they all have a phase angle of 0 (as noted by the popup as well as the **Phase** color legend). Examining the following musical representation of the same statevector reveals that the phase of a basis state is represented by the row in which a cell is filled. If we consider each column a 16th note in 4/4 time, the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern. 
 
 <img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=70%/>
 
 
 
-As you interact with the Quantum Music Composer device, the MIDI information in the selected clip is updated.
+As you interact with the Quantum Music Composer device, the MIDI information in the selected Ableton Live clip is updated with a sequence of notes as shown in the following image.
 
+<img src="./images/kick_midi_clip.png" alt="Kick drum MIDI clip screenshot" width=50%/>
+
+
+
+This one-measure sequence is looped, playing the kick (bass) drum once for each of the four beats in the measure. 
