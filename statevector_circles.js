@@ -467,8 +467,10 @@ function computeProbsPhases() {
         ' or basisStatesSignificantProbs length: ' + basisStatesSignificantProbs.length);
       }
 
-      if (svIdx / 2 < maxDisplayedSteps) {
-        setSvGridCell((svIdx / 2), pitchNum, false);
+      if (!stochasticPitches) {
+        if (svIdx / 2 < maxDisplayedSteps) {
+          setSvGridCell((svIdx / 2), pitchNum, false);
+        }
       }
     }
     if (svIdx / 2 < maxDisplayedSteps) {
