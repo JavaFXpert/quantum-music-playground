@@ -125,6 +125,7 @@ var restPitchNum15 = true;
 
 // Compute note pitches with stochastic approach
 var stochasticPitches = false;
+var tmpStochasticPitches = false;
 
 
 // Type of scale to use
@@ -171,8 +172,9 @@ refresh();
 function msg_int(val) {
   //post('\n---------In msg_int-----------');
 
-  if (inlet != 14) {
+  if (inlet != 3 && inlet != 14) {
     // Turn off stochastic behavior
+    //post('\noutlet 13 0, inlet: ' + inlet);
     outlet(13, 'int', 0);
   }
 
@@ -1119,6 +1121,7 @@ function computeProbsPhases() {
   //   - 0b0000100 place represents halfScale
   //   - 0b0001000 place represents restPitchNum15
   //   - 0b0010000 place represents useRagasInsteadOfScales
+  //   - 0b0100000 place represents stochasticPitches
   var miscFlagsVal = 0;
   if (legato) {
     miscFlagsVal += 1;
@@ -1134,6 +1137,9 @@ function computeProbsPhases() {
   }
   if (useRagasInsteadOfScales) {
     miscFlagsVal += 16;
+  }
+  if (stochasticPitches) {
+    miscFlagsVal += 32;
   }
 
   notesDict.notes.push(
@@ -1231,6 +1237,8 @@ function populateCircGridFromClip() {
           halfScale = (noteMidi & 4) == 4; // halfScale is represented in 0b0000100 place
           restPitchNum15 = (noteMidi & 8) == 8; // restPitchNum15 is represented in 0b0001000 place
           useRagasInsteadOfScales = (noteMidi & 16) == 16; // useRagasInsteadOfScales is represented in 0b0010000 place
+          tmpStochasticPitches = (noteMidi & 32) == 32; // stochasticPitches is represented in 0b0100000 place
+          //post('\ntmpStochasticPitches: ' + tmpStochasticPitches);
 
           // Send states to UI controls
           outlet(3, 'int', legato ? 1 : 0);
@@ -1238,9 +1246,6 @@ function populateCircGridFromClip() {
           outlet(5, 'int', halfScale ? 1 : 0);
           outlet(8, 'int', restPitchNum15 ? 1 : 0);
           outlet(12, 'int', useRagasInsteadOfScales ? 1 : 0);
-
-          //TODO: Change to stored flag
-          outlet(13, 'int', 0); // Set to non stochastic note generation
 
 
           // Send current scale type value, after useRagasInsteadOfScales is known.
@@ -1297,6 +1302,9 @@ function populateCircGridFromClip() {
 
 
   qpo.js.createQasmFromGrid();
+
+  //post('\nOutputting tmpStochasticPitches: ' + tmpStochasticPitches);
+  outlet(13, 'int', tmpStochasticPitches ? 1 : 0);
 }
 
 
