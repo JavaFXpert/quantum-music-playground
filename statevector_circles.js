@@ -169,6 +169,13 @@ refresh();
 
 
 function msg_int(val) {
+  //post('\n---------In msg_int-----------');
+
+  if (inlet != 14) {
+    // Turn off stochastic behavior
+    outlet(13, 'int', 0);
+  }
+
   if (inlet == 1) {
     //preserveGlobalPhaseShift = (val > 0);
     globalPhaseShiftMidi = val;
@@ -291,7 +298,7 @@ function msg_int(val) {
   else if (inlet == 14) {
     // Use stochastic approach for note pitches
     stochasticPitches = (val > 0);
-    post('\nstochasticPitches now: ' + stochasticPitches);
+    //post('\nstochasticPitches now: ' + stochasticPitches);
 
     var tempPreserveGlobalPhaseShift = preserveGlobalPhaseShift;
     preserveGlobalPhaseShift = true;
@@ -309,6 +316,11 @@ function msg_int(val) {
  *               that symbolizes an imaginary component.
  */
 function viz(svlist) {
+  //post('\n---------In viz-----------');
+
+  // Turn off stochastic behavior
+  outlet(13, 'int', 0);
+
   svArray = svlist.toString().split(' ');
   curNumBasisStates = svArray.length / 2;
 
@@ -344,10 +356,10 @@ function setSvGridCell(colIdx, rowIdx, measured) {
   var svGridColIdx = colIdx % (curNumBasisStates / numSvGrids);
 
   if (measured) {
-    svGrid.setattr('stepcolor', 0.0, 0.0, 1.0, 1.0);
+    svGrid.setattr('stepcolor', 0.0, 1.0, 0.0, 1.0);
   }
   else {
-    svGrid.setattr('stepcolor', 0.0, 1.0, 0.0, 1.0);
+    svGrid.setattr('stepcolor', 0.0, 0.0, 1.0, 1.0);
   }
 
   svGrid.message('setcell', svGridColIdx + 1, rowIdx + 1, 127);
@@ -364,7 +376,7 @@ function sampleBasisStatesProbDist() {
 
   if (accumBasisStatesProbs != null && accumBasisStatesProbs.length == curNumBasisStates) {
     var rand = Math.random();
-    post('\nrand: ' + rand);
+    //post('\nrand: ' + rand);
 
     for (var idx = 0; idx < accumBasisStatesProbs.length; idx++) {
       retBasisState = idx;
@@ -419,8 +431,8 @@ function computeProbsPhases() {
     if (stochasticPitches) {
       cumulativeProbs += probability;
       accumBasisStatesProbs.push(cumulativeProbs);
-      post('\npushing accumBasisStatesProbs: ' + cumulativeProbs +
-        ', length now : ' + accumBasisStatesProbs.length);
+      //post('\npushing accumBasisStatesProbs: ' + cumulativeProbs +
+      //  ', length now : ' + accumBasisStatesProbs.length);
     }
   }
 
@@ -492,13 +504,13 @@ function computeProbsPhases() {
   if (stochasticPitches) {
     for (var basisStateIdx = 0; basisStateIdx < basisStatePiOver8Phases.length; basisStateIdx++) {
       if (basisStatesSignificantProbs[basisStateIdx]) {
-        post('\nbasisStateIdx: ' + basisStateIdx + ' has significant prob');
+        //post('\nbasisStateIdx: ' + basisStateIdx + ' has significant prob');
 
         var measBasisState = sampleBasisStatesProbDist();
-        post('\nmeasBasisState: ' + measBasisState);
+        //post('\nmeasBasisState: ' + measBasisState);
 
         var po8Phase = basisStatePiOver8Phases[measBasisState];
-        post('\npo8Phase: ' + po8Phase);
+        //post('\npo8Phase: ' + po8Phase);
 
         pitchNums.push(po8Phase);
         if (basisStateIdx < maxDisplayedSteps) {
