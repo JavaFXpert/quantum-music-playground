@@ -31,7 +31,7 @@ On the right side of the previous image are quantum operations that may be place
 
 The logic by which a couple of H gates (also known as Hadamard gates) resulted in this kick drum pattern can be explained using some simple math:
 
-First off, the wires labeled **q0** - **q7** on the quantum circuit represent the least significant digit through the most significant digit of a binary value. The reason that there are 16 columns in the previous grid, is that **q3** (the fourth wire) is the highest wire on which a gate is present. This defines a range of $2^4$ binary numbers from `0000` - `1111`.
+First off, the wires labeled **q0** - **q7** on the quantum circuit represent the least significant digit through the most significant digit of a binary value. The reason that there are 16 columns in the previous grid, is that **q3** (the fourth wire) is the highest wire on which a gate is present. This defines a range of 2<sup>4</sup> binary numbers from `0000` - `1111`.
 
 
 
