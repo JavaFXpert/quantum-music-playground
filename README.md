@@ -23,17 +23,27 @@ At the bottom of the screenshot is the Quantum Music Playground device, shown he
 
 
 
-On the right side of the previous image are quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the image below. If we consider each column a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note) in [4/4 time](4/4 time), then the horizontal axis of the grid represents one measure, and the **Bass Drum** will play on each beat of the measure. 
+On the right side of the previous image are quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the image below. If we consider each column a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note) in [4/4 time](https://en.wikipedia.org/wiki/Time_signature#Characteristics), then the horizontal axis of the sequence grid represents one measure, and the **Bass Drum** will play on each beat of the measure. 
 
 <img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=60%/>
 
 
 
-The logic by which a couple of H gates (also known as Hadamard gates) resulted in this kick drum pattern can be explained using some simple math:
+***TODO: Remove radians from the image, and introduce in a future image***
 
-First off, the wires labeled **q0** - **q7** on the quantum circuit represent the least significant digit through the most significant digit of a binary value. The reason that there are 16 columns in the previous grid, is that **q3** (the fourth wire) is the highest wire on which a gate is present. This defines a range of 2<sup>4</sup> binary numbers from `0000` - `1111`.
+The logic by which a couple of H gates (also known as Hadamard gates) resulted in this drum pattern can be explained using some simple math:
 
+First off, the wires labeled **q0** - **q7** on the quantum circuit represent the least significant digit through the most significant digit of a binary value. The reason that there are 16 columns in the previous grid, is that **q3** (the fourth wire) is the highest wire on which a gate is present. This defines a range of 2<sup>4</sup> binary numbers from `0000` - `1111`, and are labeled **Basis states** across the bottom of the previous image.
 
+To calculate on which of these basis states the drum will play, take a look at the quantum circuit and sequence grid together in the following image.
+
+<img src="./images/twinkle_kick_circuit_sequence.png" alt="Quantum Music Playground screenshot" width=100%/>
+
+Each of the wires have an initial value of 0. Using the process of elimination:
+
+- Because there are no gates on wire **q0**, the drum has a possibility of playing only on basis states whose 2<sup>0</sup> (least significant) digit is 0.
+- Because there are no gates on wire **q1**, the drum has a possibility of playing only on basis states whose 2<sup>1</sup> digit is 0.
+- Because there is an **H** gate on wire **q2**, the drum will play on basis states whose 2<sup>2</sup> digit is either 0 or 1. This is because the H gate puts a wire, also known as a qubit, in an equal superposition TODO: LEFT OFF HERE.
 
 
 
