@@ -17,22 +17,42 @@ The Quantum Music Playground is a tool for composing music, as well as an enjoya
 
 
 
-At the bottom of the screenshot is the Quantum Music Playground device, shown here composing the kick drum part contained in the **Kick** clip in one of the tracks labeled **808 Core Kit**. In the center of the device is a [quantum circuit](https://qiskit.org/documentation/qc_intro.html#quantum-circuits) whose resultant [statevector](https://qiskit.org/textbook/ch-states/representing-qubit-states.html#statevectors) is represented musically in the grid to the right of the circuit. For comparison, if you entered this circuit in the [IBM Quantum Composer](https://quantum-computing.ibm.com/) the circuit and resultant statevector would appear similar to the following image.
+At the bottom of the screenshot is the Quantum Music Playground device, shown here expressing the kick drum part contained in the **Kick** clip in one of the tracks labeled **808 Core Kit**. In the center of the device is a [quantum circuit](https://qiskit.org/documentation/qc_intro.html#quantum-circuits), shown by itself in the following image.
+
+<img src="./images/twinkle_kick_quantum_circuit.png" alt="Quantum Music Playground screenshot" width=40%/>
+
+
+
+On the right side of the previous image are quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the image below. If we consider each column a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note) in [4/4 time](4/4 time), then the horizontal axis of the grid represents one measure, and the **Bass Drum** will play on each beat of the measure. 
+
+<img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=60%/>
+
+
+
+The logic by which a couple of H gates (also known as Hadamard gates) resulted in this kick drum pattern can be explained using some simple math:
+
+First off, the wires labeled **q0** - **q7** on the quantum circuit represent the least significant digit through the most significant digit of a binary value. The reason that there are 16 columns in the previous grid, is that **q3** (the fourth wire) is the highest wire on which a gate is present. This defines a range of $2^4$ binary numbers from `0000` - `1111`.
+
+
+
+
+
+Examining the following musical representation of the same statevector reveals that the phase of a basis state is represented by the row in which a cell is filled. 
+
+In the center of the device is a [quantum circuit](https://qiskit.org/documentation/qc_intro.html#quantum-circuits) whose resultant [statevector](https://qiskit.org/textbook/ch-states/representing-qubit-states.html#statevectors) is represented musically in the grid to the right of the circuit. For comparison, if you entered this circuit in the [IBM Quantum Composer](https://quantum-computing.ibm.com/) the circuit and resultant statevector would appear similar to the following image.
 
 <img src="./images/twinkle_kick_ibm_quantum_composer.png" alt="Quantum Music Playground screenshot" width=70%/>
 
 
 
-The bar graph shows that four of the basis states in the statevector have non-zero amplitudes, and that they all have a phase angle of 0 (as noted by the popup as well as the **Phase** color legend). Examining the following musical representation of the same statevector reveals that the phase of a basis state is represented by the row in which a cell is filled. If we consider each column a 16th note in 4/4 time, the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern. 
-
-<img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=70%/>
-
-
-
-As you interact with the Quantum Music Composer device, the MIDI information in the selected Ableton Live clip is updated with a sequence of notes as shown in the following image.
+The bar graph shows that four of the basis states in the statevector have non-zero amplitudes, and that they all have a phase angle of 0 (as noted by the popup as well as the **Phase** color legend). As you interact with the Quantum Music Composer device, the MIDI information in the selected Ableton Live clip is updated with a sequence of notes as shown in the following image.
 
 <img src="./images/kick_midi_clip.png" alt="Kick drum MIDI clip screenshot" width=50%/>
 
 
 
 This one-measure sequence is looped, playing the kick (bass) drum once for each of the four beats in the measure. 
+
+
+
+ 
