@@ -23,7 +23,7 @@ At the bottom of the screenshot is the Quantum Music Playground device, shown he
 
 
 
-On the right side of the previous image are quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the image below. If we consider each column a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note) in [4/4 time](https://en.wikipedia.org/wiki/Time_signature#Characteristics), then the horizontal axis of the sequence grid represents one measure, and the **Bass Drum** will play on each beat of the measure. 
+On the right side of the previous image are quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the sequence grid below. If we consider each step in the sequence a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note) in [4/4 time](https://en.wikipedia.org/wiki/Time_signature#Characteristics), then the horizontal axis of the sequence grid represents one measure, and the **Bass Drum** will play on each of the four beats of the measure. 
 
 <img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=60%/>
 
@@ -31,19 +31,24 @@ On the right side of the previous image are quantum operations that may be place
 
 ***TODO: Remove radians from the image, and introduce in a future image***
 
-The logic by which a couple of H gates (also known as Hadamard gates) resulted in this drum pattern can be explained using some simple math:
+The logic by which a couple of H gates (also known as Hadamard gates) resulted in this drum pattern can be explained using some basic math:
 
-First off, the wires labeled **q0** - **q7** on the quantum circuit represent the least significant digit through the most significant digit of a binary value. The reason that there are 16 columns in the previous grid, is that **q3** (the fourth wire) is the highest wire on which a gate is present. This defines a range of 2<sup>4</sup> binary numbers from `0000` - `1111`, and are labeled **Basis states** across the bottom of the previous image.
+First off, the wires labeled **q0** - **q7** on the quantum circuit represent the least significant digit through the most significant digit of a binary value. The reason that there are 16 columns in the previous grid is that **q3** (the fourth wire) is the highest wire on which a gate is present. This defines a range of 2<sup>4</sup> binary numbers from `0000` - `1111`, and are labeled **Basis states** across the bottom of the previous image. Each basis state represents a step in our musical sequence.
 
-To calculate on which of these basis states the drum will play, take a look at the quantum circuit and sequence grid together in the following image.
+To calculate on which of these sequence steps the drum will play, take a look at the quantum circuit and the sequence grid together in this image while reading the explanation that follows.
 
 <img src="./images/twinkle_kick_circuit_sequence.png" alt="Quantum Music Playground screenshot" width=100%/>
 
-Each of the wires have an initial value of 0. Using the process of elimination:
+Each of the wires in the quantum circuit contains an initial value of 0.
 
-- Because there are no gates on wire **q0**, the drum has a possibility of playing only on basis states whose 2<sup>0</sup> (least significant) digit is 0.
-- Because there are no gates on wire **q1**, the drum has a possibility of playing only on basis states whose 2<sup>1</sup> digit is 0.
-- Because there is an **H** gate on wire **q2**, the drum will play on basis states whose 2<sup>2</sup> digit is either 0 or 1. This is because the H gate puts a wire, also known as a qubit, in an equal superposition TODO: LEFT OFF HERE.
+- Because there are no gates on wire **q0**, the drum may only play on basis states whose 0 (least significant) position contains 0.
+- Because there are no gates on wire **q1**, the drum may only play on basis states whose 1 position contains 0.
+- Because there is an **H** gate on wire **q2**, the drum may play on basis states whose 2 position contains either 0 or 1. This is because the H gate puts the wire into a combination of 0 and 1.
+- Because there is an **H** gate on wire **q3**, the drum may play on basis states whose 3 position contains either 0 or 1.
+
+
+
+Putting that all together, the drum will play on all of the basis states whose 0 and 1 positions contain 0, which are `0000`, `0100`, `1000` and `1100`. 
 
 
 
