@@ -52,6 +52,16 @@ Putting that all together, the drum will play on all of the basis states whose 0
 
 
 
+
+
+
+
+
+
+
+
+
+
 Examining the following musical representation of the same statevector reveals that the phase of a basis state is represented by the row in which a cell is filled. 
 
 In the center of the device is a [quantum circuit](https://qiskit.org/documentation/qc_intro.html#quantum-circuits) whose resultant [statevector](https://qiskit.org/textbook/ch-states/representing-qubit-states.html#statevectors) is represented musically in the grid to the right of the circuit. For comparison, if you entered this circuit in the [IBM Quantum Composer](https://quantum-computing.ibm.com/) the circuit and resultant statevector would appear similar to the following image.
