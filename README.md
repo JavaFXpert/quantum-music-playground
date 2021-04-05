@@ -23,7 +23,7 @@ At the bottom of the screenshot is the Quantum Music Playground device, shown he
 
 
 
-On the right side of the previous image are quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the sequence grid below. If we consider each step in the sequence a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note) in [4/4 time](https://en.wikipedia.org/wiki/Time_signature#Characteristics), then the horizontal axis of the sequence grid represents one measure, and the **Bass Drum** will play on each of the four beats of the measure. 
+On the right side of the quantum circuit are quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the sequence grid below. This sequence grid represents one measure in [4/4 time](https://en.wikipedia.org/wiki/Time_signature#Characteristics), and each column represents a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note). As you can see, the bass drum is playing on each of the four beats in the measure.
 
 <img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=60%/>
 
@@ -33,7 +33,11 @@ On the right side of the previous image are quantum operations that may be place
 
 The logic by which a couple of H gates (also known as Hadamard gates) resulted in this drum pattern can be explained using some basic math:
 
-First off, the wires labeled **q0** - **q7** on the quantum circuit represent the least significant digit through the most significant digit of a binary value. The reason that there are 16 columns in the previous grid is that **q3** (the fourth wire) is the highest wire on which a gate is present. This defines a range of 2<sup>4</sup> binary numbers from `0000` - `1111`, and are labeled **Basis states** across the bottom of the previous image. Each basis state represents a step in our musical sequence.
+First off, the wires labeled **q0** - **q7** on the quantum circuit represent the least significant digit through the most significant digit of a binary value. The reason that there are 16 columns in the previous grid is that **q3** (the fourth wire) is the highest wire on which a gate is present. This defines a range of 2<sup>4</sup> binary numbers from `0000` - `1111`, and are labeled **Basis states** across the bottom of the previous image. Each *basis state* represents a step in our musical sequence. 
+
+> **A bit about basis states**
+>
+> A basis state, sometime referred to as a *computational basis state*, is a concept used in quantum computing to represent a component of a quantum state. In this example, the quantum circuit defines a quantum state that is comprised of 16 basis states. Each basis state contains a complex number from which two important values can be derived: The *probability* that this basis state will be the result when measuring the quantum state, and the *phase angle* of this basis state. Both of these concepts will be covered at appropriate times in this tutorial. For now, it is important to understand that there is one binary digit in each basis state for each wire in a quantum circuit, where the number of wires is determined by the highest wire on which a gate is present. It is also necessary to know that the rightmost binary digit of each basis state corresponds to the topmost wire, labeled **q0**. As you may know, the rightmost binary digit is referred to as being in position 0, because its place value is 2<sup>0</sup> in the binary numbering system.
 
 To calculate on which of these sequence steps the drum will play, take a look at the quantum circuit and the sequence grid together in this image while reading the explanation that follows.
 
