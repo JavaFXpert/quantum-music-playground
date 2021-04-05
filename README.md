@@ -23,7 +23,7 @@ At the bottom of the screenshot is the Quantum Music Playground device, shown he
 
 
 
-On the right side of the quantum circuit are quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the sequence grid below. This sequence grid represents one measure in [4/4 time](https://en.wikipedia.org/wiki/Time_signature#Characteristics), and each column represents a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note). As you can see, the bass drum is playing on each of the four beats in the measure.
+On the right side of the quantum circuit is a toolbox with quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the sequence grid below. This sequence grid represents one measure in [4/4 time](https://en.wikipedia.org/wiki/Time_signature#Characteristics), and each column represents a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note). As you can see, the bass drum is playing on each of the four beats in the measure.
 
 <img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=60%/>
 
@@ -39,7 +39,7 @@ First off, the wires labeled **q0** - **q7** on the quantum circuit represent th
 >
 > A basis state, sometime referred to as a *computational basis state*, is a concept used in quantum computing to represent a component of a quantum state. In this example, the quantum circuit defines a quantum state that is comprised of 16 basis states. Each basis state contains a complex number from which two important values can be derived: The *probability* that this basis state will be the result when measuring the quantum state, and the *phase angle* of this basis state. Both of these concepts will be covered at appropriate times in this tutorial. For now, it is important to understand that there is one binary digit in each basis state for each wire in a quantum circuit, where the number of wires is determined by the highest wire on which a gate is present. It is also necessary to know that the rightmost binary digit of each basis state corresponds to the topmost wire, labeled **q0**. As you may know, the rightmost binary digit is referred to as being in position 0, because its place value is 2<sup>0</sup> in the binary numbering system.
 
-To calculate on which of these sequence steps the drum will play, take a look at the quantum circuit and the sequence grid together in this image while reading the explanation that follows.
+To calculate on which of these sequence steps the bass drum will play, take a look at the quantum circuit and the sequence grid together in this image while reading the explanation that follows.
 
 <img src="./images/twinkle_kick_circuit_sequence.png" alt="Quantum Music Playground screenshot" width=100%/>
 
@@ -50,9 +50,49 @@ Each of the wires in the quantum circuit contains an initial value of 0.
 - Because there is an **H** gate on wire **q2**, the drum may play on basis states whose 2 position contains either 0 or 1. This is because the H gate puts the wire into a combination of 0 and 1.
 - Because there is an **H** gate on wire **q3**, the drum may play on basis states whose 3 position contains either 0 or 1.
 
+Putting that all together, the bass drum will play on all of the basis states whose 0 and 1 positions contain 0, which are `0000`, `0100`, `1000` and `1100`. 
 
 
-Putting that all together, the drum will play on all of the basis states whose 0 and 1 positions contain 0, which are `0000`, `0100`, `1000` and `1100`. 
+
+> **Try it out:**
+>
+> Experiment with simple bass drum beat patterns by removing and placing **H** gates on the quantum circuit. To remove a gate, press the ⌫ tool (bottom right of toolboxl) and press a gate to delete. To add an **H** gate, press the **H** gate (upper left in toolbox) and press a location on the quantum circuit.
+
+
+
+You may be wondering why the bass drum, and not the other instruments, are played as a result of this quantum circuit. The short answer is that the Quantum Music Playground chooses instruments and pitches based upon the phase angles mentioned earlier. The next section contains a more complete and satisfying explanation.
+
+## Choosing instruments and pitches
+
+Up to this point we've created a simple bass drum beat pattern by placing Hadamard gates on a quantum circuit. Now we're going to choose a different instrument to provide a cymbal crash at the beginning of each measure. As before, at the bottom of the following screenshot is the Quantum Music Playground device, now expressing the cymbal part contained in the **Crash** clip in another one of the tracks labeled **808 Core Kit**. 
+
+![Twinkle song cymbal part](./images/twinkle_crash_full_screenshot.png)
+
+
+
+Let's examine the Quantum Music Playground device by itself in the following image.
+
+![Quantum Music Playground screenshot](./images/twinkle_crash_qmp.png)
+
+
+
+The quantum circuit in this **Crash** clip contains just one gate, namely the **I** (also known as identity) gate. The **I** gate doesn't alter the state of a wire, but it's used here to set the number of basis states, and therefore steps, to 16 for this clip. The length of this **Crash** clip is now the same length as the **Kick** clip, so as each clip is playing in a loop, the cymbal and the bass drum will play together on the downbeat of the measure, followed by the bass drum playing on the remaining three beats. 
+
+To see why the Cymbal, rather than the Bass Drum, will be played, take a look at the disabled **Phs shift** slider and notice the value of 13 at the bottom. This indicates that the global phase angle shift, often referred to as *global phase shift*, of the quantum state is 13π/8 radians (292.5 degrees). This happens to correspond with the value of 13 to the right of the **Cymbal** row in the following image.
+
+<img src="./images/twinkle_crash_musical_sequence.png" alt="Twinkle Crash musical sequence" width=60%/>
+
+
+
+As mentioned previously, each individual basis state contains a phase angle. Shifting the global phase by π/8 radians (22.5 degrees) shifts each individual phase by π/8 radians, which results in moving the notes up one instrument or pitch.
+
+
+
+> **Try it out:**
+>
+> Experiment with shifting the global phase angle by selecting the **Phase** button, moving the **Phs shift** slider up or down, and then selecting the **Pitch** button to keep the global phase from automatically shifting.
+
+
 
 
 
