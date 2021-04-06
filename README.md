@@ -25,7 +25,7 @@ At the bottom of the screenshot is the Quantum Music Playground device, shown he
 
 On the right side of the quantum circuit is a toolbox with quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the sequence grid below. This sequence grid represents one measure in [4/4 time](https://en.wikipedia.org/wiki/Time_signature#Characteristics), and each column represents a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note). As you can see, the bass drum is playing on each of the four beats in the measure.
 
-<img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=60%/>
+<img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=80%/>
 
 
 
@@ -80,7 +80,7 @@ The quantum circuit in this **Crash** clip contains just one gate, namely the **
 
 To see why the Cymbal, rather than the Bass Drum, will be played, take a look at the disabled **Phs shft** slider and notice the value of 13 at the bottom. This indicates that the global phase angle shift, often referred to as *global phase shift*, of the quantum state is 13π/8 radians (292.5 degrees). This happens to correspond with the value of 13 to the right of the **Cymbal** row in the following image.
 
-<img src="./images/twinkle_crash_musical_sequence.png" alt="Twinkle Crash musical sequence" width=60%/>
+<img src="./images/twinkle_crash_musical_sequence.png" alt="Twinkle Crash musical sequence" width=80%/>
 
 
 
@@ -122,21 +122,23 @@ To play the **Open Hi-hat** on the third sixteenth note of every beat, we employ
 
 
 
-The **S** gate rotates the phase on a wire by 4π/8 radians, which rotates the phase on each of the basis states whose corresponding position contains a 1. This is seen more clearly in the following image, in which every basis state whose bit in position 1 is 1
+The **S** gate rotates the phase on a wire by 4π/8 radians, which rotates the phase on each of the basis states whose corresponding position contains a 1. This is seen more clearly in the following image, in which the rotation is performed on every basis state whose bit in position 1 is 1
 
 <img src="./images/twinkle_hats_musical_sequence_s.png" alt="Twinkle Crash musical sequence" width=80%/>
 
 
 
-Finally, TODOOOOOO
+Finally, to play the **Open Hi-hat** on the fourth sixteenth note of every beat, we employ another one of the *phase gates*, specifically the **S†** gate, in conjunction with the control gate modifier. 
 
 ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_sdg_gate.png)
 
 
 
-TODOOOOO
+The **S†** gate rotates the phase on a wire by 12π/8 radians. However, when a control gate modifier is placed in the same column, the **S†** gate only operates when the control wire has a value of 1. This rotates the phase on each of the basis states whose positions corresponding to the **S†** gate and the control gate modifier both contain a 1. This is seen more clearly in the following image, in which the rotation is performed on every basis state whose bits in positions 0 and 1 are 1.
 
-<img src="./images/twinkle_hats_musical_sequence_sdg.png" alt="Twinkle Crash musical sequence" width=60%/>
+<img src="./images/twinkle_hats_musical_sequence_sdg.png" alt="Twinkle Crash musical sequence" width=80%/>
+
+
 
 ============= FODDER BELOW =================
 
