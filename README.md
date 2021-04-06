@@ -148,7 +148,37 @@ The **S†** gate rotates the phase on a wire by 12π/8 radians. However, when a
 
 ## Playing with rhythm
 
-So far, the rhythms we've created have consisted of instruments playing at consistent time intervals. For example, our **Kick** clip played the bass drum on the four beats of the measure, and the **Hats A** clip played the hi-hats on each sixteenth note. Now we'll demonstrate how to create syncopated rhythms, beginning with playing on the [off-beats](https://en.wikipedia.org/wiki/Beat_(music)#On-beat_and_off-beat) .
+So far, the rhythms we've created have consisted of instruments playing at consistent time intervals. For example, our **Kick** clip played the bass drum on the four beats of the measure, and the **Hats A** clip played the hi-hats on each sixteenth note. Now we'll discuss how to create syncopated rhythms, beginning with playing on the [off-beats](https://en.wikipedia.org/wiki/Beat_(music)#On-beat_and_off-beat) . To demonstrate this, we'll play a snare drum on beat two of a measure, and a hand clap on beat four of the measure, but nothing will be played on beats one and three. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the **Snare Drum** and **Hand Clap** parts contained in the **Snare/Clap** clip in another one of the tracks labeled **808 Core Kit**.
+
+![Twinkle song cymbal part](./images/twinkle_snare_full_screenshot.png)
+
+
+
+Looking at the following image of the Quantum Music Playground, we see that there are some similarities to the previous example in which open and closed hi-hats were played, but there are some differences to point out as well. 
+
+![Quantum Music Playground screenshot](./images/twinkle_snare_qmp.png)
+
+
+
+One difference is that the phase gate on the quantum circuit is labeled **z1**, but there is no **z1** gate in the toolbox. This is because out of the 16 possible gates that rotate multiples of π/8 radians, only five of them (**T**, **S**, **Z**, **S†** and **T†**) have names. The rest are expressed in Quantum Music Playground with a lower case **z** and the number of π/8 radians by which they rotate the phase. Here is a table of phase gates and their rotations expressed in π/8 radians.
+
+| Phase gate:      | z0   | z1   | T    | z3   | S    | z5   | z6   | z7   | Z    | z9   | z10  | z11  | S†   | z13  | T†   | z15  |
+| ---------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| **π/8 radians**: | 0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   | 11   | 12   | 13   | 14   | 15   |
+
+
+
+When a gate is placed, or selected on the quantum circuit with the ✋ tool (near the bottom right in the toolbox), it may be rotated by adjusting the Rotate slider, or clicking and dragging the gate vertically.
+
+
+
+Another difference from the previous example is that an **X** gate is leveraged on wire **q2** to make the instruments play on the off beats. This is seen more clearly in the following image, in which the notes appear on some basis state whose bits in positions 2 are 1, because the **X** gate flipped that wire to having a value of 1.
+
+<img src="./images/twinkle_snare_musical_sequence.png" alt="Twinkle snare/clap musical sequence" width=80%/>
+
+
+
+
 
 ============= FODDER BELOW =================
 
