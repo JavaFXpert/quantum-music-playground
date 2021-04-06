@@ -172,13 +172,33 @@ When a gate is placed, or selected on the quantum circuit with the ✋ tool (nea
 
 
 
-Another difference from the previous example is that an **X** gate is leveraged on wire **q2** to make the instruments play on the off beats. This is seen more clearly in the following image, in which the notes appear on some basis states whose bit in positions 2 is 1, because the **X** gate flipped that wire to having a value of 1.
+Another difference from the previous example is that an **X** gate, also known as a *NOT* gate or a *bit-flip* gate, is leveraged on wire **q2** to make the instruments play on the off beats. This is seen more clearly in the following image, in which the notes appear on some basis states whose bit in positions 2 is 1, because the **X** gate flipped that wire to having a value of 1.
 
 <img src="./images/twinkle_snare_musical_sequence.png" alt="Twinkle snare/clap musical sequence" width=80%/>
 
 
 
+Now that we've used the X gate to play on the off beat, let's use it to syncopate a simple bass line.
 
+
+
+### Leveraging the CNOT gate for more syncopation
+
+Let's discuss how to create more syncopated rhythms, leveraging the [CNOT gate](https://quantum-computing.ibm.com/composer/docs/operations-glossary/operations-glossary#cnot-gate) . This gate is also known as the *controlled-NOT* gate, as well as the *controlled-X gate*. To demonstrate this technique, we'll play a simple bass line in a syncopated fashion. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the note pitches to be played by the bass guitar in the **Bass B** clip of the track labeled **Basic Electr**.
+
+![Twinkle song cymbal part](./images/twinkle_bass_b_full_screenshot.png)
+
+
+
+Looking at the following image of the Quantum Music Playground, you'll notice that we're playing note pitches rather than percussion instruments. The main point of this example, however, is the use of the control gate modifier with the **X** gate, turning it into a *CNOT* gate. Notice that the **X** turns into a plus sign inside of a filled circle, and that the bit is flipped only when the control wire has a value of 1. This flips the bit in the position on which the **X** gate is placed, but only on the basis states whose position corresponding to the control gate modifier contain a 1.
+
+![Quantum Music Playground screenshot](./images/twinkle_bass_b_qmp.png)
+
+
+
+This is seen more clearly in the following image, in which the notes appear on some basis states whose bit in position 0 is 1, because the **X** gate conditionally flipped that wire to having a value of 1.
+
+<img src="./images/twinkle_bass_b_musical_sequence.png" alt="Twinkle snare/clap musical sequence" width=80%/>
 
 ============= FODDER BELOW =================
 
