@@ -78,7 +78,7 @@ Let's examine the Quantum Music Playground device by itself in the following ima
 
 The quantum circuit in this **Crash** clip contains just one gate, namely the **I** (also known as identity) gate. The **I** gate doesn't alter the state of a wire, but it's used here to set the number of basis states, and therefore steps, to 16 for this clip. The length of this **Crash** clip is now the same length as the **Kick** clip, so as each clip is playing in a loop, the cymbal and the bass drum will play together on the downbeat of the measure, followed by the bass drum playing on the remaining three beats. 
 
-To see why the Cymbal, rather than the Bass Drum, will be played, take a look at the disabled **Phs shift** slider and notice the value of 13 at the bottom. This indicates that the global phase angle shift, often referred to as *global phase shift*, of the quantum state is 13π/8 radians (292.5 degrees). This happens to correspond with the value of 13 to the right of the **Cymbal** row in the following image.
+To see why the Cymbal, rather than the Bass Drum, will be played, take a look at the disabled **Phs shft** slider and notice the value of 13 at the bottom. This indicates that the global phase angle shift, often referred to as *global phase shift*, of the quantum state is 13π/8 radians (292.5 degrees). This happens to correspond with the value of 13 to the right of the **Cymbal** row in the following image.
 
 <img src="./images/twinkle_crash_musical_sequence.png" alt="Twinkle Crash musical sequence" width=60%/>
 
@@ -86,15 +86,57 @@ To see why the Cymbal, rather than the Bass Drum, will be played, take a look at
 
 As mentioned previously, each individual basis state contains a phase angle. Shifting the global phase by π/8 radians (22.5 degrees) shifts each individual phase by π/8 radians, which results in moving the notes up one instrument or pitch.
 
-
-
 > **Try it out:**
 >
-> Experiment with shifting the global phase angle by selecting the **Phase** button, moving the **Phs shift** slider up or down, and then selecting the **Pitch** button to keep the global phase from automatically shifting.
+> Experiment with shifting the global phase angle by selecting the **Phase** button, moving the **Phs shft** slider up or down, and then selecting the **Pitch** button to keep the global phase from automatically shifting.
+
+### Shifting the phase angles of basis states
+
+To create an interesting beat pattern or melody, it is usually necessary to shift the phase angles of various basis states. A common way to accomplish this is to follow an **H** gate with a *phase* gate. To demonstrate this, we'll play hi-hat cymbals, shifting back and forth from open to closed hi-hats. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the hi-hat part contained in the **Hats A** clip in yet another one of the tracks labeled **808 Core Kit**.  
+
+![Twinkle song hats part](./images/twinkle_hats_full_screenshot.png)
 
 
 
+Now we'll examine the Quantum Music Playground device by itself in the following image.
 
+![Quantum Music Playground screenshot](./images/twinkle_hats_qmp.png)
+
+
+
+The quantum circuit in this **Hats A** clip contains a column of four H gates on wires **q0** - **q3**, which defines one measure with a beat pattern full of sixteenth notes. The following image shows the Quantum Music Playground device after placing those **H** gates.
+
+ ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_h_gates.png)
+
+
+
+Next, the following image shows the **Phase** button selected and the **Phs shft** slider adjusted so that the **Closed Hi-hat** is played. 
+
+![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_global_phase_shift.png)
+
+
+
+To play the **Open Hi-hat** on the third sixteenth note of every beat, we employ one of the *phase gates*, specifically the **S** gate. The S gate rotates the phase on a wire by 4π/8 radians, which rotates the phase on each of the basis states TODOOOOOOO.
+
+![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_s_gate.png)
+
+
+
+TODOOOOO
+
+<img src="./images/twinkle_hats_musical_sequence_s.png" alt="Twinkle Crash musical sequence" width=60%/>
+
+
+
+Finally, TODOOOOOO
+
+![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_sdg_gate.png)
+
+
+
+TODOOOOO
+
+<img src="./images/twinkle_hats_musical_sequence_sdg.png" alt="Twinkle Crash musical sequence" width=60%/>
 
 ============= FODDER BELOW =================
 
