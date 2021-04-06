@@ -104,19 +104,19 @@ Now we'll examine the Quantum Music Playground device by itself in the following
 
 
 
-The quantum circuit in this **Hats A** clip contains a column of four H gates on wires **q0** - **q3**, which defines one measure with a beat pattern full of sixteenth notes. The following image shows the Quantum Music Playground device after placing those **H** gates.
+The quantum circuit in this **Hats A** clip contains a column of four H gates on wires **q0** - **q3**, which defines one measure with a beat pattern full of sixteenth notes. The circuit also contains two of the *phase gates* obtained from right column of the toolbox, and a *control gate modifier* taken from the toolbox's left column. We'll discuss phase gates and control gate modifiers shortly, but let's analyze the results of progressively adding gates to this circuit. The following image shows the Quantum Music Playground device after placing only the **H** gates.
 
  ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_h_gates.png)
 
 
 
-Next, the following image shows the **Phase** button selected and the **Phs shft** slider adjusted so that the **Closed Hi-hat** is played. 
+As with the **Kick** clip earlier, the **H** gates play a beat pattern on the Bass Drum. Next, the following image shows the **Phase** button selected and the **Phs shft** slider adjusted so that the **Closed Hi-hat** is played with the same beat pattern, having been shifted by a global phase. 
 
 ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_global_phase_shift.png)
 
 
 
-To play the **Open Hi-hat** on the third sixteenth note of every beat, we employ one of the *phase gates*, specifically the **S** gate. The S gate rotates the phase on a wire by 4π/8 radians, which rotates the phase on each of the basis states TODOOOOOOO.
+To play the **Open Hi-hat** on the third sixteenth note of every beat, we employ one of the *phase gates*, specifically the **S** gate. The **S** gate rotates the phase on a wire by 4π/8 radians, which rotates the phase on each of the basis states TODOOOOOOO.
 
 ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_s_gate.png)
 
