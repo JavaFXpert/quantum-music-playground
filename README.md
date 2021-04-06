@@ -116,15 +116,15 @@ As with the **Kick** clip earlier, the **H** gates play a beat pattern on the Ba
 
 
 
-To play the **Open Hi-hat** on the third sixteenth note of every beat, we employ one of the *phase gates*, specifically the **S** gate. The **S** gate rotates the phase on a wire by 4π/8 radians, which rotates the phase on each of the basis states TODOOOOOOO.
+To play the **Open Hi-hat** on the third sixteenth note of every beat, we employ one of the *phase gates*, specifically the **S** gate. 
 
 ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_s_gate.png)
 
 
 
-TODOOOOO
+The **S** gate rotates the phase on a wire by 4π/8 radians, which rotates the phase on each of the basis states whose corresponding position contains a 1. This is seen more clearly in the following image, in which every basis state whose bit in position 1 is 1
 
-<img src="./images/twinkle_hats_musical_sequence_s.png" alt="Twinkle Crash musical sequence" width=60%/>
+<img src="./images/twinkle_hats_musical_sequence_s.png" alt="Twinkle Crash musical sequence" width=80%/>
 
 
 
