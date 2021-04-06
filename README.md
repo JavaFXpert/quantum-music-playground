@@ -172,7 +172,7 @@ When a gate is placed, or selected on the quantum circuit with the ✋ tool (nea
 
 
 
-Another difference from the previous example is that an **X** gate is leveraged on wire **q2** to make the instruments play on the off beats. This is seen more clearly in the following image, in which the notes appear on some basis state whose bits in positions 2 are 1, because the **X** gate flipped that wire to having a value of 1.
+Another difference from the previous example is that an **X** gate is leveraged on wire **q2** to make the instruments play on the off beats. This is seen more clearly in the following image, in which the notes appear on some basis states whose bit in positions 2 is 1, because the **X** gate flipped that wire to having a value of 1.
 
 <img src="./images/twinkle_snare_musical_sequence.png" alt="Twinkle snare/clap musical sequence" width=80%/>
 
