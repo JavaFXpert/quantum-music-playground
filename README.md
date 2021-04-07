@@ -200,6 +200,30 @@ This is seen more clearly in the following image, in which the notes appear on s
 
 <img src="./images/twinkle_bass_b_musical_sequence.png" alt="Twinkle snare/clap musical sequence" width=80%/>
 
+
+
+Now that we've discussed how to syncopate rhythms with X and CNOT gates, we'll introduce ways to drop notes out of a pattern so that they don't play.
+
+
+
+### Dropping notes out of a pattern
+
+Creating a rhythm is as much about the notes that are not played as the notes that are. Therefore, an important part of rhythm is inserting rests. There are a couple of techniques for doing so with Quantum Music Playground, with the preferred method being turning down the amplitude of its basis state. TODOOOOOO  To demonstrate this, we'll play a snare drum on beat two of a measure, and a hand clap on beat four of the measure, but nothing will be played on beats one and three. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the **Snare Drum** and **Hand Clap** parts contained in the **Snare/Clap** clip in another one of the tracks labeled **808 Core Kit**.
+
+
+
+![Twinkle song cymbal part](./images/twinkle_lead_b_full_screenshot.png)
+
+
+
+
+
+![Quantum Music Playground screenshot](./images/twinkle_lead_b_qmp.png)
+
+
+
+
+
 ============= FODDER BELOW =================
 
 
