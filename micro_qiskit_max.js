@@ -64,7 +64,7 @@ onresize.local = 1; //private
  * Accept an svsim message
  */
 function svsim(qasm) {
-  //post('qasm: ' + qasm);
+  post('qasm: ' + qasm);
   var qc = createQuantumCircuitFromQasm(qasm);
   if (qc != null) {
     var statevector = simulate(qc, 0, 'statevector');
@@ -194,6 +194,23 @@ function createQuantumCircuitFromQasm(qasm) {
                 quantumCircuit.ry(numFromParen(keyword), qNumArray[0], qNumArray[1]);
               }
 
+              else if (keyword == 'cy' && qNumArray.length == 2) {
+                quantumCircuit.cy(qNumArray[0], qNumArray[1]);
+              }
+              else if (keyword == 'cry(pi)' && qNumArray.length == 2) {
+                // Use CY gate for pi rotation
+                quantumCircuit.cy(qNumArray[0], qNumArray[1]);
+              }
+              else if (keyword.substring(0, 4) == 'cry(') {
+                var rads = numFromParen(keyword);
+                if (Math.abs(rads - Math.PI) < 0.0001) {
+                  quantumCircuit.cy(qNumArray[0], qNumArray[1]);
+                }
+                else {
+                  quantumCircuit.cry(rads, qNumArray[0], qNumArray[1]);
+                }
+              }
+
 
               else if (keyword.substring(0, 3) == 'rz(') {
                 quantumCircuit.rz(numFromParen(keyword), qNumArray[0], qNumArray[1]);
@@ -265,6 +282,18 @@ function QuantumCircuit(n, m) {
 };
 (QuantumCircuit.prototype).crx = function (theta, s, t) {
   this.data.push(['crx', theta, s, t]);
+  return this;
+};
+(QuantumCircuit.prototype).cy = function (s, t) {
+  this.rx(Math.PI / 2, t);
+  this.crz(Math.PI, s, t);
+  this.rx(-Math.PI / 2, t);
+  return this;
+};
+(QuantumCircuit.prototype).cry = function (theta, s, t) {
+  this.rx(Math.PI / 2, t);
+  this.crz(theta, s, t);
+  this.rx(-Math.PI / 2, t);
   return this;
 };
 (QuantumCircuit.prototype).cp = function (theta, s, t) {
