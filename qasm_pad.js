@@ -688,7 +688,6 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
 
     var ctrlWires = ctrlWiresInColumn(gridCol, gridRow);
     var rads = 0;
-    var fracRads = rads / Math.pow(2, ctrlWires.length - 1);
 
     if (circNodeType == CircuitNodeTypes.CTRL_X) {
       rads = Math.PI;
@@ -696,6 +695,8 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
     else {
       rads = (circNodeType - CircuitNodeTypes.RX_0) * Math.PI / (NUM_PITCHES / 2);
     }
+
+    var fracRads = rads / Math.pow(2, ctrlWires.length - 1);
 
     if (circNodeType == CircuitNodeTypes.CTRL_X || circNodeType == CircuitNodeTypes.RX_8) {
       if (ctrlWires.length > 0) {
@@ -898,10 +899,9 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
   else if (circNodeType >= CircuitNodeTypes.RY_0 && circNodeType <= CircuitNodeTypes.RY_15) {
 
     var ctrlWires = ctrlWiresInColumn(gridCol, gridRow);
-    var rads = 0;
-    var fracRads = rads / Math.pow(2, ctrlWires.length - 1);
+    var rads = (circNodeType - CircuitNodeTypes.RY_0) * Math.PI / (NUM_PITCHES / 2);
 
-    rads = (circNodeType - CircuitNodeTypes.RY_0) * Math.PI / (NUM_PITCHES / 2);
+    var fracRads = rads / Math.pow(2, ctrlWires.length - 1);
 
     if (ctrlWires.length == 0) {
       qasmStr += ' ry(' + rads + ') q[' + gridRow + '];';
