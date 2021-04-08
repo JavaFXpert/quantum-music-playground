@@ -324,6 +324,8 @@ function viz(svlist) {
   outlet(13, 'int', 0);
 
   svArray = svlist.toString().split(' ');
+  // post('\n---------In viz-----------, svArray: ' + svArray);
+
   curNumBasisStates = svArray.length / 2;
 
   dimSvGrid();

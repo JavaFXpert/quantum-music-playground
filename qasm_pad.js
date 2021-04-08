@@ -21,7 +21,9 @@
  * TODO: Conditionally disable shift gates up/down buttons
  * TODO: Identify color scheme that accommodate pi/8
  * TODO: Inquire surface number for Push
- * TODO: Implement cry gate
+ * TODO: Implement/test cry gate
+ * TODO: Troubleshoot phase introduced in CCX
+ * TODO: Fix Swap gates, and implement controlled-Swap
  * TODO: Implement / leverage chords & apeggiator
  * TODO: Implement one-shot (non-looping) clips
  * TODO: Clear Push pad when switching between Note and Session
@@ -736,6 +738,9 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
       // un-NOT the anti-control wires
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
+
+      // TODO: Find better way to implement multiple control X & RX gates to not introduce a phase?
+      qasmStr += ' s q[' + gridRow + '];';
     }
     else if (ctrlWires.length == 3) {
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
@@ -761,6 +766,9 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
       qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
+
+      // TODO: Find better way to implement multiple control X & RX gates to not introduce a phase?
+      qasmStr += ' s q[' + gridRow + '];';
     }
     else if (ctrlWires.length == 4) {
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
@@ -806,6 +814,9 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
       qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
       qasmStr += ctrlWires[3].isAntiCtrl ? ' x q[' + ctrlWires[3].wireNum + ']; ' : '';
+
+      // TODO: Find better way to implement multiple control X & RX gates to not introduce a phase?
+      qasmStr += ' s q[' + gridRow + '];';
     }
     else if (ctrlWires.length >= 5) {
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
@@ -889,6 +900,9 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
       qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
       qasmStr += ctrlWires[3].isAntiCtrl ? ' x q[' + ctrlWires[3].wireNum + ']; ' : '';
       qasmStr += ctrlWires[4].isAntiCtrl ? ' x q[' + ctrlWires[4].wireNum + ']; ' : '';
+
+      // TODO: Find better way to implement multiple control X & RX gates to not introduce a phase?
+      qasmStr += ' s q[' + gridRow + '];';
     }
   }
 
