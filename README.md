@@ -208,7 +208,7 @@ Now that we've discussed how to syncopate rhythms with X and CNOT gates, we'll i
 
 ### Dropping notes out of a pattern
 
-Creating a rhythm is as much about the notes that are not played as the notes that are. Therefore, an important part of rhythm is inserting rests. There are a couple of techniques for doing so with Quantum Music Playground, with the preferred method being turning down the amplitude of its basis state. TODOOOOOO  To demonstrate this, we'll play a snare drum on beat two of a measure, and a hand clap on beat four of the measure, but nothing will be played on beats one and three. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the **Snare Drum** and **Hand Clap** parts contained in the **Snare/Clap** clip in another one of the tracks labeled **808 Core Kit**.
+Creating a rhythm is as much about the notes that are not played as the notes that are. Therefore, an important part of rhythm is inserting rests. There are a couple of techniques for doing so with Quantum Music Playground, with the first method being turning down the amplitude of their basis states. To demonstrate this, we'll play the "up above the world so high, like a diamond in the sky" phrase of the melody in *Twinkle Twinkle Little Star*. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the note pitches to be played by the piano in the **Twinkle B** clip of the track labeled **Grand Piano**.
 
 
 
@@ -216,9 +216,48 @@ Creating a rhythm is as much about the notes that are not played as the notes th
 
 
 
-
+Taking a closer look at Quantum Music Playground in the following image, you'll notice a column of gates on the left side of the quantum circuit that are labeled **y1**. 
 
 ![Quantum Music Playground screenshot](./images/twinkle_lead_b_qmp.png)
+
+
+
+These are examples of the more general [RY gate](https://quantum-computing.ibm.com/composer/docs/operations-glossary/operations-glossary#ry-gate), which is defined by its amount of rotation on the Y axis of a [Bloch sphere](https://javafxpert.github.io/grok-bloch/). With the exception of the **Y** gate itself, the RY gates are expressed in Quantum Music Playground with a lower case **y** and the number of π/8 radians by which they rotate the on the Y axis. Here is a table of RY gates and their rotations expressed in π/8 radians.
+
+| RY gate:         | y0   | y1   | y2   | y3   | y4   | y5   | y6   | y7   | Y    | y9   | y10  | y11  | y12  | y13  | y14  | y15  |
+| ---------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| **π/8 radians**: | 0    | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   | 11   | 12   | 13   | 14   | 15   |
+
+
+
+An effect of rotating a wire with an RY gate is that its probability amplitude can increase or decrease. We leverage this effect in Quantum Music Playground by setting a probability amplitude threshold, below which a given basis state's note won't be played. By applying certain RY gates on one or more wires, corresponding notes may be directed not to play. In the the **Twinkle B** example, we're applying slight Y rotations on wires **q1** - **q3**, which has the effect of dropping out the notes on the basis states that begin with `111`. This is illustrated in the following image.
+
+<img src="./images/twinkle_lead_b_musical_sequence.png" alt="Twinkle lead B musical sequence" width=80%/>
+
+
+
+In general, the following technique may be used to express basis states to drop out, putting the RY gates to the left of the H gates.
+
+- To drop out all basis states that have `1` in *one* given position, use a **y3** gate.
+- To drop out all basis states that have `0` in *one* given position, use a **y13** gate.  
+- To drop out all basis states that have some combination of `1` and `0` bits in *two* given positions, use **y2** and **y14** gates, respectively.
+- To drop out all basis states that have some combination of `1` and `0` bits in *three* or *four* given positions, use **y1** and **y15** gates, respectively.
+
+
+
+#### Dropping out a note by putting it in pitch 15
+
+Another way to drop out a note is to select the **Rest 15** toggle button, and use some method (usually a phase gate) to make the desired note appear on the top row of the sequence grid. This technique is demonstrated in the following image, where the top row of the sequence grid is now labeled **REST**.
+
+![Quantum Music Playground screenshot](./images/twinkle_lead_c_qmp.png)
+
+
+
+This example also introduces the use of multiple control gate modifiers. In this case, the **T†** gate will only be rotated for basis states who bits corresponding to **q2** and **q3** are both `1` . We'll explore control gate modifiers in more detail next.
+
+## Understanding control gate modifiers
+
+
 
 
 
