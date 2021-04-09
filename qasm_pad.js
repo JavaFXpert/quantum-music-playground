@@ -727,7 +727,11 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
 
       // TODO: Find better way to implement multiple CTRL-H to not introduce a phase?
+      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
+      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
       qasmStr += ' cp(pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
+      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
+      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
 
       //qasmStr += ' s q[' + gridRow + '];';
       // qasmStr += ' s q[' + ctrlWires[0].wireNum + '];';
