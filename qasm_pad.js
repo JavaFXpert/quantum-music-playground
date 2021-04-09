@@ -682,7 +682,24 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
   }
 
   if (circNodeType == CircuitNodeTypes.H) {
-    qasmStr += ' h q[' + gridRow + '];';
+    var ctrlWires = ctrlWiresInColumn(gridCol, gridRow);
+
+    if (ctrlWires.length == 0) {
+      qasmStr += ' h q[' + gridRow + '];';
+    }
+    else if (ctrlWires.length == 1) {
+      var ctrlHadStr = ' ry(pi/4) q[' + gridRow + '];' +
+        ' cx q[' + ctrlWireNum + '],' + 'q[' + gridRow + '];' +
+        ' ry(-pi/4) q[' + gridRow + '];'
+
+      ctrlWireNum = ctrlWires[0].wireNum;
+      if (ctrlWires[0].isAntiCtrl) {
+        qasmStr += ' x q[' + ctrlWireNum + ']; ' + ctrlHadStr + ' x q[' + ctrlWireNum + '];';
+      }
+      else {
+        qasmStr += ctrlHadStr;
+      }
+    }
   }
 
   else if ((circNodeType >= CircuitNodeTypes.RX_0 && circNodeType <= CircuitNodeTypes.RX_15) ||
