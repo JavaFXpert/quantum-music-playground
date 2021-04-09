@@ -684,6 +684,11 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
   if (circNodeType == CircuitNodeTypes.H) {
     var ctrlWires = ctrlWiresInColumn(gridCol, gridRow);
 
+    var ctrlSqrtHadStr = ' ry(pi/4) q[' + gridRow + '];' +
+      ' crx(pi/4) q[' + ctrlWireNum + '],' + 'q[' + gridRow + '];' +
+      ' ry(-pi/4) q[' + gridRow + '];'
+
+
     if (ctrlWires.length == 0) {
       qasmStr += ' h q[' + gridRow + '];';
     }
@@ -699,6 +704,34 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
       else {
         qasmStr += ctrlHadStr;
       }
+    }
+    else if (ctrlWires.length == 2) {
+      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
+      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
+
+      qasmStr += ' ry(pi/4) q[' + gridRow + '];' +
+        ' crx(pi/2) q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];' + ' ry(-pi/4) q[' + gridRow + '];';
+
+      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
+
+      qasmStr += ' ry(pi/4) q[' + gridRow + '];' +
+        ' crx(-pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];' + ' ry(-pi/4) q[' + gridRow + '];';
+
+      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
+
+      qasmStr += ' ry(pi/4) q[' + gridRow + '];' +
+        ' crx(pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];' + ' ry(-pi/4) q[' + gridRow + '];';
+
+      // un-NOT the anti-control wires
+      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
+      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
+
+      // TODO: Find better way to implement multiple CTRL-H to not introduce a phase?
+      qasmStr += ' cp(pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
+
+      //qasmStr += ' s q[' + gridRow + '];';
+      // qasmStr += ' s q[' + ctrlWires[0].wireNum + '];';
+      // qasmStr += ' s q[' + ctrlWires[1].wireNum + '];';
     }
   }
 
