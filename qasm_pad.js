@@ -706,7 +706,7 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
       }
     }
 
-    else if (ctrlWires.length == 2) {
+    else if (ctrlWires.length >= 2) {
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
 
@@ -788,7 +788,7 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
     }
     */
-    
+
   }
 
   else if ((circNodeType >= CircuitNodeTypes.RX_0 && circNodeType <= CircuitNodeTypes.RX_15) ||

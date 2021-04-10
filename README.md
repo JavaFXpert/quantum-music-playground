@@ -263,13 +263,34 @@ Another way to drop out a note is to select the **Rest 15** toggle button, and u
 
 This example leverages multiple control gate modifiers. In this case, the **T†** gate will only be rotated for basis states who bits corresponding to **q2** and **q3** are both `1` . We'll explore control gate modifiers in more detail next.
 
+
+
 ## Understanding control gate modifiers
 
-FODDER: Currently, controlled **H** gates may contain up to two control gate modifiers. 
+We've used control gate modifiers with various gates in several of the examples, so let's gain a deeper understanding about them. In the following image of the **Bass A** clip in Quantum Music Playground, you can see their use in some of the ways discussed previously. In addition, notice that in the third column of wire **q4** the control gate modifier is an empty circle. This is an *anti-control* gate modifier, and its behavior is the opposite of its filled-circle counterparts. Specifically, the corresponding bit must be `0` for the gate it is modifying to operate. Therefore, the **z13** phase gate in the third column will only operate on sequence steps whose basis states contain `0` and `1` in bit positions corresponding to **q4** and **q3**, respectively.
+
+![Quantum Music Playground screenshot](./images/twinkle_bass_a_qmp.png)
 
 
 
+The following table shows which gates in Quantum Music Playground may have control (and anti-control) gate modifiers, as well as how many modifiers may be used with the gate.
 
+| Gate                                                         | Max control modifiers |
+| ------------------------------------------------------------ | --------------------- |
+| **H gate**                                                   | 2                     |
+| **X gates:** **x0** - **x7**, **X**, **x9** - **x15**        | 5                     |
+| **Y gates:** **y0** - **y7**, **Y**, **y9** - **y15**        | 5                     |
+| **Phase gates:** **z0**, **z1**, **T**, **z3**, **S**, **z5** - **z7**, **Z**, **z9** - **z11**, **S†**, **z13**, **T†**, **z15** | 5                     |
+
+
+
+Now that we've discussed how to express melodic and rhythmic sequences with quantum circuits, let's explore more functionality available in Quantum Music Playground.
+
+
+
+## Exploring more Quantum Music Playground functionality
+
+TODO: Left off here
 
 ============= FODDER BELOW =================
 
