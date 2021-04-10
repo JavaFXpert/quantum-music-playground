@@ -202,13 +202,21 @@ This is seen more clearly in the following image, in which the notes appear on s
 
 
 
-Now that we've discussed how to syncopate rhythms with X and CNOT gates, we'll introduce ways to drop notes out of a pattern so that they don't play.
+Now that we've discussed how to syncopate rhythms with X and CNOT gates, we'll introduce another way to manipulate rhythms.
+
+### Manipulating rhythms with controlled H gates
+
+We've leveraged **H** gates quite a bit to create rhythm patterns so far. Now we'll add control gate modifiers to **H** gates for more rhythmic control. In the following image of the **Doubling** clip in Quantum Music Playground, notice the use of control gate modifiers with some of the **H** gates to implement a well-known drum pattern in electronic dance music. This doubling pattern is achieved in part by making the **H** gate on wire **q0** conditional on whether the final eight out of 32 steps in the pattern are being played. Note that we're using two control gate modifiers in that column, in this case making the **H** gate active only when the 32 basis states (numbered `00000` through `11111`) begin with `11`.
+
+![Quantum Music Playground screenshot](./images/twinkle_doubling_qmp.png)
 
 
+
+Now that we've discussed multiple ways of creating patterns, we'll introduce ways to drop notes out of a pattern so that they don't play.
 
 ### Dropping notes out of a pattern
 
-Creating a rhythm is as much about the notes that are not played as the notes that are. Therefore, an important part of rhythm is inserting rests. There are a couple of techniques for doing so with Quantum Music Playground, with the first method being turning down the amplitude of their basis states. To demonstrate this, we'll play the "up above the world so high, like a diamond in the sky" phrase of the melody in *Twinkle Twinkle Little Star*. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the note pitches to be played by the piano in the **Twinkle B** clip of the track labeled **Grand Piano**.
+Creating a rhythm is as much about the notes that are not played as the notes that are. Therefore, an important part of rhythm is inserting rests. There are several techniques for doing so with Quantum Music Playground, with the first method being turning down the amplitude of their basis states. To demonstrate this, we'll play the "up above the world so high, like a diamond in the sky" phrase of the melody in *Twinkle Twinkle Little Star*. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the note pitches to be played by the piano in the **Twinkle B** clip of the track labeled **Grand Piano**.
 
 
 
@@ -253,11 +261,11 @@ Another way to drop out a note is to select the **Rest 15** toggle button, and u
 
 
 
-This example also introduces the use of multiple control gate modifiers. In this case, the **T†** gate will only be rotated for basis states who bits corresponding to **q2** and **q3** are both `1` . We'll explore control gate modifiers in more detail next.
+This example leverages multiple control gate modifiers. In this case, the **T†** gate will only be rotated for basis states who bits corresponding to **q2** and **q3** are both `1` . We'll explore control gate modifiers in more detail next.
 
 ## Understanding control gate modifiers
 
-
+FODDER: Currently, controlled **H** gates may contain up to two control gate modifiers. 
 
 
 
