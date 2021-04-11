@@ -298,6 +298,8 @@ Up to this point we've focused on creating quantum circuits to select instrument
 
 <img src="./images/qmp_control_panel.png" alt="Twinkle lead B musical sequence" width=50%/>
 
+
+
 ### Selecting musical octaves
 
 In Ableton Live, a track may contain either a bank of instruments (e.g. a drum kit), or an instrument that plays pitches. In the former case, a MIDI note selects an instrument, and in the latter case a MIDI note selects a note pitch. In the following screenshot from the previous example of the **Hats A** clip, the vertical slider labeled **Octave** has **Kit** selected.
@@ -320,13 +322,31 @@ Available octave numbers selections are **-1**, **0**, **1**, **2**, **3** and *
 
 TODO: Verify that musical modes were implement correctly in QMP.
 
-By default, the musical scale known as the **Major** scale is selected in the **Scales** slider. 
+By default, the musical scale known as **Major** is selected in the **Scales** slider. Several other scales and modes (e.g. NatMinor and Dorian) are available by selecting them in the slider. As shown in the following image, when the scale or mode is changed the musical pitches in the column to the left of the musical sequence grid change appropriately.
+
+![Quantum Music Playground screenshot](./images/qmp_scale_selection.png)
+
+
 
 ### Transposing musical pitches
 
-### Implementing time signatures
+By default, the lowest note in the musical sequence grid is C, playing in the key of C. To play in another musical key, select the number of semitones to transpose in the **Transpo** slider. As shown in the following image, when the key is transposed the musical pitches in the column to the left of the musical sequence grid change appropriately.
+
+![Quantum Music Playground screenshot](./images/qmp_transpose.png)
+
+
 
 ### Playing notes legato
+
+Notes play for a duration of one quarter note by default. To make notes play with a legato technique (held until the following note begins), selecte the **Legato** toggle button.
+
+### Implementing time cycles
+
+Some of the most common time signatures and loop lengths are some power of 2. When other time cycles are desired (e.g. playing in 5/4 time signature, or in some Indian classical time cycles), a different length may be selected. For example, the following image shows part of the *Twinkle Twinkle Little Star* melody being played in 7/4 time. This is achieved by TODO
+
+![Quantum Music Playground screenshot](./images/qmp_time_cycle_selection.png)
+
+
 
 ### Folding a musical scale
 
