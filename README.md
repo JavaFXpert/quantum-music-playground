@@ -146,6 +146,10 @@ The **S†** gate rotates the phase on a wire by 12π/8 radians. However, when a
 
 
 
+### Leveraging the Quantum Fourier Transform
+
+TODO: Write this section
+
 ## Playing with rhythm
 
 So far, the rhythms we've created have consisted of instruments playing at consistent time intervals. For example, our **Kick** clip played the bass drum on the four beats of the measure, and the **Hats A** clip played the hi-hats on each sixteenth note. Now we'll discuss how to create syncopated rhythms, beginning with playing on the [off-beats](https://en.wikipedia.org/wiki/Beat_(music)#On-beat_and_off-beat) . To demonstrate this, we'll play a snare drum on beat two of a measure, and a hand clap on beat four of the measure, but nothing will be played on beats one and three. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the **Snare Drum** and **Hand Clap** parts contained in the **Snare/Clap** clip in another one of the tracks labeled **808 Core Kit**.
@@ -284,11 +288,49 @@ The following table shows which gates in Quantum Music Playground may have contr
 
 
 
-Now that we've discussed how to express melodic and rhythmic sequences with quantum circuits, let's explore more functionality available in Quantum Music Playground.
+Now that we've discussed how to express melodic and rhythmic sequences with quantum circuits, let's explore additional musical functionality available in Quantum Music Playground.
 
 
 
-## Exploring more Quantum Music Playground functionality
+## Exploring additional musical functionality
+
+Up to this point we've focused on creating quantum circuits to select instruments and pitches, and to express rhythm patterns. When composing a song, of course, there are countless choices involving things such as instrument banks, octaves, musical scales, and time signatures. These choices help implement abstract musical sequences expressed by your quantum circuits.
+
+### Selecting musical octaves
+
+
+
+### Transposing musical pitches
+
+### Changing musical scales
+
+### Implementing time signatures
+
+### Playing notes legato
+
+### Folding a musical scale
+
+### Inverting a musical scale 
+
+### Generating stochastic pitches
+
+## Miscellaneous functionality
+
+### Loading MIDI clips
+
+#### QMP metadata in MIDI clips
+
+### Selecting a MIDI clip
+
+### Moving gates on the quantum circuit
+
+## Indian classical music related functionality
+
+### Selecting Carnatic ragas
+
+### Controlling lengths of timecycles
+
+
 
 TODO: Left off here
 
