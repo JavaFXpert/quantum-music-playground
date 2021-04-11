@@ -294,15 +294,35 @@ Now that we've discussed how to express melodic and rhythmic sequences with quan
 
 ## Exploring additional musical functionality
 
-Up to this point we've focused on creating quantum circuits to select instruments and pitches, and to express rhythm patterns. When composing a song, of course, there are countless choices involving things such as instrument banks, octaves, musical scales, and time signatures. These choices help implement abstract musical sequences expressed by your quantum circuits.
+Up to this point we've focused on creating quantum circuits to select instruments and pitches, and to express rhythm patterns. When composing a song, of course, there are countless choices involving things such as instrument banks, octaves, musical scales, and time signatures. These choices help implement abstract musical sequences expressed by your quantum circuits. They are located in the left side of the Quantum Music Playground device, shown in the following image.
+
+<img src="./images/qmp_control_panel.png" alt="Twinkle lead B musical sequence" width=50%/>
 
 ### Selecting musical octaves
 
+In Ableton Live, a track may contain either a bank of instruments (e.g. a drum kit), or an instrument that plays pitches. In the former case, a MIDI note selects an instrument, and in the latter case a MIDI note selects a note pitch. In the following screenshot from the previous example of the **Hats A** clip, the vertical slider labeled **Octave** has **Kit** selected.
+
+![Quantum Music Playground screenshot](./images/twinkle_hats_qmp.png)
 
 
-### Transposing musical pitches
+
+The instrument names displayed in the column to the left of the musical sequence grid are from the drum kit placed on the same track as the **Hats A** clip resides. The MIDI note values generated when **Kit** is selected range from 36 through 51, which often correspond to the main instruments in an instrument bank.
+
+By contrast, in the following screenshot from the previous example of the **Bass B** clip, the vertical slider labeled **Octave** has **0** selected.
+
+![Quantum Music Playground screenshot](./images/twinkle_bass_b_qmp.png)
+
+
+
+Available octave numbers selections are **-1**, **0**, **1**, **2**, **3** and **4**. Selecting an octave number normally causes the lowest pitch in the musical sequence grid to be the note C in the corresponding octave. For example, in the **Bass B** clip, selecting **Octave 0** causes the lowest pitch in the musical sequence grid to be **C0**.
 
 ### Changing musical scales
+
+TODO: Verify that musical modes were implement correctly in QMP.
+
+By default, the musical scale known as the **Major** scale is selected in the **Scales** slider. 
+
+### Transposing musical pitches
 
 ### Implementing time signatures
 
