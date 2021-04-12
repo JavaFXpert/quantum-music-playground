@@ -383,15 +383,33 @@ Quantum Music Playground contain functionality not directly related to music com
 
 ### Loading MIDI clips
 
-
+When the Quantum Music Playground device starts, it identifies all of the clips contained in all of the MIDI tracks of the current set. The dropdown list to the right of the **Load clips** button is populated with these clip names. When you add, rename, duplicate, move or delete a MIDI clip, pressing the **Load clips** button will update the dropdown list appropriately.
 
 #### QMP metadata in MIDI clips
 
+MIDI clips in Ableton Live store MIDI data that includes note pitches, start times, and durations. In addition to the playable notes in a clip, Quantum Music Playground stores metadata in the MIDI clip that expresses the quantum circuit, slider values, and button toggle states. This may be seen in the following image of the Ableton MIDI Clip View for the **Twinkle A** clip, whose measure numbers across the top will now be used as we discuss their contents.
+
+![Quantum Music Playground screenshot](./images/midi_clip_twinkle_a.png)
+
+
+
+For reference during this discussion, please also refer to the following image of the **Twinkle A** clip in Quantum Music Playground. In the previous image, measures 1 & 2 contain the MIDI notes for the notes to be played. Measures 3 - 5 contain a MIDI representation of the quantum circuit, beginning with the first column, with each note encoding either a blank cell or operation. Measure 6 contains slider values, with its final MIDI note encoding the binary states of the toggle buttons. Please consult the [Quantum Music Playground source code](https://github.com/JavaFXpert/quantum-music-playground) for more details on this metadata representation. 
+
+![Quantum Music Playground screenshot](./images/qmp_0_9_screenshot.png)
+
+
+
 ### Selecting a MIDI clip
 
-### Moving all gates on the quantum circuit
+To select a different MIDI clip in Quantum Music Playground, click the dropdown list located to the right of the **Load clips** button, and press the desired clip.
+
+### Moving all operations on the quantum circuit
+
+It is often desirable to move all of the operations in a quantum circuit to the left or right in order to make room for a column of operations. It is also desirable to move all of the operations in a quantum circuit up or down, as that halves or doubles the number of steps in the musical sequence, changing its speed relative to other clips. Provided the appropriate row or column is empty, the left, right, up and down buttons, labeled ''**<**'', ''**>**'', ''**^**'' and ''**v**'' respectively, may be used for those purposes.
 
 ## Indian classical music related functionality
+
+
 
 ### Selecting Carnatic ragas
 
