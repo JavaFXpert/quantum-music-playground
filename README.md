@@ -332,9 +332,25 @@ By default, the lowest note in the musical sequence grid is C, playing in the ke
 
 
 
+### Folding a musical scale
+
+When using a diatonic scale it is sometimes convenient for the pitches to range from a tonic to the tonic an octave above, for a total range of eight pitches. To achieve that result, the **Folded** toggle button may be selected. As shown in the following image, the pitches in the column to the left of the musical sequence grid change accordingly.
+
+![Quantum Music Playground screenshot](./images/qmp_folded_toggle.png)
+
+
+
+### Inverting a musical scale 
+
+The pitches the musical sequence grid my be inverted by selecting the **Inverted** toggle button. As shown in the following image, the pitches in the column to the left of the musical sequence grid change accordingly.
+
+![Quantum Music Playground screenshot](./images/qmp_inverted_toggle.png)
+
+
+
 ### Playing notes legato
 
-Notes play for a duration of one quarter note by default. To make notes play with a legato technique (held until the following note begins), selecte the **Legato** toggle button.
+Notes play for a duration of one quarter note by default. To make notes play with a legato technique (held until the following note begins), select the **Legato** toggle button.
 
 ### Implementing time cycles
 
@@ -345,10 +361,6 @@ Some of the most common time signatures and loop lengths in music are some power
 
 
 This is achieved by selecting 14 in the **Cycle A** slider, which removes all musical steps after the 14th up to the end of the next power of 2. This is visually represented by a column of blue cells wherever a step is removed. The **Cycle B** slider may be used in conjunction with **Cycle A** when two cycles are nested, as is required by some complex time cycles in Indian classical music.
-
-### Folding a musical scale
-
-### Inverting a musical scale 
 
 ### Generating stochastic pitches
 
