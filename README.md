@@ -146,10 +146,6 @@ The **S†** gate rotates the phase on a wire by 12π/8 radians. However, when a
 
 
 
-### Leveraging the Quantum Fourier Transform
-
-TODO: Write this section
-
 ## Playing with rhythm
 
 So far, the rhythms we've created have consisted of instruments playing at consistent time intervals. For example, our **Kick** clip played the bass drum on the four beats of the measure, and the **Hats A** clip played the hi-hats on each sixteenth note. Now we'll discuss how to create syncopated rhythms, beginning with playing on the [off-beats](https://en.wikipedia.org/wiki/Beat_(music)#On-beat_and_off-beat) . To demonstrate this, we'll play a snare drum on beat two of a measure, and a hand clap on beat four of the measure, but nothing will be played on beats one and three. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the **Snare Drum** and **Hand Clap** parts contained in the **Snare/Clap** clip in another one of the tracks labeled **808 Core Kit**.
@@ -342,11 +338,13 @@ Notes play for a duration of one quarter note by default. To make notes play wit
 
 ### Implementing time cycles
 
-Some of the most common time signatures and loop lengths are some power of 2. When other time cycles are desired (e.g. playing in 5/4 time signature, or in some Indian classical time cycles), a different length may be selected. For example, the following image shows part of the *Twinkle Twinkle Little Star* melody being played in 7/4 time. This is achieved by TODO
+Some of the most common time signatures and loop lengths in music are some power of 2. When other time cycles are desired (e.g. playing in 5/4 time signature, or in some Indian classical time cycles), a different length may be selected. For example, the following image shows part of the *Twinkle Twinkle Little Star* melody being played in 7/4 time. 
 
 ![Quantum Music Playground screenshot](./images/qmp_time_cycle_selection.png)
 
 
+
+This is achieved by selecting 14 in the **Cycle A** slider, which removes all musical steps after the 14th up to the end of the next power of 2. This is visually represented by a column of blue cells wherever a step is removed. The **Cycle B** slider may be used in conjunction with **Cycle A** when two cycles are nested, as is required by some complex time cycles in Indian classical music.
 
 ### Folding a musical scale
 

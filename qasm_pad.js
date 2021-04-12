@@ -18,17 +18,13 @@
  * Quantum DJ device circuit pad that may be used even when
  * a Push 2 device is not connected.
  *
- * TODO: Conditionally disable shift gates up/down buttons
  * TODO: Identify color scheme that accommodate pi/8
  * TODO: Inquire surface number for Push
- * TODO: Implement/test cry gate
- * TODO: Troubleshoot phase introduced in CCX
  * TODO: Fix Swap gates, and implement controlled-Swap
- * TODO: Implement / leverage chords & apeggiator
+ * TODO: Verify that fixing swap gates fixed QFTs
  * TODO: Implement one-shot (non-looping) clips
  * TODO: Clear Push pad when switching between Note and Session
- * TODO: Ensure that only MIDI clips are in dropdown
- * TODO: Use On/Off graphic on Push
+ * TODO: Use On/Off graphic on Push?
  * TODO: Implement rule-based composition constraints, e.g.:
  *  - Ending on same note as beginning
  *  - Removing notes with LSB 111 in a four wire circuit
