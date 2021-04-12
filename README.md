@@ -1,17 +1,21 @@
 # Quantum Music Playground
 ## Summary
 
-Playground for composing music using quantum states. Implemented as a Max for Live device in Ableton Live 11. Apache 2.0 licensed. Developed by James L. Weaver.
+Playground for composing music using quantum states. Implemented as a Max for Live device in Ableton Live 11, and includes a MicroQiskit quantum simulator. Apache 2.0 licensed. Developed by James L. Weaver, [@JavaFXpert on Twitter](https://twitter.com/JavaFXpert). 
 
 ![Quantum Music Playground screenshot](./images/qmp_0_9_screenshot.png)
 
 
 
 > Please note that it is ***not*** necessary to have prior knowledge of quantum computing in order to use Quantum Music Playground. We'll sneak in what you need to know as we go along, and will reference helpful (but not essential to internalize) resources.
+>
+> It is necessary to have a version of Ableton Live that supports Max for Live devices, which is [available as a free trial](https://www.ableton.com/en/trial/) at the time of this writing.
 
 ## Introduction
 
-The Quantum Music Playground is a tool for composing music, as well as an enjoyable way of gaining intuition about quantum circuits and states. It is implemented as a Max for Live device in the Ableton Live 11 digital audio workstation (DAW). The following screenshot shows an Ableton Live Session View that contains [MIDI](https://en.wikipedia.org/wiki/MIDI) clips that play an arrangement of the well known song entitled *Twinkle Twinkle Little Star*.
+The Quantum Music Playground is a tool for composing music, as well as an enjoyable way of gaining intuition about quantum circuits and states. It is implemented as a Max for Live device in the Ableton Live 11 digital audio workstation (DAW), and includes a MicroQiskit quantum simulator.. The following screenshot shows an Ableton Live Session View that contains [MIDI](https://en.wikipedia.org/wiki/MIDI) clips that play an arrangement of the well known song entitled *Twinkle Twinkle Little Star*.
+
+> The Ableton Live set from which many of the examples in this tutorial were taken may be [downloaded](https://github.com/JavaFXpert/quantum-music-playground/raw/master/sets/twinkle.als) from the [Quantum Music Playground repository](https://github.com/JavaFXpert/quantum-music-playground).
 
 ![Twinkle song kick drum part](./images/twinkle_kick_screenshot.png)
 
@@ -25,11 +29,9 @@ At the bottom of the screenshot is the Quantum Music Playground device, shown he
 
 On the right side of the quantum circuit is a toolbox with quantum operations that may be placed on the quantum circuit, which is on the left side of the image. For the kick drum part, we're using a couple of **H** gates on the wires labeled **q2** and **q3**. The result is that the **Bass Drum** will play a [four on the floor](https://en.wikipedia.org/wiki/Four_on_the_floor_(music)) drum pattern shown in the sequence grid below. This sequence grid represents one measure in [4/4 time](https://en.wikipedia.org/wiki/Time_signature#Characteristics), and each column represents a [sixteenth note](https://en.wikipedia.org/wiki/Sixteenth_note). As you can see, the bass drum is playing on each of the four beats in the measure.
 
-<img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=80%/>
+<img src="./images/statevector_musical_representation.png" alt="Quantum Music Playground screenshot" width=60%/>
 
 
-
-***TODO: Remove radians from the image, and introduce in a future image***
 
 The logic by which a couple of **H** gates (also known as *Hadamard* gates) resulted in this drum pattern can be explained using some basic math:
 
@@ -430,35 +432,3 @@ To select a different MIDI clip in Quantum Music Playground, click the dropdown 
 It is often desirable to move all of the operations in a quantum circuit to the left or right in order to make room for a column of operations. It is also desirable to move all of the operations in a quantum circuit up or down, as that halves or doubles the number of steps in the musical sequence, changing its speed relative to other clips. Provided the appropriate row or column is empty, the left, right, up and down buttons, labeled ''**<**'', ''**>**'', ''**^**'' and ''**v**'' respectively, may be used for those purposes.
 
 ## 
-
-TODO: Left off here
-
-============= FODDER BELOW =================
-
-
-
-
-
-
-
-
-
-Examining the following musical representation of the same statevector reveals that the phase of a basis state is represented by the row in which a cell is filled. 
-
-In the center of the device is a [quantum circuit](https://qiskit.org/documentation/qc_intro.html#quantum-circuits) whose resultant [statevector](https://qiskit.org/textbook/ch-states/representing-qubit-states.html#statevectors) is represented musically in the grid to the right of the circuit. For comparison, if you entered this circuit in the [IBM Quantum Composer](https://quantum-computing.ibm.com/) the circuit and resultant statevector would appear similar to the following image.
-
-<img src="./images/twinkle_kick_ibm_quantum_composer.png" alt="Quantum Music Playground screenshot" width=70%/>
-
-
-
-The bar graph shows that four of the basis states in the statevector have non-zero amplitudes, and that they all have a phase angle of 0 (as noted by the popup as well as the **Phase** color legend). As you interact with the Quantum Music Composer device, the MIDI information in the selected Ableton Live clip is updated with a sequence of notes as shown in the following image.
-
-<img src="./images/kick_midi_clip.png" alt="Kick drum MIDI clip screenshot" width=50%/>
-
-
-
-This one-measure sequence is looped, playing the kick (bass) drum once for each of the four beats in the measure. 
-
-
-
- 
