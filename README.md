@@ -31,13 +31,18 @@ On the right side of the quantum circuit is a toolbox with quantum operations th
 
 ***TODO: Remove radians from the image, and introduce in a future image***
 
-The logic by which a couple of H gates (also known as Hadamard gates) resulted in this drum pattern can be explained using some basic math:
+The logic by which a couple of **H** gates (also known as *Hadamard* gates) resulted in this drum pattern can be explained using some basic math:
 
 First off, the wires labeled **q0** - **q7** on the quantum circuit represent the least significant digit through the most significant digit of a binary value. The reason that there are 16 columns in the previous grid is that **q3** (the fourth wire) is the highest wire on which a gate is present. This defines a range of 2<sup>4</sup> binary numbers from `0000` - `1111`, and are labeled **Basis states** across the bottom of the previous image. Each *basis state* represents a step in our musical sequence. 
 
 > **A bit about basis states**
 >
-> A basis state, sometime referred to as a *computational basis state*, is a concept used in quantum computing to represent a component of a quantum state. In this example, the quantum circuit defines a quantum state that is comprised of 16 basis states. Each basis state contains a complex number from which two important values can be derived: The *probability* that this basis state will be the result when measuring the quantum state, and the *phase angle* of this basis state. Both of these concepts will be covered at appropriate times in this tutorial. For now, it is important to understand that there is one binary digit in each basis state for each wire in a quantum circuit, where the number of wires is determined by the highest wire on which a gate is present. It is also necessary to know that the rightmost binary digit of each basis state corresponds to the topmost wire, labeled **q0**. As you may know, the rightmost binary digit is referred to as being in position 0, because its place value is 2<sup>0</sup> in the binary numbering system.
+> A basis state, sometime referred to as a *computational basis state*, is a concept used in quantum computing to represent a component of a quantum state. In this example, the quantum circuit defines a quantum state that is comprised of 16 basis states. Each basis state contains a complex number from which two important values may be derived: 
+>
+> - The *probability amplitude* that represents the likelihood that this basis state will be the result when measuring the quantum state, and 
+> - the *phase angle* of this basis state. 
+>
+> Both of these concepts will be revisited at appropriate times in this tutorial. For now, it is important to understand that there is one binary digit in each basis state for each wire in a quantum circuit, where the number of wires is determined by the highest wire on which a gate is present. It is also necessary to know that the rightmost binary digit of each basis state corresponds to the topmost wire, labeled **q0**. As you may know, the rightmost binary digit is referred to as being in position 0, because its place value is 2<sup>0</sup> in the binary numbering system.
 
 To calculate on which of these sequence steps the bass drum will play, take a look at the quantum circuit and the sequence grid together in this image while reading the explanation that follows.
 
@@ -47,7 +52,7 @@ Each of the wires in the quantum circuit contains an initial value of 0.
 
 - Because there are no gates on wire **q0**, the drum may only play on basis states whose 0 (least significant) position contains 0.
 - Because there are no gates on wire **q1**, the drum may only play on basis states whose 1 position contains 0.
-- Because there is an **H** gate on wire **q2**, the drum may play on basis states whose 2 position contains either 0 or 1. This is because the H gate puts the wire into a combination of 0 and 1.
+- Because there is an **H** gate on wire **q2**, the drum may play on basis states whose 2 position contains either 0 or 1. This is because the **H** gate puts the wire into a combination of 0 and 1.
 - Because there is an **H** gate on wire **q3**, the drum may play on basis states whose 3 position contains either 0 or 1.
 
 Putting that all together, the bass drum will play on all of the basis states whose 0 and 1 positions contain 0, which are `0000`, `0100`, `1000` and `1100`. 
@@ -60,7 +65,7 @@ Putting that all together, the bass drum will play on all of the basis states wh
 
 
 
-You may be wondering why the bass drum, and not the other instruments, are played as a result of this quantum circuit. The short answer is that the Quantum Music Playground chooses instruments and pitches based upon the phase angles mentioned earlier. The next section contains a more complete and satisfying explanation.
+You may be wondering why the bass drum, and not the other percussion instruments, are played as a result of this quantum circuit. The short answer is that the Quantum Music Playground chooses instruments and pitches based upon the phase angles mentioned earlier. The next section contains a more complete and satisfying explanation.
 
 ## Choosing instruments and pitches
 
@@ -78,7 +83,7 @@ Let's examine the Quantum Music Playground device by itself in the following ima
 
 The quantum circuit in this **Crash** clip contains just one gate, namely the **I** (also known as identity) gate. The **I** gate doesn't alter the state of a wire, but it's used here to set the number of basis states, and therefore steps, to 16 for this clip. The length of this **Crash** clip is now the same length as the **Kick** clip, so as each clip is playing in a loop, the cymbal and the bass drum will play together on the downbeat of the measure, followed by the bass drum playing on the remaining three beats. 
 
-To see why the Cymbal, rather than the Bass Drum, will be played, take a look at the disabled **Phs shft** slider and notice the value of 13 at the bottom. This indicates that the global phase angle shift, often referred to as *global phase shift*, of the quantum state is 13π/8 radians (292.5 degrees). This happens to correspond with the value of 13 to the right of the **Cymbal** row in the following image.
+To see why the **Cymbal**, rather than the **Bass Drum**, will be played, take a look at the disabled **Phs shft** slider and notice the value of 13 at the bottom. This indicates that the global phase angle shift, often referred to as *global phase shift*, of the quantum state is 13π/8 radians (292.5 degrees). This happens to correspond with the value of 13 to the right of the **Cymbal** row in the following image.
 
 <img src="./images/twinkle_crash_musical_sequence.png" alt="Twinkle Crash musical sequence" width=80%/>
 
@@ -90,6 +95,8 @@ As mentioned previously, each individual basis state contains a phase angle. Shi
 >
 > Experiment with shifting the global phase angle by selecting the **Phase** button, moving the **Phs shft** slider up or down, and then selecting the **Pitch** button to keep the global phase from automatically shifting.
 
+
+
 ### Shifting the phase angles of basis states
 
 To create an interesting beat pattern or melody, it is usually necessary to shift the phase angles of various basis states. A common way to accomplish this is to follow an **H** gate with a *phase* gate. To demonstrate this, we'll play hi-hat cymbals, shifting back and forth from open to closed hi-hats. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the hi-hat part contained in the **Hats A** clip in yet another one of the tracks labeled **808 Core Kit**.  
@@ -98,19 +105,17 @@ To create an interesting beat pattern or melody, it is usually necessary to shif
 
 
 
-Now we'll examine the Quantum Music Playground device by itself in the following image.
+Now we'll examine the Quantum Music Playground device by itself in the following image. The quantum circuit in this **Hats A** clip contains a column of four **H** gates on wires **q0** - **q3**, which defines one measure with a beat pattern full of sixteenth notes. The circuit also contains two of the *phase gates* obtained from right column of the toolbox, and a *control gate modifier* taken from the toolbox's left column. 
 
 ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp.png)
 
 
 
-The quantum circuit in this **Hats A** clip contains a column of four H gates on wires **q0** - **q3**, which defines one measure with a beat pattern full of sixteenth notes. The circuit also contains two of the *phase gates* obtained from right column of the toolbox, and a *control gate modifier* taken from the toolbox's left column. We'll discuss phase gates and control gate modifiers shortly, but let's analyze the results of progressively adding gates to this circuit. The following image shows the Quantum Music Playground device after placing only the **H** gates.
-
- ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_h_gates.png)
+We'll discuss phase gates and control gate modifiers shortly, but let's analyze the results of progressively adding gates to this circuit. The following image shows the Quantum Music Playground device after placing only the **H** gates. ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_h_gates.png)
 
 
 
-As with the **Kick** clip earlier, the **H** gates play a beat pattern on the Bass Drum. Next, the following image shows the **Phase** button selected and the **Phs shft** slider adjusted so that the **Closed Hi-hat** is played with the same beat pattern, having been shifted by a global phase. 
+As with the **Kick** clip earlier, the **H** gates play a beat pattern on the **Bass Drum**. Next, the following image shows the **Phase** button selected and the **Phs shft** slider adjusted so that the **Closed Hi-hat** is played with the same beat pattern, having been shifted by a global phase. 
 
 ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp_global_phase_shift.png)
 
@@ -148,7 +153,7 @@ The **S†** gate rotates the phase on a wire by 12π/8 radians. However, when a
 
 ## Playing with rhythm
 
-So far, the rhythms we've created have consisted of instruments playing at consistent time intervals. For example, our **Kick** clip played the bass drum on the four beats of the measure, and the **Hats A** clip played the hi-hats on each sixteenth note. Now we'll discuss how to create syncopated rhythms, beginning with playing on the [off-beats](https://en.wikipedia.org/wiki/Beat_(music)#On-beat_and_off-beat) . To demonstrate this, we'll play a snare drum on beat two of a measure, and a hand clap on beat four of the measure, but nothing will be played on beats one and three. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the **Snare Drum** and **Hand Clap** parts contained in the **Snare/Clap** clip in another one of the tracks labeled **808 Core Kit**.
+So far, the rhythms we've created have consisted of instruments playing at consistent time intervals. For example, our **Kick** clip played the bass drum on the four beats of the measure, and the **Hats A** clip played the hi-hats on each sixteenth note. Now we'll discuss how to create syncopated rhythms, beginning with playing on the [off-beats](https://en.wikipedia.org/wiki/Beat_(music)#On-beat_and_off-beat) . To demonstrate this, we'll play a snare drum on beat two of a measure, and a hand clap on beat four of the measure, but neither will be played on beats one and three. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the **Snare Drum** and **Hand Clap** parts contained in the **Snare/Clap** clip in another one of the tracks labeled **808 Core Kit**.
 
 ![Twinkle song cymbal part](./images/twinkle_snare_full_screenshot.png)
 
@@ -160,7 +165,7 @@ Looking at the following image of the Quantum Music Playground, we see that ther
 
 
 
-One difference is that the phase gate on the quantum circuit is labeled **z1**, but there is no **z1** gate in the toolbox. This is because out of the 16 possible gates that rotate multiples of π/8 radians, only five of them (**T**, **S**, **Z**, **S†** and **T†**) have names. The rest are expressed in Quantum Music Playground with a lower case **z** and the number of π/8 radians by which they rotate the phase. Here is a table of phase gates and their rotations expressed in π/8 radians.
+One difference is that the [Phase gate](https://quantum-computing.ibm.com/composer/docs/operations-glossary/operations-glossary#phase-gate) on the quantum circuit is labeled **z1**, but there is no **z1** gate in the toolbox. This is because out of the 16 possible phase gates that rotate multiples of π/8 radians, only five of them (**T**, **S**, **Z**, **S†** and **T†**) have names. The rest are expressed in Quantum Music Playground with a lower case **z** and the number of π/8 radians by which they rotate the phase. Here is a table of phase gates and their rotations expressed in π/8 radians.
 
 | Phase gate:      | z0   | z1   | T    | z3   | S    | z5   | z6   | z7   | Z    | z9   | z10  | z11  | S†   | z13  | T†   | z15  |
 | ---------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -168,7 +173,7 @@ One difference is that the phase gate on the quantum circuit is labeled **z1**, 
 
 
 
-When a gate is placed, or selected on the quantum circuit with the ✋ tool (near the bottom right in the toolbox), it may be rotated by adjusting the Rotate slider, or clicking and dragging the gate vertically.
+When a gate is placed, or selected on the quantum circuit with the ✋ tool (near the bottom right in the toolbox), it may be rotated by adjusting the **Rotate** slider, or clicking and dragging the gate vertically.
 
 
 
@@ -178,7 +183,7 @@ Another difference from the previous example is that an **X** gate, also known a
 
 
 
-Now that we've used the X gate to play on the off beat, let's use it to syncopate a simple bass line.
+Now that we've used the **X** gate to play on the off beat, let's use it to syncopate a simple bass line.
 
 
 
@@ -202,11 +207,11 @@ This is seen more clearly in the following image, in which the notes appear on s
 
 
 
-Now that we've discussed how to syncopate rhythms with X and CNOT gates, we'll introduce another way to manipulate rhythms.
+Now that we've discussed how to syncopate rhythms with **X** and CNOT gates, we'll introduce another way to manipulate rhythms.
 
-### Manipulating rhythms with controlled H gates
+### Manipulating rhythms with controlled-H gates
 
-We've leveraged **H** gates quite a bit to create rhythm patterns so far. Now we'll add control gate modifiers to **H** gates for more rhythmic control. In the following image of the **Doubling** clip in Quantum Music Playground, notice the use of control gate modifiers with some of the **H** gates to implement a well-known drum pattern in electronic dance music. This doubling pattern is achieved in part by making the **H** gate on wire **q0** conditional on whether the final eight out of 32 steps in the pattern are being played. Note that we're using two control gate modifiers in that column, in this case making the **H** gate active only when the 32 basis states (numbered `00000` through `11111`) begin with `11`.
+We've leveraged **H** gates quite a bit to create rhythm patterns so far. Now we'll add control gate modifiers to **H** gates for more rhythmic control. In the following image of the **Doubling** clip in Quantum Music Playground, notice the use of control gate modifiers with some of the **H** gates to implement a well-known drum pattern in electronic dance music. This doubling pattern is achieved in part by making the **H** gate on wire **q0** conditional on whether the final eight out of 32 steps in the pattern are being played. Note that we're using two control gate modifiers in that column, in this case making the **H** gate active only on those of the 32 basis states (numbered `00000` through `11111`) that begin with `11`.
 
 ![Quantum Music Playground screenshot](./images/twinkle_doubling_qmp.png)
 
@@ -216,7 +221,7 @@ Now that we've discussed multiple ways of creating patterns, we'll introduce way
 
 ### Dropping notes out of a pattern
 
-Creating a rhythm is as much about the notes that are not played as the notes that are. Therefore, an important part of rhythm is inserting rests. There are several techniques for doing so with Quantum Music Playground, with the first method being turning down the amplitude of their basis states. To demonstrate this, we'll play the "up above the world so high, like a diamond in the sky" phrase of the melody in *Twinkle Twinkle Little Star*. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the note pitches to be played by the piano in the **Twinkle B** clip of the track labeled **Grand Piano**.
+Creating a rhythm is as much about the notes that are not played as the notes that are played. Therefore, an important part of rhythm is inserting rests. There are several techniques for doing so with Quantum Music Playground, with the first method being turning down the *probability amplitude* of their basis states. To demonstrate this, we'll play the "up above the world so high, like a diamond in the sky" phrase of the melody in *Twinkle Twinkle Little Star*. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the note pitches to be played by the piano in the **Twinkle B** clip of the track labeled **Grand Piano**.
 
 
 
@@ -238,7 +243,7 @@ These are examples of the more general [RY gate](https://quantum-computing.ibm.c
 
 
 
-An effect of rotating a wire with an RY gate is that its probability amplitude can increase or decrease. We leverage this effect in Quantum Music Playground by setting a probability amplitude threshold, below which a given basis state's note won't be played. By applying certain RY gates on one or more wires, corresponding notes may be directed not to play. In the the **Twinkle B** example, we're applying slight Y rotations on wires **q1** - **q3**, which has the effect of dropping out the notes on the basis states that begin with `111`. This is illustrated in the following image.
+An effect of rotating a wire with an RY gate is that its probability amplitude may increase or decrease. We leverage this effect in Quantum Music Playground by setting a probability amplitude threshold, below which a given basis state's note won't be played. By applying certain RY gates on one or more wires, corresponding notes may be directed not to play. In the the **Twinkle B** example, we're applying slight Y rotations on wires **q1** - **q3**, which has the effect of dropping out the notes on the basis states that begin with `111`. This is illustrated in the following image.
 
 <img src="./images/twinkle_lead_b_musical_sequence.png" alt="Twinkle lead B musical sequence" width=80%/>
 
@@ -261,7 +266,7 @@ Another way to drop out a note is to select the **Rest 15** toggle button, and u
 
 
 
-This example leverages multiple control gate modifiers. In this case, the **T†** gate will only be rotated for basis states who bits corresponding to **q2** and **q3** are both `1` . We'll explore control gate modifiers in more detail next.
+This example leverages multiple control gate modifiers. In this case, the **T†** gate will only be rotated for basis states whose bits corresponding to **q2** and **q3** are both `1` . We'll explore control gate modifiers in more detail next.
 
 
 
@@ -284,7 +289,7 @@ The following table shows which gates in Quantum Music Playground may have contr
 
 
 
-Now that we've discussed how to express melodic and rhythmic sequences with quantum circuits, let's explore additional musical functionality available in Quantum Music Playground.
+Note that if a column on a quantum circuit contains more than one of these gates, each will share the same control gate modifiers in the column. For example if a column contains one **X** gate, one **H** gate, and one control gate modifier, the **X** gate will become a CNOT gate, and the **H** gate will be become a controlled-H gate. Now that we've discussed how to express melodic and rhythmic sequences with quantum circuits, let's explore additional musical functionality available in Quantum Music Playground.
 
 
 
@@ -298,13 +303,13 @@ Up to this point we've focused on creating quantum circuits to select instrument
 
 ### Selecting musical octaves
 
-In Ableton Live, a track may contain either a bank of instruments (e.g. a drum kit), or an instrument that plays pitches. In the former case, a MIDI note selects an instrument, and in the latter case a MIDI note selects a note pitch. In the following screenshot from the previous example of the **Hats A** clip, the vertical slider labeled **Octave** has **Kit** selected.
+In Ableton Live, a track may contain either a rack of instruments (e.g. a drum kit), or an instrument that plays pitches. In the former case, a MIDI note selects an instrument, and in the latter case a MIDI note selects a note pitch. In the following screenshot from the previous example of the **Hats A** clip, the vertical slider labeled **Octave** has **Kit** selected.
 
 ![Quantum Music Playground screenshot](./images/twinkle_hats_qmp.png)
 
 
 
-The instrument names displayed in the column to the left of the musical sequence grid are from the drum kit placed on the same track as the **Hats A** clip resides. The MIDI note values generated when **Kit** is selected range from 36 through 51, which often correspond to the main instruments in an instrument bank.
+The instrument names displayed in the column to the left of the musical sequence grid are from the drum kit placed on the same track as the **Hats A** clip resides. The MIDI note values generated when **Kit** is selected range from 36 through 51, which often correspond to the main instruments in an instrument rack.
 
 By contrast, in the following screenshot from the previous example of the **Bass B** clip, the vertical slider labeled **Octave** has **0** selected.
 
@@ -312,11 +317,9 @@ By contrast, in the following screenshot from the previous example of the **Bass
 
 
 
-Available octave numbers selections are **-1**, **0**, **1**, **2**, **3** and **4**. Selecting an octave number normally causes the lowest pitch in the musical sequence grid to be the note C in the corresponding octave. For example, in the **Bass B** clip, selecting **Octave 0** causes the lowest pitch in the musical sequence grid to be **C0**.
+Available octave number selections are **-1**, **0**, **1**, **2**, **3** and **4**. Selecting an octave number normally causes the lowest pitch in the musical sequence grid to be the note C in the corresponding octave. For example, in the **Bass B** clip, selecting **Octave 0** causes the lowest pitch in the musical sequence grid to be **C0**.
 
 ### Changing musical scales
-
-TODO: Verify that musical modes were implement correctly in QMP.
 
 By default, the musical scale known as **Major** is selected in the **Scales** slider. Several other scales and modes (e.g. NatMinor and Dorian) are available by selecting them in the slider. As shown in the following image, when the scale or mode is changed the musical pitches in the column to the left of the musical sequence grid change appropriately.
 
@@ -326,7 +329,7 @@ By default, the musical scale known as **Major** is selected in the **Scales** s
 
 ### Transposing musical pitches
 
-By default, the lowest note in the musical sequence grid is C, playing in the key of C. To play in another musical key, select the number of semitones to transpose in the **Transpo** slider. As shown in the following image, when the key is transposed the musical pitches in the column to the left of the musical sequence grid change appropriately.
+By default, the lowest note in the musical sequence grid is C, playing in the key of C. To play in another musical key, select the number of semitones to transpose in the **Transpo** slider. As shown in the following image, when the key is transposed the musical pitches in the column to the left of the musical sequence grid change accordingly.
 
 ![Quantum Music Playground screenshot](./images/qmp_transpose.png)
 
@@ -354,7 +357,7 @@ Notes play for a duration of one quarter note by default. To make notes play wit
 
 ### Implementing time cycles
 
-Some of the most common time signatures and loop lengths in music are some power of 2. When other time cycles are desired (e.g. playing in 5/4 time signature, or in some Indian classical time cycles), a different length may be selected. For example, the following image shows part of the *Twinkle Twinkle Little Star* melody being played in 7/4 time. 
+Some of the most common time signatures and loop lengths in music are some power of 2. When other time cycles are desired (e.g. playing in 5/4 time signature, or in some Indian classical time cycles), a different length may be selected. For example, the following image shows part of the *Twinkle Twinkle Little Star* melody in clip **Twinkle A** being played in 7/4 time. 
 
 ![Quantum Music Playground screenshot](./images/qmp_time_cycle_selection.png)
 
@@ -364,15 +367,29 @@ This is achieved by selecting 14 in the **Cycle A** slider, which removes all mu
 
 ### Generating stochastic pitches
 
+All of the Quantum Music Playground functionality covered so far has been deterministic, which leverages that fact that we have access to the probability amplitudes and phases of the basis states in a quantum state. We only have access to this information because Quantum Music Playground uses a quantum simulator. Using a real quantum computer, information about an underlying quantum state is more opaque, and may only be glimpsed at via repeated measurements. To introduce some quantum measurement randomness, select the **Stochastic** toggle button as shown in the following image of the **Twinkle Stoch** clip.
+
+![Quantum Music Playground screenshot](./images/qmp_stochastic_toggle.png)
+
+
+
+As a visual indication that pitches have been generated via measurement, notes in the musical sequence grid are bright green. The musical sequence contains the same number of notes and temporal spacing as before. However, the generated pitches result from taking one measurement of the quantum circuit for each of the notes, and using the pitch that corresponds to the basis state resulting from each measurement. 
+
+When a clip has the **Stochastic** toggle selected, new pitches will be generated each time the clip is loaded. If the user modifies the quantum circuit or any other setting, the clip will toggle out of **Stochastic** mode.
+
 ## Miscellaneous functionality
 
+Quantum Music Playground contain functionality not directly related to music composition, such as loading and selecting MIDI clips, and moving all gates on the quantum circuit.
+
 ### Loading MIDI clips
+
+
 
 #### QMP metadata in MIDI clips
 
 ### Selecting a MIDI clip
 
-### Moving gates on the quantum circuit
+### Moving all gates on the quantum circuit
 
 ## Indian classical music related functionality
 

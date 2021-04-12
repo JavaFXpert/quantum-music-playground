@@ -18,6 +18,7 @@
  * Quantum DJ device circuit pad that may be used even when
  * a Push 2 device is not connected.
  *
+ * TODO: Verify that musical modes are implemented correctly
  * TODO: Identify color scheme that accommodate pi/8
  * TODO: Inquire surface number for Push
  * TODO: Fix Swap gates, and implement controlled-Swap
