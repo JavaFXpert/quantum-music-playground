@@ -377,6 +377,28 @@ As a visual indication that pitches have been generated via measurement, notes i
 
 When a clip has the **Stochastic** toggle selected, new pitches will be generated each time the clip is loaded. If the user modifies the quantum circuit or any other setting, the clip will toggle out of **Stochastic** mode.
 
+
+
+## Indian classical music related functionality
+
+Quantum Music Playground contains some limited functionality that supports composing Indian classical music. This functionality includes the ability to select ragas instead of western scales, and to control the lengths of complex time cycles.
+
+### Selecting ragas
+
+The following image of Quantum Music Playground shows the first of the fundamental sequences (Sarali varisai lesson 1), used to teach Carnatic music. It is played in the Mayamalavagowla raga, which is number 15 in the [Melakarta ragas](https://en.wikipedia.org/wiki/Melakarta#Table_of_Melakarta_ragas). To select this raga, first press the **Ragas** button, after which the **Scales** slider becomes a **Ragas** slider. Then select **Raga15** from the **Ragas** slider.
+
+![Quantum Music Playground screenshot](./images/qmp_v_sar_var_1.png)
+
+
+
+### Controlling lengths of time cycles
+
+As discussed previously, Quantum Music Playground supports nested time cycles, such as required by the multi-cycle sequences in Carnatic lessons known as Alankaras. In the following example, the **Cycle B** slider is used in conjunction with **Cycle A** to implement the time cycles for Alankara lesson 6.
+
+![Quantum Music Playground screenshot](./images/qmp_v_alan_3.png)
+
+
+
 ## Miscellaneous functionality
 
 Quantum Music Playground contain functionality not directly related to music composition, such as loading and selecting MIDI clips, and moving all gates on the quantum circuit.
@@ -407,15 +429,7 @@ To select a different MIDI clip in Quantum Music Playground, click the dropdown 
 
 It is often desirable to move all of the operations in a quantum circuit to the left or right in order to make room for a column of operations. It is also desirable to move all of the operations in a quantum circuit up or down, as that halves or doubles the number of steps in the musical sequence, changing its speed relative to other clips. Provided the appropriate row or column is empty, the left, right, up and down buttons, labeled ''**<**'', ''**>**'', ''**^**'' and ''**v**'' respectively, may be used for those purposes.
 
-## Indian classical music related functionality
-
-
-
-### Selecting Carnatic ragas
-
-### Controlling lengths of timecycles
-
-
+## 
 
 TODO: Left off here
 
