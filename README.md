@@ -1,4 +1,4 @@
-# Quantum Music Playground
+# Quantum Music Playground 0.91 Tutorial
 ## Summary
 
 Playground for composing music using quantum states. Implemented as a Max for Live device in Ableton Live 11, and includes a MicroQiskit quantum simulator. Apache 2.0 licensed. Developed by James L. Weaver, [@JavaFXpert on Twitter](https://twitter.com/JavaFXpert). 
@@ -15,7 +15,7 @@ Playground for composing music using quantum states. Implemented as a Max for Li
 
 ## Introduction
 
-The Quantum Music Playground is a tool for composing music, as well as an enjoyable way of gaining intuition about quantum circuits and states. It is implemented as a Max for Live device in the Ableton Live 11 digital audio workstation (DAW), and includes a MicroQiskit quantum simulator.. The following screenshot shows an Ableton Live Session View that contains [MIDI](https://en.wikipedia.org/wiki/MIDI) clips that play an arrangement of the well known song entitled *Twinkle Twinkle Little Star*.
+The Quantum Music Playground is a tool for composing music, as well as an enjoyable way of gaining intuition about quantum circuits and states. It is implemented as a Max for Live device in the Ableton Live 11 digital audio workstation (DAW), and includes a MicroQiskit quantum simulator. The following screenshot shows an Ableton Live Session View that contains [MIDI](https://en.wikipedia.org/wiki/MIDI) clips that play an arrangement of the well known song entitled *Twinkle Twinkle Little Star*.
 
 > The Ableton Live set from which many of the examples in this tutorial were taken may be [downloaded](https://github.com/JavaFXpert/quantum-music-playground/raw/master/sets/twinkle.als) from the [Quantum Music Playground repository](https://github.com/JavaFXpert/quantum-music-playground).
 
@@ -73,7 +73,7 @@ You may be wondering why the bass drum, and not the other percussion instruments
 
 ## Choosing instruments and pitches
 
-Up to this point we've created a simple bass drum beat pattern by placing Hadamard gates on a quantum circuit. Now we're going to choose a different instrument to provide a cymbal crash at the beginning of each measure. As before, at the bottom of the following screenshot is the Quantum Music Playground device, now expressing the cymbal part contained in the **Crash** clip in another one of the tracks labeled **808 Core Kit**. 
+Up to this point we've created a simple bass drum beat pattern by placing Hadamard gates on a quantum circuit. Now we're going to choose a different instrument to provide a cymbal crash at the beginning of each measure. As before, at the bottom of the following screenshot is the Quantum Music Playground device, now expressing the cymbal part contained in the **Crash** clip in another one of the tracks labeled **808 Core Kit**. You may navigate to the that clip by selecting **Crash** from the dropdown list to the right of the **Load clips** button in the Quantum Music Playground device.
 
 ![Twinkle song cymbal part](./images/twinkle_crash_full_screenshot.png)
 
@@ -432,5 +432,9 @@ To select a different MIDI clip in Quantum Music Playground, click the dropdown 
 ### Moving all operations on the quantum circuit
 
 It is often desirable to move all of the operations in a quantum circuit to the left or right in order to make room for a column of operations. It is also desirable to move all of the operations in a quantum circuit up or down, as that halves or doubles the number of steps in the musical sequence, changing its speed relative to other clips. Provided the appropriate row or column is empty, the left, right, up and down buttons, labeled ''**<**'', ''**>**'', ''**^**'' and ''**v**'' respectively, may be used for those purposes.
+
+## Questions / Issues?
+
+Please reach out to [@JavaFXpert on Twitter](https://twitter.com/JavaFXpert), or open an issue in the [Quantum Music Playground repository](https://github.com/JavaFXpert/quantum-music-playground).
 
 ## 
