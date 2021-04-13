@@ -71,7 +71,7 @@ Putting that all together, the bass drum will play on all of the basis states wh
 >
 > Experiment with simple bass drum beat patterns by removing and placing **H** gates on the quantum circuit. To remove a gate, press the ⌫ tool (bottom right of toolboxl) and press a gate to delete. To add an **H** gate, press the **H** gate (upper left in toolbox) and press a location on the quantum circuit. 
 >
-> Here is a [video of such an experimentation session](https://youtu.be/inJbKNVu3vQ). Notice that the user clicked the track's Solo button (labeled **S**) and adjusted its mivolume so that the bass drum could be heard clearly while experimenting. 
+> Here is a [video of such an experimentation session](https://youtu.be/inJbKNVu3vQ). Notice that the user clicked the track's **S**olo button and adjusted its mixer volume so that the bass drum could be heard clearly while experimenting. 
 
 
 
@@ -104,6 +104,8 @@ As mentioned previously, each individual basis state contains a phase angle. Shi
 > **Try it out:**
 >
 > Experiment with shifting the global phase angle by selecting the **Phase** button, moving the **Phs shft** slider up or down, and then selecting the **Pitch** button to keep the global phase from automatically shifting.
+>
+> Here is a [video of such an experimentation session](https://youtu.be/pGVkbw5xuS0). I guess the song needed more cowbell!
 
 
 
@@ -157,7 +159,7 @@ The **S†** gate rotates the phase on a wire by 12π/8 radians. However, when a
 
 > **Try it out:**
 >
-> Create different beat patterns that consist of closed and open hi-hats
+> Create different beat patterns that consist of closed and open hi-hats by placing the phase gates and control gate modifiers on various wires. Here is a [video with such experimentation](https://youtu.be/5QKDtJ25Zrg).
 
 
 
