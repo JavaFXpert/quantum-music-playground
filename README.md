@@ -69,7 +69,9 @@ Putting that all together, the bass drum will play on all of the basis states wh
 
 > **Try it out:**
 >
-> Experiment with simple bass drum beat patterns by removing and placing **H** gates on the quantum circuit. To remove a gate, press the ⌫ tool (bottom right of toolboxl) and press a gate to delete. To add an **H** gate, press the **H** gate (upper left in toolbox) and press a location on the quantum circuit.
+> Experiment with simple bass drum beat patterns by removing and placing **H** gates on the quantum circuit. To remove a gate, press the ⌫ tool (bottom right of toolboxl) and press a gate to delete. To add an **H** gate, press the **H** gate (upper left in toolbox) and press a location on the quantum circuit. 
+>
+> Here is a [video of such an experimentation session](https://youtu.be/inJbKNVu3vQ). Notice that the user clicked the track's Solo button (labeled **S**) and adjusted its mivolume so that the bass drum could be heard clearly while experimenting. 
 
 
 
