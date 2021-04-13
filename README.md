@@ -395,7 +395,7 @@ The following image of Quantum Music Playground shows the first of the fundament
 
 
 
-Here is a [video of Sarali Varisai 1](https://vimeo.com/536420002) playing in Ableton Live, using Veena, Mridangam and Tabla (instruments) whose clips are expressed using quantum circuits. 
+Here is a [video of Sarali Varisai 1](https://youtu.be/abA6kk_AmIM) playing in Ableton Live, using Veena, Mridangam and Tabla (instruments) whose clips are expressed using quantum circuits. 
 
 
 
