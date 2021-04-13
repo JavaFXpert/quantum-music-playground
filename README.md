@@ -1,7 +1,7 @@
 # Quantum Music Playground 0.91 Tutorial
 ## Summary
 
-Playground for composing music using quantum states. Implemented as a Max for Live device in Ableton Live 11, and includes a MicroQiskit quantum simulator. Apache 2.0 licensed. Developed by James L. Weaver, [@JavaFXpert on Twitter](https://twitter.com/JavaFXpert). 
+Playground for composing music using quantum states. Implemented as a Max for Live device in Ableton Live 11, and includes a MicroQiskit quantum simulator. Free, open source, Apache 2.0 licensed. Developed by James L. Weaver, [@JavaFXpert on Twitter](https://twitter.com/JavaFXpert). 
 
 ![Quantum Music Playground screenshot](./images/qmp_0_9_screenshot.png)
 
@@ -18,6 +18,10 @@ Playground for composing music using quantum states. Implemented as a Max for Li
 The Quantum Music Playground is a tool for composing music, as well as an enjoyable way of gaining intuition about quantum circuits and states. It is implemented as a Max for Live device in the Ableton Live 11 digital audio workstation (DAW), and includes a MicroQiskit quantum simulator. The following screenshot shows an Ableton Live Session View that contains [MIDI](https://en.wikipedia.org/wiki/MIDI) clips that play an arrangement of the well known song entitled *Twinkle Twinkle Little Star*.
 
 > The Ableton Live set from which many of the examples in this tutorial were taken may be [downloaded](https://github.com/JavaFXpert/quantum-music-playground/raw/master/sets/twinkle.als) from the [Quantum Music Playground repository](https://github.com/JavaFXpert/quantum-music-playground).
+>
+> Here is a [video of Twinkle Twinkle Little Star](https://youtu.be/5D2mmwkyJVM) paying in Ableton Live, using Piano, Bass and various percussion instruments, whose clips are expressed using quantum circuits.
+
+
 
 ![Twinkle song kick drum part](./images/twinkle_kick_screenshot.png)
 
