@@ -395,7 +395,7 @@ The following image of Quantum Music Playground shows the first of the fundament
 
 
 
-Here is a [video of Sarali Varisai 1](https://youtu.be/abA6kk_AmIM) playing in Ableton Live, using Veena, Mridangam and Tabla (instruments) whose clips are expressed using quantum circuits. 
+Here is a [video of Sarali Varisai 1](https://youtu.be/q5gl7wVJjks) playing in Ableton Live, using Veena, Mridangam and Tabla (instruments) whose clips are expressed using quantum circuits. 
 
 
 
@@ -407,7 +407,9 @@ As discussed previously, Quantum Music Playground supports nested time cycles, s
 
 
 
+Here is a [video of Alankara 3](https://youtu.be/abA6kk_AmIM) paying in Ableton Live, using Veena, Mridangam and Tabla (instruments) whose clips are expressed using quantum circuits.
 
+ 
 
 ## Miscellaneous functionality
 
