@@ -247,7 +247,7 @@ These are examples of the more general [RY gate](https://quantum-computing.ibm.c
 
 
 
-An effect of rotating a wire with an RY gate is that its probability amplitude may increase or decrease. We leverage this effect in Quantum Music Playground by setting a probability amplitude threshold, below which a given basis state's note won't be played. By applying certain RY gates on one or more wires, corresponding notes may be directed not to play. In the the **Twinkle B** example, we're applying slight Y rotations on wires **q1** - **q3**, which has the effect of dropping out the notes on the basis states that begin with `111`. This is illustrated in the following image.
+An effect of rotating a wire with an RY gate is that its probability amplitude may increase or decrease. We leverage this effect in Quantum Music Playground by setting a probability amplitude threshold, below which a given basis state's note won't be played. By applying certain RY gates on one or more wires, corresponding notes may be directed not to play. In the **Twinkle B** example, we're applying slight Y rotations on wires **q1** - **q3**, which has the effect of dropping out the notes on the basis states that begin with `111`. This is illustrated in the following image.
 
 <img src="./images/twinkle_lead_b_musical_sequence.png" alt="Twinkle lead B musical sequence" width=80%/>
 
@@ -389,17 +389,23 @@ Quantum Music Playground contains some limited functionality that supports compo
 
 ### Selecting ragas
 
-The following image of Quantum Music Playground shows the first of the fundamental sequences (Sarali varisai lesson 1), used to teach Carnatic music. It is played in the Mayamalavagowla raga, which is number 15 in the [Melakarta ragas](https://en.wikipedia.org/wiki/Melakarta#Table_of_Melakarta_ragas). To select this raga, first press the **Ragas** button, after which the **Scales** slider becomes a **Ragas** slider. Then select **Raga15** from the **Ragas** slider.
+The following image of Quantum Music Playground shows the first of the fundamental sequences (Sarali Varisai 1), used to teach Carnatic music. It is played in the Mayamalavagowla raga, which is number 15 in the [Melakarta ragas](https://en.wikipedia.org/wiki/Melakarta#Table_of_Melakarta_ragas). To select this raga, first press the **Ragas** button, after which the **Scales** slider becomes a **Ragas** slider. Then select **Raga15** from the **Ragas** slider.
 
 ![Quantum Music Playground screenshot](./images/qmp_v_sar_var_1.png)
 
 
 
+Here is a [video of Sarali Varisai 1](https://vimeo.com/536420002) playing in Ableton Live, using Veena, Mridangam and Tabla (instruments) whose clips are expressed using quantum circuits. 
+
+
+
 ### Controlling lengths of time cycles
 
-As discussed previously, Quantum Music Playground supports nested time cycles, such as required by the multi-cycle sequences in Carnatic lessons known as Alankaras. In the following example, the **Cycle B** slider is used in conjunction with **Cycle A** to implement the time cycles for Alankara lesson 6.
+As discussed previously, Quantum Music Playground supports nested time cycles, such as required by the multi-cycle sequences in Carnatic lessons known as Alankaras. In the following example, the **Cycle B** slider is used in conjunction with **Cycle A** to implement the time cycles for Alankara 3.
 
 ![Quantum Music Playground screenshot](./images/qmp_v_alan_3.png)
+
+
 
 
 
