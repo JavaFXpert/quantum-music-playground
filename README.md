@@ -225,6 +225,10 @@ This is seen more clearly in the following image, in which the notes appear on s
 
 
 
+**Try it out:**
+
+Create different beat patterns by placing and removing **X** gates on empty wires, placing a control gate modifier in the same column to the right of an **H** gate. Also, add **H** and phase gates to empty wires, rotating the latter until melodically pleasing. Here is a [video with such experimentation](https://youtu.be/U78tB4lgPsk).
+
 Now that we've discussed how to syncopate rhythms with **X** and CNOT gates, we'll introduce another way to manipulate rhythms.
 
 
