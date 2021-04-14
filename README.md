@@ -9,16 +9,17 @@ Playground for composing music using quantum states. Implemented as a Max for Li
 
 > Please note that it is ***not*** necessary to have prior knowledge of quantum computing in order to use Quantum Music Playground. We'll sneak in what you need to know as we go along, and will reference helpful (but not essential to internalize) resources.
 >
-> It is necessary to have a version of Ableton Live that supports Max for Live devices, which is [available as a 90 day free trial](https://www.ableton.com/en/trial/) at the time of this writing.
+> It is necessary to have a version of Ableton Live that supports Max for Live devices, which is [available as a 90 day free trial](https://www.ableton.com/en/trial/) at the time of this writing. Ableton Live 11 Suite will work, and so will Ableton Live 11 Standard plus Max for Live.
 >
 
 ## Introduction
 
-The Quantum Music Playground is a tool for composing music, as well as an enjoyable way of gaining intuition about quantum circuits and states. It is implemented as a Max for Live device in the Ableton Live 11 digital audio workstation (DAW), and includes a MicroQiskit quantum simulator. The following screenshot shows an Ableton Live Session View that contains [MIDI](https://en.wikipedia.org/wiki/MIDI) clips that play an arrangement of the well known song entitled *Twinkle Twinkle Little Star*.
+The Quantum Music Playground is a tool for composing music, as well as an enjoyable way of gaining intuition about quantum circuits and states. It is implemented as a Max for Live device in the Ableton Live 11 digital audio workstation (DAW), and includes a MicroQiskit quantum simulator. The following screenshot shows an Ableton Live Session View that contains [MIDI](https://en.wikipedia.org/wiki/MIDI) clips that play an arrangement of the well known song entitled *Twinkle Twinkle Little Star*. Please perform these two steps so that you can play the musical examples and participate in the tutorial activities:
 
-> The Ableton Live set from which many of the examples in this tutorial were taken may be [downloaded](https://github.com/JavaFXpert/quantum-music-playground/raw/master/sets/twinkle.als) from the [sets folder of the Quantum Music Playground repository](https://github.com/JavaFXpert/quantum-music-playground//tree/master/sets).
->
-> It is necessary to [download the Quantum Music Playground 0.91 device](https://github.com/JavaFXpert/quantum-music-playground/raw/master/releases/Quantum%20Music%20Playground%200.91.amxd) from the [releases folder of the Quantum Music Playground repository](https://github.com/JavaFXpert/quantum-music-playground/tree/master/releases) and drag it into its own empty MIDI track (by convention in the leftmost track, naming it **QMP**).
+1. The Ableton Live set from which many of the examples in this tutorial were taken may be [downloaded](https://github.com/JavaFXpert/quantum-music-playground/raw/master/sets/twinkle.als) from the [sets folder of the Quantum Music Playground repository](https://github.com/JavaFXpert/quantum-music-playground//tree/master/sets). Please open this set in Ableton Live 11. 
+2. It is necessary to [download the Quantum Music Playground 0.91 device](https://github.com/JavaFXpert/quantum-music-playground/raw/master/releases/Quantum%20Music%20Playground%200.91.amxd) from the [releases folder of the Quantum Music Playground repository](https://github.com/JavaFXpert/quantum-music-playground/tree/master/releases) and drag it into its own empty MIDI track (by convention in the leftmost track, naming it **QMP**).
+
+Here is a [video that shows performing these steps on a Mac](https://youtu.be/8tqGcLVzMZU), but the process on Windows is very similar.
 
 
 
