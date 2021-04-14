@@ -197,6 +197,10 @@ Another difference from the previous example is that an **X** gate, also known a
 
 
 
+**Try it out:**
+
+Create different beat patterns that consist of **Snare Drum** and **Hand Claps** by placing and removing X gates, and H gates, on empty wires. Here is a [video with such experimentation](https://youtu.be/hLGfqiLndGE).
+
 Now that we've used the **X** gate to play on the off beat, let's use it to syncopate a simple bass line.
 
 
@@ -223,6 +227,8 @@ This is seen more clearly in the following image, in which the notes appear on s
 
 Now that we've discussed how to syncopate rhythms with **X** and CNOT gates, we'll introduce another way to manipulate rhythms.
 
+
+
 ### Manipulating rhythms with controlled-H gates
 
 We've leveraged **H** gates quite a bit to create rhythm patterns so far. Now we'll add control gate modifiers to **H** gates for more rhythmic control. In the following image of the **Doubling** clip in Quantum Music Playground, notice the use of control gate modifiers with some of the **H** gates to implement a well-known drum pattern in electronic dance music. This doubling pattern is achieved in part by making the **H** gate on wire **q0** conditional on whether the final eight out of 32 steps in the pattern are being played. Note that we're using two control gate modifiers in that column, in this case making the **H** gate active only on those of the 32 basis states (numbered `00000` through `11111`) that begin with `11`.
@@ -236,8 +242,6 @@ Now that we've discussed multiple ways of creating patterns, we'll introduce way
 ### Dropping notes out of a pattern
 
 Creating a rhythm is as much about the notes that are not played as the notes that are played. Therefore, an important part of rhythm is inserting rests. There are several techniques for doing so with Quantum Music Playground, with the first method being turning down the *probability amplitude* of their basis states. To demonstrate this, we'll play the "up above the world so high, like a diamond in the sky" phrase of the melody in *Twinkle Twinkle Little Star*. The bottom of the following screenshot shows the Quantum Music Playground device, now expressing the note pitches to be played by the piano in the **Twinkle B** clip of the track labeled **Grand Piano**.
-
-
 
 ![Twinkle song cymbal part](./images/twinkle_lead_b_full_screenshot.png)
 
