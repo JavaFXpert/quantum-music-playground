@@ -311,7 +311,7 @@ The following table shows which gates in Quantum Music Playground may have contr
 
 
 
-Note that if a column on a quantum circuit contains more than one of these gates, each will share the same control gate modifiers in the column. For example if a column contains one **X** gate, one **H** gate, and one control gate modifier, the **X** gate will become a CNOT gate, and the **H** gate will be become a controlled-H gate. Now that we've discussed how to express melodic and rhythmic sequences with quantum circuits, let's explore additional musical functionality available in Quantum Music Playground.
+Please note that if a column on a quantum circuit contains more than one of these gates, each will share the same control gate modifiers in the column. For example if a column contains one **X** gate, one **H** gate, and one control gate modifier, the **X** gate will become a CNOT gate, and the **H** gate will be become a controlled-H gate. Now that we've discussed how to express melodic and rhythmic sequences with quantum circuits, let's explore additional musical functionality available in Quantum Music Playground.
 
 
 
