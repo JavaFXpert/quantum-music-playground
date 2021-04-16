@@ -731,61 +731,6 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
     }
-
-    /*
-    else if (ctrlWires.length == 3) {
-      //TODO: Decide whether to implement more than 2 control wires with H gates =================
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-
-      qasmStr += ' ry(pi/4) q[' + gridRow + '];' +
-        ' crx(pi/2) q[' + ctrlWires[2].wireNum + '],' + 'q[' + gridRow + '];' + ' ry(-pi/4) q[' + gridRow + '];';
-
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-
-      qasmStr += ' ry(pi/4) q[' + gridRow + '];' +
-        ' crx(-pi/2) q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];' + ' ry(-pi/4) q[' + gridRow + '];';
-
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-
-      qasmStr += ' ry(pi/4) q[' + gridRow + '];' +
-        ' crx(pi/2) q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];' + ' ry(-pi/4) q[' + gridRow + '];';
-
-      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' ry(pi/4) q[' + gridRow + '];' +
-        ' crx(-pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];' + ' ry(-pi/4) q[' + gridRow + '];';
-
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' ry(pi/4) q[' + gridRow + '];' +
-        ' crx(pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];' + ' ry(-pi/4) q[' + gridRow + '];';
-
-      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' ry(pi/4) q[' + gridRow + '];' +
-        ' crx(-pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];' + ' ry(-pi/4) q[' + gridRow + '];';
-
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' ry(pi/4) q[' + gridRow + '];' +
-        ' crx(pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];' + ' ry(-pi/4) q[' + gridRow + '];';
-
-      // un-NOT the anti-control wires
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-
-      // TODO: Find better way to implement multiple CTRL-H to not introduce a phase?
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ' cp(pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-    }
-    */
-
   }
 
   else if ((circNodeType >= CircuitNodeTypes.RX_0 && circNodeType <= CircuitNodeTypes.RX_15) ||
@@ -828,7 +773,7 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
         qasmStr += ' crx(' + rads + ') q[' + ctrlWireNum + '],' + 'q[' + gridRow + '];';
       }
     }
-    else if (ctrlWires.length == 2) {
+    else if (ctrlWires.length >= 2) {
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
 
@@ -842,170 +787,12 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
 
-      // TODO: Find better way to implement multiple control X & RX gates to not introduce a phase?
-      qasmStr += ' s q[' + gridRow + '];';
-    }
-    else if (ctrlWires.length == 3) {
+      // TODO: Find better way to implement multiple CTRL-X to not introduce a phase?
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[2].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-
-      // un-NOT the anti-control wires
+      qasmStr += ' cp(pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-
-      // TODO: Find better way to implement multiple control X & RX gates to not introduce a phase?
-      qasmStr += ' s q[' + gridRow + '];';
-    }
-    else if (ctrlWires.length == 4) {
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[3].isAntiCtrl ? ' x q[' + ctrlWires[3].wireNum + ']; ' : '';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[3].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[2].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[2].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[2].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[2].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-
-      // un-NOT the anti-control wires
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[3].isAntiCtrl ? ' x q[' + ctrlWires[3].wireNum + ']; ' : '';
-
-      // TODO: Find better way to implement multiple control X & RX gates to not introduce a phase?
-      qasmStr += ' s q[' + gridRow + '];';
-    }
-    else if (ctrlWires.length >= 5) {
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[3].isAntiCtrl ? ' x q[' + ctrlWires[3].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[4].isAntiCtrl ? ' x q[' + ctrlWires[4].wireNum + ']; ' : '';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[4].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[3].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[3].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[3].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[3].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[2].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[2].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[2].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cx q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' crx(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-
-      // un-NOT the anti-control wires
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[3].isAntiCtrl ? ' x q[' + ctrlWires[3].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[4].isAntiCtrl ? ' x q[' + ctrlWires[4].wireNum + ']; ' : '';
-
-      // TODO: Find better way to implement multiple control X & RX gates to not introduce a phase?
-      qasmStr += ' s q[' + gridRow + '];';
     }
   }
 
@@ -1032,172 +819,26 @@ function addGateFromGrid(qasmStr, gridRow, gridCol) {
         qasmStr += ' cry(' + rads + ') q[' + ctrlWireNum + '],' + 'q[' + gridRow + '];';
       }
     }
-    else if (ctrlWires.length == 2) {
+    else if (ctrlWires.length >= 2) {
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
 
       qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
+      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
       qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
+      qasmStr += ' cx q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
       qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
 
       // un-NOT the anti-control wires
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-    }
-    else if (ctrlWires.length == 3) {
+
+      // TODO: Find better way to implement multiple CTRL-Y to not introduce a phase?
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[2].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-
-      // un-NOT the anti-control wires
+      qasmStr += ' cp(pi/2) q[' + ctrlWires[0].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
       qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
       qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-    }
-    else if (ctrlWires.length == 4) {
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[3].isAntiCtrl ? ' x q[' + ctrlWires[3].wireNum + ']; ' : '';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[3].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[2].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[2].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[2].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[2].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-
-      // un-NOT the anti-control wires
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[3].isAntiCtrl ? ' x q[' + ctrlWires[3].wireNum + ']; ' : '';
-    }
-    else if (ctrlWires.length >= 5) {
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[3].isAntiCtrl ? ' x q[' + ctrlWires[3].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[4].isAntiCtrl ? ' x q[' + ctrlWires[4].wireNum + ']; ' : '';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[4].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[3].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[3].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[3].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[3].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[2].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[2].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[2].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[1].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[1].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[1].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[2].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[3].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + (-fracRads) + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-      qasmStr += ' cy q[' + ctrlWires[4].wireNum + '],' + 'q[' + ctrlWires[0].wireNum + '];';
-      qasmStr += ' cry(' + fracRads + ') q[' + ctrlWires[0].wireNum + '],' + 'q[' + gridRow + '];';
-
-      // un-NOT the anti-control wires
-      qasmStr += ctrlWires[0].isAntiCtrl ? ' x q[' + ctrlWires[0].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[1].isAntiCtrl ? ' x q[' + ctrlWires[1].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[2].isAntiCtrl ? ' x q[' + ctrlWires[2].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[3].isAntiCtrl ? ' x q[' + ctrlWires[3].wireNum + ']; ' : '';
-      qasmStr += ctrlWires[4].isAntiCtrl ? ' x q[' + ctrlWires[4].wireNum + ']; ' : '';
     }
   }
 
