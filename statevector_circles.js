@@ -67,7 +67,8 @@ var numSvGrids = 4;
 // Inlet 13 receives 0 for scales, and 1 for ragas, to populate
 //   the Scales/Ragas slider in the UI.
 // Inlet 14 receives messages that indicate whether notes are to be stochastic
-this.inlets = 15;
+// Inlet 15 receives messages that indicate whether notes are to be stochastic
+this.inlets = 16;
 
 // Outlet 0 sends global phase shift
 // Outlet 1 sends pitch transform index
@@ -83,7 +84,8 @@ this.inlets = 15;
 // Outlet 11 sends width messages to this.device
 // Outlet 12 sends 0 if scales, or 1 if ragas, are to be displayed in the UI
 // Outlet 13 sends indication of whether notes are to be stochastic
-this.outlets = 14;
+// Outlet 14 sends indication of whether notes are to be quantized
+this.outlets = 15;
 
 sketch.default2d();
 var vbrgb = [1., 1., 1., 1.];
@@ -149,7 +151,7 @@ var beatsPerMeasure = 4.0;
 
 var curNumBasisStates = 4;
 
-var quantize4steps = false;
+var quantizeNotes = false;
 
 // Dictionary for sending notes to Live
 var notesDict = {
@@ -308,6 +310,11 @@ function msg_int(val) {
     preserveGlobalPhaseShift = true;
     computeProbsPhases();
     preserveGlobalPhaseShift = tempPreserveGlobalPhaseShift;
+  }
+  else if (inlet == 15) {
+    // Quantize notes into harmonic intervals or chords
+    quantizeNotes = (val > 0);
+    computeProbsPhases();
   }
 }
 
@@ -1048,7 +1055,7 @@ function computeProbsPhases() {
     if (notesDict.notes[noteIdx].pitch == 127) {
       notesDict.notes.splice(noteIdx, 1);
     }
-    else if (quantize4steps) {
+    else if (quantizeNotes) {
       notesDict.notes[noteIdx].start_time = Math.floor((notesDict.notes[noteIdx].start_time / quantizeFactor)) * quantizeFactor;
     }
   }
@@ -1127,7 +1134,7 @@ function computeProbsPhases() {
     }
   );
 
-  // Encode flags (legato, reverseScale, halfScale, restPitchNum15)
+  // Encode flags
   // The value encoded is a binary representation, where:
   //   - 0b0000001 place represents legato
   //   - 0b0000010 place represents reverseScale
@@ -1135,6 +1142,7 @@ function computeProbsPhases() {
   //   - 0b0001000 place represents restPitchNum15
   //   - 0b0010000 place represents useRagasInsteadOfScales
   //   - 0b0100000 place represents stochasticPitches
+  //   - 0b1000000 place represents quantizeNotes
   var miscFlagsVal = 0;
   if (legato) {
     miscFlagsVal += 1;
@@ -1153,6 +1161,9 @@ function computeProbsPhases() {
   }
   if (stochasticPitches) {
     miscFlagsVal += 32;
+  }
+  if (quantizeNotes) {
+    miscFlagsVal += 64;
   }
 
   notesDict.notes.push(
@@ -1251,6 +1262,7 @@ function populateCircGridFromClip() {
           restPitchNum15 = (noteMidi & 8) == 8; // restPitchNum15 is represented in 0b0001000 place
           useRagasInsteadOfScales = (noteMidi & 16) == 16; // useRagasInsteadOfScales is represented in 0b0010000 place
           tmpStochasticPitches = (noteMidi & 32) == 32; // stochasticPitches is represented in 0b0100000 place
+          quantizeNotes = (noteMidi & 64) == 64; // quantizeNotes is represented in 0b1000000 place
           //post('\ntmpStochasticPitches: ' + tmpStochasticPitches);
 
           // Send states to UI controls
@@ -1259,6 +1271,7 @@ function populateCircGridFromClip() {
           outlet(5, 'int', halfScale ? 1 : 0);
           outlet(8, 'int', restPitchNum15 ? 1 : 0);
           outlet(12, 'int', useRagasInsteadOfScales ? 1 : 0);
+          outlet(14, 'int', quantizeNotes ? 1 : 0);
 
 
           // Send current scale type value, after useRagasInsteadOfScales is known.
