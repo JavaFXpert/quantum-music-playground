@@ -475,6 +475,18 @@ function colIsEmpty(colIdx) {
 }
 
 
+function lowestOccupiedRow() {
+  var retLowestOccupiedRow = -1;
+  for (rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
+    if (!rowIsEmpty(rowIdx)) {
+      retLowestOccupiedRow = rowIdx;
+      break;
+    }
+  }
+  return retLowestOccupiedRow;
+}
+
+
 /**
  * Given an array with midi pitch and velocity,
  * populates the corresponding circuit grid element

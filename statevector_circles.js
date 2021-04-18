@@ -149,6 +149,8 @@ var beatsPerMeasure = 4.0;
 
 var curNumBasisStates = 4;
 
+var quantize4steps = false;
+
 // Dictionary for sending notes to Live
 var notesDict = {
   notes: []
@@ -1034,15 +1036,24 @@ function computeProbsPhases() {
   var numBeats = beatIdx;
   clip.set('loop_end', numBeats / beatsPerMeasure);
 
-  // Remove midi 127 notes
+  var qpo = this.patcher.getnamed("qasmpad");
+  var lowestOccupiedRow = qpo.js.lowestOccupiedRow();
+  var quantizeFactor = 1;
+  if (lowestOccupiedRow >= 0) {
+    quantizeFactor = Math.pow(2, lowestOccupiedRow);
+  }
+
+  // Remove midi 127 notes and conditionally quantize to make chords
   for (var noteIdx = notesDict.notes.length - 1; noteIdx >= 0; noteIdx--) {
     if (notesDict.notes[noteIdx].pitch == 127) {
       notesDict.notes.splice(noteIdx, 1);
     }
+    else if (quantize4steps) {
+      notesDict.notes[noteIdx].start_time = Math.floor((notesDict.notes[noteIdx].start_time / quantizeFactor)) * quantizeFactor;
+    }
   }
 
   // Encode circuit grid into the clip, after the loop end
-  var qpo = this.patcher.getnamed("qasmpad");
   var startIdx = numBeats;
   for (var colIdx = 0; colIdx < qpo.js.NUM_GRID_COLS; colIdx++) {
     for (var rowIdx = 0; rowIdx < qpo.js.NUM_GRID_ROWS; rowIdx++) {
