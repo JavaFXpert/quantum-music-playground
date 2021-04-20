@@ -26,7 +26,7 @@ var NUM_ADDITIONAL_METADATA_VALUES = 7;
 // Threshold for regarding a state as having any probability
 var PROBABILITY_THRESHOLD = 0.24;
 
-var SV_GRID_POS_X = 547.0;
+var SV_GRID_POS_X = 689.0;
 var SV_GRID_POS_Y = 5.0;
 var SV_GRID_HEIGHT = 160;
 var SV_GRID_STEP_WIDTH = 3.125;
@@ -174,11 +174,8 @@ refresh();
 
 
 function msg_int(val) {
-  //post('\n---------In msg_int-----------');
-
   if (inlet != 3 && inlet != 14) {
     // Turn off stochastic behavior
-    //post('\noutlet 13 0, inlet: ' + inlet);
     outlet(13, 'int', 0);
   }
 
@@ -279,8 +276,6 @@ function msg_int(val) {
     computeProbsPhases();
   }
   else if (inlet == 13) {
-    //post('\ninlet 13, val: ' + val);
-
     // Value 0 for scales, 1 for ragas
     useRagasInsteadOfScales = (val > 0);
     //curScaleType = 0;
@@ -291,7 +286,6 @@ function msg_int(val) {
     var qpo = this.patcher.getnamed("qasmpad");
 
     var scaleTypeDial = this.patcher.getnamed("scale_type");
-    //post('\nscaleTypeDial.getattrnames(): ' + scaleTypeDial.getattrnames());
     scaleTypeDial.setattr('_parameter_shortname',
       val == 0 ? SCALES_SHORT_NAME : RAGAS_SHORT_NAME);
     // TODO: Load slider/dial with scales or raga names
@@ -304,7 +298,6 @@ function msg_int(val) {
   else if (inlet == 14) {
     // Use stochastic approach for note pitches
     stochasticPitches = (val > 0);
-    //post('\nstochasticPitches now: ' + stochasticPitches);
 
     var tempPreserveGlobalPhaseShift = preserveGlobalPhaseShift;
     preserveGlobalPhaseShift = true;
@@ -327,18 +320,11 @@ function msg_int(val) {
  *               that symbolizes an imaginary component.
  */
 function viz(svlist) {
-  //post('\n---------In viz-----------');
-
   // Turn off stochastic behavior
   outlet(13, 'int', 0);
-
   svArray = svlist.toString().split(' ');
-  // post('\n---------In viz-----------, svArray: ' + svArray);
-
   curNumBasisStates = svArray.length / 2;
-
   dimSvGrid();
-
   computeProbsPhases();
 }
 
@@ -389,8 +375,6 @@ function sampleBasisStatesProbDist() {
 
   if (accumBasisStatesProbs != null && accumBasisStatesProbs.length == curNumBasisStates) {
     var rand = Math.random();
-    //post('\nrand: ' + rand);
-
     for (var idx = 0; idx < accumBasisStatesProbs.length; idx++) {
       retBasisState = idx;
       if (rand <= accumBasisStatesProbs[idx]) {
@@ -444,8 +428,6 @@ function computeProbsPhases() {
     if (stochasticPitches) {
       cumulativeProbs += probability;
       accumBasisStatesProbs.push(cumulativeProbs);
-      //post('\npushing accumBasisStatesProbs: ' + cumulativeProbs +
-      //  ', length now : ' + accumBasisStatesProbs.length);
     }
   }
 
@@ -517,13 +499,9 @@ function computeProbsPhases() {
   if (stochasticPitches) {
     for (var basisStateIdx = 0; basisStateIdx < basisStatePiOver8Phases.length; basisStateIdx++) {
       if (basisStatesSignificantProbs[basisStateIdx]) {
-        //post('\nbasisStateIdx: ' + basisStateIdx + ' has significant prob');
-
         var measBasisState = sampleBasisStatesProbDist();
-        //post('\nmeasBasisState: ' + measBasisState);
 
         var po8Phase = basisStatePiOver8Phases[measBasisState];
-        //post('\npo8Phase: ' + po8Phase);
 
         pitchNums.push(po8Phase);
         if (basisStateIdx < maxDisplayedSteps) {
@@ -566,7 +544,6 @@ function computeProbsPhases() {
         if (!foundFirstPitch) {
           prevPiOver8Phase = pitchNums[pnIdx];
           foundFirstPitch = true;
-          //post('\n***** prevPiOver8Phase: ' + prevPiOver8Phase);
         }
 
         var duration = 0.25;
@@ -586,7 +563,6 @@ function computeProbsPhases() {
             if (legato) {
               duration = (remPnIdx - pnIdx) / beatsPerMeasure;
             }
-            //post('\nnew duration: ' + duration);
             break;
           }
         }
@@ -1062,21 +1038,23 @@ function computeProbsPhases() {
 
   // Encode circuit grid into the clip, after the loop end
   var startIdx = numBeats;
-  for (var colIdx = 0; colIdx < qpo.js.NUM_GRID_COLS; colIdx++) {
-    for (var rowIdx = 0; rowIdx < qpo.js.NUM_GRID_ROWS; rowIdx++) {
-      var gateMidi = qpo.js.circGrid[rowIdx][colIdx];
-      if (gateMidi == -1) {
-        gateMidi = 127;
-      }
-
-      notesDict.notes.push(
-        {
-          pitch: gateMidi,
-          start_time: (startIdx + (colIdx * qpo.js.NUM_GRID_ROWS + rowIdx)) / beatsPerMeasure,
-          duration: 0.25,
+  for (var gridIdx = 0; gridIdx < qpo.js.NUM_GRIDS; gridIdx++) {
+    for (var colIdx = 0; colIdx < qpo.js.NUM_GRID_COLS; colIdx++) {
+      for (var rowIdx = 0; rowIdx < qpo.js.NUM_GRID_ROWS; rowIdx++) {
+        var gateMidi = qpo.js.circGrid[gridIdx][rowIdx][colIdx];
+        if (gateMidi == -1) {
+          gateMidi = 127;
         }
-      );
 
+        notesDict.notes.push(
+          {
+            pitch: gateMidi,
+            start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + (colIdx * qpo.js.NUM_GRID_ROWS + rowIdx)) / beatsPerMeasure,
+            duration: 0.25,
+          }
+        );
+
+      }
     }
   }
 
@@ -1084,7 +1062,7 @@ function computeProbsPhases() {
   notesDict.notes.push(
     {
       pitch: globalPhaseShiftMidi,
-      start_time: (startIdx + qpo.js.NUM_GRID_CELLS) / beatsPerMeasure,
+      start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS)) / beatsPerMeasure,
       duration: 0.25,
     }
   );
@@ -1093,7 +1071,7 @@ function computeProbsPhases() {
   notesDict.notes.push(
     {
       pitch: pitchTransformIndex,
-      start_time: (startIdx + qpo.js.NUM_GRID_CELLS + 1) / beatsPerMeasure,
+      start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 1) / beatsPerMeasure,
       duration: 0.25,
     }
   );
@@ -1102,7 +1080,7 @@ function computeProbsPhases() {
   notesDict.notes.push(
     {
       pitch: numTransposeSemitones,
-      start_time: (startIdx + qpo.js.NUM_GRID_CELLS + 2) / beatsPerMeasure,
+      start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 2) / beatsPerMeasure,
       duration: 0.25,
     }
   );
@@ -1111,7 +1089,7 @@ function computeProbsPhases() {
   notesDict.notes.push(
     {
       pitch: curScaleType,
-      start_time: (startIdx + qpo.js.NUM_GRID_CELLS + 3) / beatsPerMeasure,
+      start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 3) / beatsPerMeasure,
       duration: 0.25,
     }
   );
@@ -1120,7 +1098,7 @@ function computeProbsPhases() {
   notesDict.notes.push(
     {
       pitch: curCycleLengthA,
-      start_time: (startIdx + qpo.js.NUM_GRID_CELLS + 4) / beatsPerMeasure,
+      start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 4) / beatsPerMeasure,
       duration: 0.25,
     }
   );
@@ -1129,7 +1107,7 @@ function computeProbsPhases() {
   notesDict.notes.push(
     {
       pitch: curCycleLengthB,
-      start_time: (startIdx + qpo.js.NUM_GRID_CELLS + 5) / beatsPerMeasure,
+      start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 5) / beatsPerMeasure,
       duration: 0.25,
     }
   );
@@ -1169,7 +1147,7 @@ function computeProbsPhases() {
   notesDict.notes.push(
     {
       pitch: miscFlagsVal,
-      start_time: (startIdx + qpo.js.NUM_GRID_CELLS + 6) / beatsPerMeasure,
+      start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 6) / beatsPerMeasure,
       duration: 0.25,
     }
   );
@@ -1202,10 +1180,10 @@ function populateCircGridFromClip() {
 
   qpo.js.resetCircGrid();
 
-  var notes = clip.call('get_notes', loopEnd, 0, qpo.js.NUM_GRID_CELLS + NUM_ADDITIONAL_METADATA_VALUES, 128);
+  var notes = clip.call('get_notes', loopEnd, 0, (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES, 128);
 
-  if (notes[0] == 'notes' && notes[1] == qpo.js.NUM_GRID_CELLS + NUM_ADDITIONAL_METADATA_VALUES) {
-    for (var noteIdx = 0; noteIdx < qpo.js.NUM_GRID_CELLS + NUM_ADDITIONAL_METADATA_VALUES; noteIdx++) {
+  if (notes[0] == 'notes' && notes[1] == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES) {
+    for (var noteIdx = 0; noteIdx < (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES; noteIdx++) {
       var noteMidi = notes[noteIdx * notesArrayPeriod + 3];
       var noteStart = notes[noteIdx * notesArrayPeriod + 4];
 
@@ -1215,19 +1193,19 @@ function populateCircGridFromClip() {
         // TODO: Create class(es) to abstract Clip and notes?
         var adjNoteStart = noteStart - loopEnd;
 
-        if (adjNoteStart * 4 == qpo.js.NUM_GRID_CELLS) {
+        if (adjNoteStart * 4 == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS)) {
           globalPhaseShiftMidi = noteMidi;
 
           // Send globalPhaseShift
           outlet(0, 'int', globalPhaseShiftMidi);
         }
-        else if (adjNoteStart * 4 == qpo.js.NUM_GRID_CELLS + 1) {
+        else if (adjNoteStart * 4 == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + 1) {
           pitchTransformIndex = noteMidi;
 
           // Send pitch transform index
           outlet(1, 'int', pitchTransformIndex);
         }
-        else if (adjNoteStart * 4 == qpo.js.NUM_GRID_CELLS + 2) {
+        else if (adjNoteStart * 4 == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + 2) {
           numTransposeSemitones = noteMidi;
 
           // Send pitch transform index TODO: Remove from here?
@@ -1236,26 +1214,26 @@ function populateCircGridFromClip() {
           // Send number of semitones transposition
           outlet(2, 'int', numTransposeSemitones);
         }
-        else if (adjNoteStart * 4 == qpo.js.NUM_GRID_CELLS + 3) {
+        else if (adjNoteStart * 4 == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + 3) {
           curScaleType = noteMidi;
 
           // Note that current scale type value is sent later,
           // after useRagasInsteadOfScales is known
           //outlet(6, 'int', curScaleType);
         }
-        else if (adjNoteStart * 4 == qpo.js.NUM_GRID_CELLS + 4) {
+        else if (adjNoteStart * 4 == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + 4) {
           curCycleLengthA = noteMidi;
 
           // Send current cycle length A
           outlet(7, 'int', curCycleLengthA);
         }
-        else if (adjNoteStart * 4 == qpo.js.NUM_GRID_CELLS + 5) {
+        else if (adjNoteStart * 4 == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + 5) {
           curCycleLengthB = noteMidi;
 
           // Send current cycle length B
           outlet(9, 'int', curCycleLengthB);
         }
-        else if (adjNoteStart * 4 == qpo.js.NUM_GRID_CELLS + 6) {
+        else if (adjNoteStart * 4 == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + 6) {
           legato = (noteMidi & 1) == 1; // legato is represented in 0b0000001 place
           reverseScale = (noteMidi & 2) == 2; // reverseScale is represented in 0b0000010 place
           halfScale = (noteMidi & 4) == 4; // halfScale is represented in 0b0000100 place
@@ -1263,7 +1241,6 @@ function populateCircGridFromClip() {
           useRagasInsteadOfScales = (noteMidi & 16) == 16; // useRagasInsteadOfScales is represented in 0b0010000 place
           tmpStochasticPitches = (noteMidi & 32) == 32; // stochasticPitches is represented in 0b0100000 place
           quantizeNotes = (noteMidi & 64) == 64; // quantizeNotes is represented in 0b1000000 place
-          //post('\ntmpStochasticPitches: ' + tmpStochasticPitches);
 
           // Send states to UI controls
           outlet(3, 'int', legato ? 1 : 0);
@@ -1273,25 +1250,22 @@ function populateCircGridFromClip() {
           outlet(12, 'int', useRagasInsteadOfScales ? 1 : 0);
           outlet(14, 'int', quantizeNotes ? 1 : 0);
 
-
           // Send current scale type value, after useRagasInsteadOfScales is known.
           outlet(6, 'int', curScaleType);
-
-          //outlet(10, 'int', 0); // Lock by pitch
-
         }
         else {
-          var noteCol = Math.floor(adjNoteStart * 4 / qpo.js.NUM_GRID_ROWS);
-
-          var noteRow = Math.floor(adjNoteStart * 4 % qpo.js.NUM_GRID_ROWS);
+          var notePos = adjNoteStart * 4;
+          var noteGrid = Math.floor(notePos / qpo.js.NUM_GRID_CELLS);
+          var noteCol = Math.floor((notePos % qpo.js.NUM_GRID_CELLS) / qpo.js.NUM_GRID_ROWS);
+          var noteRow = Math.floor((notePos % qpo.js.NUM_GRID_CELLS) % qpo.js.NUM_GRID_ROWS);
 
           var midiPitch = qpo.js.LOW_MIDI_PITCH +
             ((qpo.js.NUM_GRID_ROWS - noteRow - 1) * qpo.js.CONTR_MAT_COLS) + noteCol;
           var notePitchVelocity = [midiPitch, 127];
           qpo.js.setCircGridGate(notePitchVelocity);
 
-          qpo.js.circGrid[noteRow][noteCol] = noteMidi;
-          qpo.js.informCircuitBtn(noteRow, noteCol);
+          qpo.js.circGrid[noteGrid][noteRow][noteCol] = noteMidi;
+          qpo.js.informCircuitBtn(noteGrid, noteRow, noteCol);
         }
       }
     }
@@ -1329,7 +1303,6 @@ function populateCircGridFromClip() {
 
   qpo.js.createQasmFromGrid();
 
-  //post('\nOutputting tmpStochasticPitches: ' + tmpStochasticPitches);
   outlet(13, 'int', tmpStochasticPitches ? 1 : 0);
 }
 
