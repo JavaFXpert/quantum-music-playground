@@ -473,15 +473,29 @@ function shiftAllGatesHorizontally(shiftRight) {
   else {
     if (colIsEmpty(0)) {
       for (var gridIdx = 0; gridIdx < NUM_GRIDS; gridIdx++) {
-        for (var colIdx = 1; colIdx < NUM_GRID_COLS; colIdx++) {
+        for (var colIdx = 0; colIdx < NUM_GRID_COLS; colIdx++) {
           for (var rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
-            circGrid[gridIdx][rowIdx][colIdx - 1] = circGrid[gridIdx][rowIdx][colIdx];
-            circGrid[gridIdx][rowIdx][colIdx] = CircuitNodeTypes.EMPTY;
+
+            if (gridIdx == 0 && colIdx == 0) {
+              // Don't shift left
+            }
+            else if (gridIdx == 1 && colIdx == 0) {
+              // Shift to last column of previous grid
+              circGrid[0][rowIdx][NUM_GRID_COLS - 1] = circGrid[1][rowIdx][0];
+              informCircuitBtn(0, rowIdx, NUM_GRID_COLS - 1);
+            }
+            else {
+              circGrid[gridIdx][rowIdx][colIdx - 1] = circGrid[gridIdx][rowIdx][colIdx];
+              informCircuitBtn(gridIdx, rowIdx, colIdx - 1);
+            }
+
+            if (gridIdx == 1 && colIdx == NUM_GRID_COLS - 1) {
+              circGrid[1][rowIdx][NUM_GRID_COLS - 1] = CircuitNodeTypes.EMPTY;
+              informCircuitBtn(1, rowIdx, NUM_GRID_COLS - 1);
+            }
 
             selCircGridRow = -1;
             selCircGridCol = -1;
-            informCircuitBtn(gridIdx, rowIdx, colIdx - 1);
-            informCircuitBtn(gridIdx, rowIdx, colIdx);
           }
         }
       }
