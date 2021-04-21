@@ -68,6 +68,28 @@ var MAX_DRUMPADS = 16;
 // Minimum number of qubits in a circuit
 var MIN_CIRCUIT_WIRES = 2;
 
+// Minimum number of visible columns in circuit grid
+var MIN_VISIBLE_CIRCUIT_COLS = 6;
+
+// Circuit grid position info
+var CG_GRID_POS_X = 302.0;
+var CG_GRID_POS_Y = 5.0;
+var CG_GATE_WIDTH = 23.0;
+var CG_GATE_HEIGHT = 20.0;
+
+// Spacing between rightmost visible circuit grid column and toolbox gates
+var CG_TOOLBOX_HORIZ_PADDING = 10;
+
+// Number of tools in gates toolbox
+var TOOL_WIDTH = 22;
+
+// Number of tools in gates toolbox
+var NUM_TOOLS = 16;
+
+// Number of tools in each row
+var NUM_TOOLS_PER_ROW = 2;
+
+
 // Circuit node types
 var CircuitNodeTypes = {
   EMPTY: -1,
@@ -395,6 +417,8 @@ function refreshCircGrid() {
       }
     }
   }
+
+  repositionToolboxGates();
 }
 
 
@@ -558,6 +582,22 @@ function highestOccupiedCol() {
     }
   }
   return retHighestOccupiedCol;
+}
+
+
+function repositionToolboxGates() {
+  // Circuit grid column after which toolbox gates should appear
+  var cgColIdx = Math.min(Math.max(MIN_VISIBLE_CIRCUIT_COLS - 2, highestOccupiedCol()),
+    NUM_GRID_COLS * NUM_GRIDS - 2);
+  var toolboxPosX = CG_GRID_POS_X + ((cgColIdx + 2) * CG_GATE_WIDTH) + CG_TOOLBOX_HORIZ_PADDING;
+
+  for (var toolIdx = 0; toolIdx < NUM_TOOLS; toolIdx++) {
+    var toolObj = this.patcher.getnamed('gate_' + toolIdx);
+    var offsetX = (toolIdx % NUM_TOOLS_PER_ROW) * TOOL_WIDTH;
+    var offsetY = Math.floor(toolIdx / NUM_TOOLS_PER_ROW) * CG_GATE_HEIGHT;
+
+    toolObj.setattr('presentation_position', toolboxPosX + offsetX, CG_GRID_POS_Y + offsetY);
+  }
 }
 
 
@@ -1412,9 +1452,15 @@ function informCircuitBtn(gridIdx, gridRowIdx, gridColIdx) {
   var midiPitch = LOW_MIDI_PITCH + ((NUM_GRID_ROWS - gridRowIdx - 1) * CONTR_MAT_COLS) + gridColIdx + (gridIdx * 100);
   var circBtnObj = this.patcher.getnamed('circbtn' + midiPitch);
   circBtnObj.js.updateDisplay(circGrid[gridIdx][gridRowIdx][gridColIdx], controlFgColor,
-    gridIdx == selCircGridNum && gridRowIdx == selCircGridRow && gridColIdx == selCircGridCol,
-    gridIdx * NUM_GRID_COLS + gridColIdx < NUM_GRID_COLS ||
-    gridIdx * NUM_GRID_COLS + gridColIdx < highestOccupiedCol() + 2);
+    gridIdx == selCircGridNum && gridRowIdx == selCircGridRow && gridColIdx == selCircGridCol);
+
+  if (gridIdx * NUM_GRID_COLS + gridColIdx < NUM_GRID_COLS ||
+    gridIdx * NUM_GRID_COLS + gridColIdx < highestOccupiedCol() + 2) {
+    circBtnObj.setattr('hidden', false);
+  }
+  else {
+    circBtnObj.setattr('hidden', true);
+  }
 }
 
 
