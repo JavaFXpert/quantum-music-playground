@@ -1265,7 +1265,7 @@ function populateCircGridFromClip() {
           qpo.js.setCircGridGate(notePitchVelocity);
 
           qpo.js.circGrid[noteGrid][noteRow][noteCol] = noteMidi;
-          qpo.js.informCircuitBtn(noteGrid, noteRow, noteCol);
+          //qpo.js.informCircuitBtn(noteGrid, noteRow, noteCol);
         }
       }
     }
@@ -1300,6 +1300,7 @@ function populateCircGridFromClip() {
   qpo.js.populatePadNoteNames(trackPath, pitchTransformIndex, numTransposeSemitones,
     reverseScale, halfScale, curScaleType, useRagasInsteadOfScales, restPitchNum15);
 
+  qpo.js.refreshCircGrid();
 
   qpo.js.createQasmFromGrid();
 

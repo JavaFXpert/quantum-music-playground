@@ -543,6 +543,7 @@ function rowIsEmpty(rowIdx) {
 
 
 function colIsEmpty(colIdx) {
+  //post('\ncolIdx: ' + colIdx);
   var gridIdx = 0;
   if (colIdx >= NUM_GRID_COLS) {
     colIdx = colIdx - NUM_GRID_COLS;
@@ -555,6 +556,7 @@ function colIsEmpty(colIdx) {
       break;
     }
   }
+  //post(', colEmpty: ' + colEmpty);
   return colEmpty;
 }
 
