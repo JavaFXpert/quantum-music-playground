@@ -440,17 +440,31 @@ function shiftAllGatesVertically(shiftDown) {
 
 function shiftAllGatesHorizontally(shiftRight) {
   if (shiftRight) {
-    if (colIsEmpty(NUM_GRID_COLS - 1)) {
-      for (var gridIdx = 0; gridIdx < NUM_GRIDS; gridIdx++) {
-        for (var colIdx = NUM_GRID_COLS - 2; colIdx >= 0; colIdx--) {
+    if (colIsEmpty((NUM_GRID_COLS * NUM_GRIDS) - 1)) {
+      for (var gridIdx = NUM_GRIDS - 1; gridIdx >= 0; gridIdx--) {
+        for (var colIdx = NUM_GRID_COLS - 1; colIdx >= 0; colIdx--) {
           for (var rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
-            circGrid[gridIdx][rowIdx][colIdx + 1] = circGrid[gridIdx][rowIdx][colIdx];
-            circGrid[gridIdx][rowIdx][colIdx] = CircuitNodeTypes.EMPTY;
+
+            if (gridIdx == 1 && colIdx == NUM_GRID_COLS - 1) {
+              // Don't shift right
+            }
+            else if (gridIdx == 0 && colIdx == NUM_GRID_COLS - 1) {
+              // Shift to first column of next grid
+              circGrid[1][rowIdx][0] = circGrid[0][rowIdx][colIdx];
+              informCircuitBtn(1, rowIdx, 0);
+            }
+            else {
+              circGrid[gridIdx][rowIdx][colIdx + 1] = circGrid[gridIdx][rowIdx][colIdx];
+              informCircuitBtn(gridIdx, rowIdx, colIdx + 1);
+            }
+
+            if (gridIdx == 0 && colIdx == 0) {
+              circGrid[0][rowIdx][0] = CircuitNodeTypes.EMPTY;
+              informCircuitBtn(0, rowIdx, 0);
+            }
 
             selCircGridRow = -1;
             selCircGridCol = -1;
-            informCircuitBtn(gridIdx, rowIdx, colIdx);
-            informCircuitBtn(gridIdx, rowIdx, colIdx + 1);
           }
         }
       }
@@ -492,13 +506,16 @@ function rowIsEmpty(rowIdx) {
 
 
 function colIsEmpty(colIdx) {
+  var gridIdx = 0;
+  if (colIdx >= NUM_GRID_COLS) {
+    colIdx = colIdx - NUM_GRID_COLS;
+    gridIdx = 1;
+  }
   var colEmpty = true;
-  for (var gridIdx = 0; gridIdx < NUM_GRIDS; gridIdx++) {
-    for (var rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
-      if (circGrid[gridIdx][rowIdx][colIdx] != CircuitNodeTypes.EMPTY) {
-        colEmpty = false;
-        break;
-      }
+  for (var rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
+    if (circGrid[gridIdx][rowIdx][colIdx] != CircuitNodeTypes.EMPTY) {
+      colEmpty = false;
+      break;
     }
   }
   return colEmpty;
