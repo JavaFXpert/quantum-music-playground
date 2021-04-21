@@ -361,7 +361,6 @@ function getPathByClipNameIdx(clipNameIdx) {
 function list(lst) {
   if (inlet == 0) {
     setCircGridGate(arguments);
-    printCircGrid();
   }
 }
 
@@ -590,8 +589,6 @@ function setCircGridGate(notePitchVelocity) {
           (circGrid[selCircGridNum][gridRow][gridCol] == CircuitNodeTypes.EMPTY ||
             curCircNodeType == CircuitNodeTypes.EMPTY)) {
           circGrid[selCircGridNum][gridRow][gridCol] = curCircNodeType;
-
-          printCircGrid();
         }
         else {
           //post('\nGate already present');
