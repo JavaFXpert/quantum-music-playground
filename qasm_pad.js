@@ -537,13 +537,27 @@ function colIsEmpty(colIdx) {
 
 function lowestOccupiedRow() {
   var retLowestOccupiedRow = -1;
-  for (rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
+  for (var rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
     if (!rowIsEmpty(rowIdx)) {
       retLowestOccupiedRow = rowIdx;
       break;
     }
   }
   return retLowestOccupiedRow;
+}
+
+
+function highestOccupiedCol() {
+  var retHighestOccupiedCol = -1;
+  for (var gridIdx = NUM_GRIDS - 1; gridIdx >= 0; gridIdx--) {
+    for (var colIdx = NUM_GRID_COLS - 1; colIdx >= 0; colIdx--) {
+      if (!colIsEmpty(gridIdx * NUM_GRID_COLS + colIdx)) {
+        retHighestOccupiedCol = gridIdx * NUM_GRID_COLS + colIdx;
+        return retHighestOccupiedCol;
+      }
+    }
+  }
+  return retHighestOccupiedCol;
 }
 
 
@@ -1398,7 +1412,9 @@ function informCircuitBtn(gridIdx, gridRowIdx, gridColIdx) {
   var midiPitch = LOW_MIDI_PITCH + ((NUM_GRID_ROWS - gridRowIdx - 1) * CONTR_MAT_COLS) + gridColIdx + (gridIdx * 100);
   var circBtnObj = this.patcher.getnamed('circbtn' + midiPitch);
   circBtnObj.js.updateDisplay(circGrid[gridIdx][gridRowIdx][gridColIdx], controlFgColor,
-    gridIdx == selCircGridNum && gridRowIdx == selCircGridRow && gridColIdx == selCircGridCol);
+    gridIdx == selCircGridNum && gridRowIdx == selCircGridRow && gridColIdx == selCircGridCol,
+    gridIdx * NUM_GRID_COLS + gridColIdx < NUM_GRID_COLS ||
+    gridIdx * NUM_GRID_COLS + gridColIdx < highestOccupiedCol() + 2);
 }
 
 

@@ -31,9 +31,12 @@ this.controlFgColor = [0., 0., 0., 1.];
 
 this.selected = false;
 
-function updateDisplay(nodeType, controlFgList, selected) {
+this.controlVisible = true;
+
+function updateDisplay(nodeType, controlFgList, selected, visible) {
   this.selected = selected;
   this.controlFgColor = controlFgList;
+  this.controlVisible = visible;
   box.size(24.0, 19.5);
   this.circNodeType = nodeType;
   draw();
@@ -66,6 +69,10 @@ function draw() {
     // erase background
     glclearcolor(vbrgb[0], vbrgb[1], vbrgb[2], vbrgb[3]);
     glclear();
+
+    if (!this.controlVisible) {
+      return;
+    }
 
     glcolor(controlFgColor);
     gllinewidth(defLineWidth);
