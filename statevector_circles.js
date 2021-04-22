@@ -26,7 +26,6 @@ var NUM_ADDITIONAL_METADATA_VALUES = 7;
 // Threshold for regarding a state as having any probability
 var PROBABILITY_THRESHOLD = 0.24;
 
-var SV_GRID_POS_X = 689.0;
 var SV_GRID_POS_Y = 5.0;
 var SV_GRID_HEIGHT = 160;
 var SV_GRID_STEP_WIDTH = 3.125;
@@ -330,16 +329,17 @@ function viz(svlist) {
 
 
 function dimSvGrid() {
+  var qpo = this.patcher.getnamed("qasmpad");
   for (var gIdx = 0; gIdx < numSvGrids; gIdx++) {
     var svGrid = this.patcher.getnamed('svgrid[' + gIdx + ']');
 
     var gridWidth = Math.min(curNumBasisStates, SV_GRID_FULL_SIZE_MAX_BASIS_STATES) * SV_GRID_STEP_WIDTH;
-    var posX = SV_GRID_POS_X + gIdx * (gridWidth + SV_GRID_HORIZ_PADDING);
+    var posX = qpo.js.svGridPosX + gIdx * (gridWidth + SV_GRID_HORIZ_PADDING);
     svGrid.setattr('presentation_position', posX, SV_GRID_POS_Y);
     svGrid.setattr('presentation_size', gridWidth, SV_GRID_HEIGHT);
     svGrid.setattr('columns', Math.floor(curNumBasisStates / numSvGrids));
   }
-  outlet(11, 'setwidth', SV_GRID_POS_X + numSvGrids * (gridWidth + SV_GRID_HORIZ_PADDING));
+  outlet(11, 'setwidth', qpo.js.svGridPosX + numSvGrids * (gridWidth + SV_GRID_HORIZ_PADDING));
 }
 
 function clearSvGrid() {

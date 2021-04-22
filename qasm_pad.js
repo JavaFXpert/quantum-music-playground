@@ -68,6 +68,11 @@ var MAX_DRUMPADS = 16;
 // Minimum number of qubits in a circuit
 var MIN_CIRCUIT_WIRES = 2;
 
+// Position of circuit grid panel
+var CG_PANEL_POS_X = 282;
+var CG_PANEL_POS_Y = 3;
+var CG_PANEL_HEIGHT = 164;
+
 // Minimum number of visible columns in circuit grid
 var MIN_VISIBLE_CIRCUIT_COLS = 6;
 
@@ -89,6 +94,14 @@ var NUM_TOOLS = 16;
 // Number of tools in each row
 var NUM_TOOLS_PER_ROW = 2;
 
+// Pitch text positions
+var PITCH_TEXT_TOP_POS_Y = 3;
+var PITCH_TEXT_WIDTH = 58;
+var PITCH_TEXT_HEIGHT = 10;
+
+
+// Statevector grid position X (other are defined elsewhere)
+var svGridPosX = 547.0;
 
 // Circuit node types
 var CircuitNodeTypes = {
@@ -524,6 +537,8 @@ function shiftAllGatesHorizontally(shiftRight) {
       }
     }
   }
+  refreshCircGrid();
+
   createQasmFromGrid();
 }
 
@@ -593,13 +608,32 @@ function repositionToolboxGates() {
     NUM_GRID_COLS * NUM_GRIDS - 2);
   var toolboxPosX = CG_GRID_POS_X + ((cgColIdx + 2) * CG_GATE_WIDTH) + CG_TOOLBOX_HORIZ_PADDING;
 
+  // Position the circuit grid panel
+  var circPanelObj = this.patcher.getnamed('circ_panel');
+  circPanelObj.setattr('presentation_position', CG_PANEL_POS_X, CG_PANEL_POS_Y);
+  circPanelObj.setattr('presentation_size',
+    toolboxPosX + (TOOL_WIDTH * NUM_TOOLS_PER_ROW) - CG_PANEL_POS_X,
+    CG_PANEL_HEIGHT);
+
+  // Position the toolbox operation
   for (var toolIdx = 0; toolIdx < NUM_TOOLS; toolIdx++) {
     var toolObj = this.patcher.getnamed('gate_' + toolIdx);
     var offsetX = (toolIdx % NUM_TOOLS_PER_ROW) * TOOL_WIDTH;
     var offsetY = Math.floor(toolIdx / NUM_TOOLS_PER_ROW) * CG_GATE_HEIGHT;
-
     toolObj.setattr('presentation_position', toolboxPosX + offsetX, CG_GRID_POS_Y + offsetY);
   }
+
+  // Position the pitch labels
+  var pitchTextPosX = toolboxPosX + (TOOL_WIDTH * NUM_TOOLS_PER_ROW);
+  for (var pitchIdx = NUM_PITCHES - 1; pitchIdx >= 0; pitchIdx--) {
+    var padNoteObj = this.patcher.getnamed('pad_note[' + pitchIdx + ']');
+    padNoteObj.setattr('presentation_position',
+      pitchTextPosX,
+      PITCH_TEXT_TOP_POS_Y + ((NUM_PITCHES - 1 - pitchIdx) * PITCH_TEXT_HEIGHT));
+  }
+
+  // Position the statevector musical
+  svGridPosX = pitchTextPosX + PITCH_TEXT_WIDTH;
 }
 
 
