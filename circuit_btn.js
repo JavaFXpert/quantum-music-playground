@@ -415,6 +415,17 @@ function draw() {
  * When button is clicked send a message and update its appearance.
  */
 function onclick(x, y, but, cmd, shift, capslock, option, ctrl) {
+  this.qpo = this.patcher.getnamed("qasmpad");
+
+  // Select appropriate circuit grid
+  if (this.midiNum >= qpo.js.LOW_MIDI_PITCH + 100) {
+    qpo.js.selCircGridNum = 1;
+    this.midiNum -= 100;
+  }
+  else {
+    qpo.js.selCircGridNum = 0;
+  }
+
   // TODO: Change 'alice' remote message everywhere
   messnamed('alice', this.midiNum, 0);
 

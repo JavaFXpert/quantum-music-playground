@@ -19,6 +19,7 @@
  * a Push 2 device is not connected.
  *
  * TODO: Implement undo button
+ * TODO: Fix or remove padsToBlink functionality
  * TODO: Verify that musical modes are implemented correctly
  * TODO: Identify color scheme that accommodate pi/8
  * TODO: Inquire surface number for Push
@@ -180,13 +181,15 @@ var CircuitNodeTypes = {
 // Inlet 4 receives shift gates up messages
 // Inlet 5 receives shift gates right messages
 // Inlet 6 receives shift gates left messages
-this.inlets = 7;
+// Inlet 7 receives selected grid (0 or 1) messages
+this.inlets = 8;
 
 // Outlet 0 sends message to a simulator with generated QASM
 // Outlet 1 sends messages to the midi clips list box
 // Outlet 2 sends messages to the clip selector dial
 // Outlet 3 sends messages to the gate rotator dial
-this.outlets = 4;
+// Outlet 4 sends messages to the grid selection dial
+this.outlets = 5;
 
 
 // Flag that indicates whether the currently displayed pads/notes
@@ -362,6 +365,10 @@ function msg_int(val) {
         createQasmFromGrid();
       }
     }
+  }
+  else if (inlet == 7) {
+    selCircGridNum = val;
+    refreshControllerPads();
   }
 }
 
@@ -648,14 +655,6 @@ function setCircGridGate(notePitchVelocity) {
     var pitch = notePitchVelocity[0];
     var velocity = notePitchVelocity[1];
 
-    selCircGridNum = 0;
-    if (pitch >= LOW_MIDI_PITCH + 100) {
-      // Button on secondary grid, numbered 136... was pressed
-      pitch -= 100;
-      selCircGridNum = 1;
-    }
-
-
     // Only process noteup events (when user releases controller button)
     if (velocity > 0) {
       return;
@@ -669,7 +668,8 @@ function setCircGridGate(notePitchVelocity) {
 
         gridCol = NUM_GRID_COLS - gridCol - 1;
 
-        // User is placing on the circuit
+        // User is selecting on the circuit
+        outlet(4, 'int', selCircGridNum);
         clearCircuitWhenEmptyKeyNextPressed = false;
 
         selCircGridRow = gridRow;
@@ -1653,25 +1653,26 @@ function refreshControllerPads() {
   //var controlNames = controlSurface.call('get_control_names');
   controlSurface.call('grab_midi');
 
-  // TODO: Only update the currently visible grid on the controller
-  //for (var gridIdx = 0; gridIdx < NUM_GRIDS; gridIdx++) {
-  for (var gridIdx = 0; gridIdx < 1; gridIdx++) {
+  for (rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
+    for (colIdx = 0; colIdx < NUM_GRID_COLS; colIdx++) {
+      var midiPitch = LOW_MIDI_PITCH + ((NUM_GRID_ROWS - rowIdx - 1) * CONTR_MAT_COLS) + colIdx;
+      var padColor = circNodeType2Color(circGrid[selCircGridNum][rowIdx][colIdx]);
 
-    for (rowIdx = 0; rowIdx < NUM_GRID_ROWS; rowIdx++) {
-      for (colIdx = 0; colIdx < NUM_GRID_COLS; colIdx++) {
-        var midiPitch = LOW_MIDI_PITCH + ((NUM_GRID_ROWS - rowIdx - 1) * CONTR_MAT_COLS) + colIdx;
-        var padColor = circNodeType2Color(circGrid[gridIdx][rowIdx][colIdx]);
+      controlSurface.call('send_midi', 144, midiPitch, 0);
+      controlSurface.call('send_midi', 144, midiPitch, padColor);
 
-        controlSurface.call('send_midi', 144, midiPitch, 0);
-        if (padsToBlink.indexOf(midiPitch) != -1) {
-          controlSurface.call('send_midi', 147, midiPitch, padColor);
-        }
-        else {
-          controlSurface.call('send_midi', 144, midiPitch, padColor);
-        }
-      }
+      // TODO: Fix or remove padsToBlink functionality
+      // controlSurface.call('send_midi', 144, midiPitch, 0);
+      // if (padsToBlink.indexOf(midiPitch) != -1) {
+      //   controlSurface.call('send_midi', 147, midiPitch, padColor);
+      // }
+      // else {
+      //   controlSurface.call('send_midi', 144, midiPitch, padColor);
+      // }
     }
   }
+
+  //}
 
   // Refresh gate pads
   for (rowIdx = 0; rowIdx < CONTR_MAT_ROWS; rowIdx++) {
