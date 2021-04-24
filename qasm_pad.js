@@ -296,7 +296,7 @@ function bang() {
     // bang received to refresh list of clips
     populateMidiClipsList();
 
-    selCircGridNum = 0;
+    setSelCircGridNum(0);
     outlet(4, 'int', selCircGridNum);
   }
   else if (inlet == 3) {
@@ -370,7 +370,7 @@ function msg_int(val) {
     }
   }
   else if (inlet == 7) {
-    selCircGridNum = val;
+    setSelCircGridNum(val);
     refreshControllerPads();
   }
 }
@@ -409,6 +409,11 @@ function list(lst) {
   }
 }
 
+
+function setSelCircGridNum(gridNumIdx) {
+  //post('\nSetting selCircGridNum from: ' + selCircGridNum + ' to: ' + gridNumIdx);
+  selCircGridNum = gridNumIdx;
+}
 
 /**
  * Set all elements to EMPTY

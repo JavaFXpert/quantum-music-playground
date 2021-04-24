@@ -212,7 +212,7 @@ function msg_int(val) {
     preserveGlobalPhaseShift = tempPreserveGlobalPhaseShift;
 
     // Because different clip is selected, select first circuit grid
-    qpo.js.selCircGridNum = 0;
+    qpo.js.setSelCircGridNum(0);
     outlet(15, 'int', qpo.js.selCircGridNum);
   }
   else if (inlet == 4) {

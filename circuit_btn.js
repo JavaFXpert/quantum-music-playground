@@ -417,17 +417,19 @@ function draw() {
 function onclick(x, y, but, cmd, shift, capslock, option, ctrl) {
   this.qpo = this.patcher.getnamed("qasmpad");
 
+  var tempMidiNum = this.midiNum;
+
   // Select appropriate circuit grid
   if (this.midiNum >= qpo.js.LOW_MIDI_PITCH + 100) {
-    qpo.js.selCircGridNum = 1;
-    this.midiNum -= 100;
+    qpo.js.setSelCircGridNum(1);
+    tempMidiNum -= 100;
   }
   else {
-    qpo.js.selCircGridNum = 0;
+    qpo.js.setSelCircGridNum(0);
   }
 
   // TODO: Change 'alice' remote message everywhere
-  messnamed('alice', this.midiNum, 0);
+  messnamed('alice', tempMidiNum, 0);
 
   draw();
   refresh();
