@@ -74,6 +74,7 @@ function draw() {
       lineto(0.0, -0.2);
     }
     else if (curNodeType == qpo.js.CircuitNodeTypes.CTRL_X ||
+      curNodeType == qpo.js.CircuitNodeTypes.RX_8 ||
       curNodeType == qpo.js.CircuitNodeTypes.CTRL ||
       curNodeType == qpo.js.CircuitNodeTypes.ANTI_CTRL ||
       curNodeType == qpo.js.CircuitNodeTypes.SWAP ||
@@ -101,7 +102,8 @@ function draw() {
     }
 
 
-    if (curNodeType >= qpo.js.CircuitNodeTypes.RX_0 && curNodeType <= qpo.js.CircuitNodeTypes.RX_15) {
+    if ((curNodeType >= qpo.js.CircuitNodeTypes.RX_0 && curNodeType <= qpo.js.CircuitNodeTypes.RX_7) ||
+      (curNodeType >= qpo.js.CircuitNodeTypes.RX_9 && curNodeType <= qpo.js.CircuitNodeTypes.RX_15)) {
       moveto(0.0, 0.0);
       glcolor(0.621, 0.098, 0.32, 1.0);
       plane(0.8, 0.8, 0.8, 0.8);
@@ -126,7 +128,8 @@ function draw() {
       plane(0.8, 0.8, 0.8, 0.8);
       glcolor(1.0, 1.0, 1.0, 1.0);
     }
-    else if (curNodeType == qpo.js.CircuitNodeTypes.CTRL_X) {
+    else if (curNodeType == qpo.js.CircuitNodeTypes.CTRL_X ||
+      curNodeType == qpo.js.CircuitNodeTypes.RX_8) {
       moveto(0.0, 0.0);
       glcolor(0.008, 0.176, 0.609, 1.0);
       circle(0.8, 0, 360);
@@ -153,7 +156,8 @@ function draw() {
       framecircle(0.30, 0, 360);
       gllinewidth(defLineWidth);
     }
-    else if (curNodeType == qpo.js.CircuitNodeTypes.CTRL_X) {
+    else if (curNodeType == qpo.js.CircuitNodeTypes.CTRL_X ||
+      curNodeType == qpo.js.CircuitNodeTypes.RX_8) {
       gllinewidth(1.0);
       moveto(-0.4, 0.0);
       lineto(0.4, 0.0);
@@ -213,10 +217,10 @@ function draw() {
       moveto(-0.6, -0.4);
       text("x7");
     }
-    else if (curNodeType == qpo.js.CircuitNodeTypes.RX_8) {
-      moveto(-0.3, -0.4);
-      text("X");
-    }
+      // else if (curNodeType == qpo.js.CircuitNodeTypes.RX_8) {
+      //   moveto(-0.3, -0.4);
+      //   text("X");
+    // }
     else if (curNodeType == qpo.js.CircuitNodeTypes.RX_9) {
       moveto(-0.6, -0.4);
       text("x9");
@@ -500,7 +504,7 @@ ondrag.local = 1;  //private
 function forcesize(w, h) {
   // if (w != h) {
   //   h = w;
-    //box.size(24.0, 19.5);
+  //box.size(24.0, 19.5);
   // }
 }
 
