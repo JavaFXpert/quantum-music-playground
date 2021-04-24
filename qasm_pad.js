@@ -2207,7 +2207,8 @@ function circNodeType2Color(circNodeTypeNum) {
     colorNum = 7;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.CTRL_X) {
-    colorNum = 2;
+    //colorNum = 2;
+    colorNum = 125;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.IDEN) {
     colorNum = 124;
@@ -2220,52 +2221,68 @@ function circNodeType2Color(circNodeTypeNum) {
   }
 
   else if (circNodeTypeNum == CircuitNodeTypes.RX_0) {
-    colorNum = 25;
+    //colorNum = 25;
+    colorNum = 125;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_1) {
-    colorNum = 25;
+    //colorNum = 25;
+    colorNum = 19;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_2) {
-    colorNum = 127;
+    //colorNum = 127;
+    colorNum = 125;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_3) {
-    colorNum = 127;
+    //colorNum = 127;
+    colorNum = 19;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_4) {
-    colorNum = 68;
+    //colorNum = 68;
+    colorNum = 125;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_5) {
-    colorNum = 68;
+    //colorNum = 68;
+    colorNum = 19;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_6) {
-    colorNum = 67;
+    //colorNum = 67;
+    colorNum = 125;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_7) {
-    colorNum = 67;
+    //colorNum = 67;
+    colorNum = 19;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_8) {
-    colorNum = 2;
+    //colorNum = 2;
+    colorNum = 125;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_9) {
-    colorNum = 2;
+    //colorNum = 2;
+    colorNum = 19;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_10) {
-    colorNum = 4;
+    //colorNum = 4;
+    colorNum = 125;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_11) {
-    colorNum = 4;
+    //colorNum = 4;
+    colorNum = 19;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_12) {
-    colorNum = 3;
+    //colorNum = 3;
+    colorNum = 125;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_13) {
-    colorNum = 3;
+    //colorNum = 3;
+    colorNum = 19;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_14) {
-    colorNum = 29;
+    //colorNum = 29;
+    colorNum = 125;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RX_15) {
-    colorNum = 29;
+    //colorNum = 29;
+    colorNum = 19;
   }
 
   else if (circNodeTypeNum == CircuitNodeTypes.RY_0) {
@@ -2318,54 +2335,69 @@ function circNodeType2Color(circNodeTypeNum) {
   }
 
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_0) {
-    colorNum = 95;
+    //colorNum = 95;
+    colorNum = 17;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_1) {
-    colorNum = 95;
-  }
-  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_2) {
-    colorNum = 103;
-  }
-  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_3) {
-    colorNum = 103;
-  }
-  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_4) {
-    colorNum = 99;
-  }
-  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_5) {
-    colorNum = 99;
-  }
-  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_6) {
-    colorNum = 125;
-  }
-  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_7) {
-    colorNum = 125;
-  }
-  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_8) {
+    //colorNum = 95;
     colorNum = 18;
   }
+  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_2) {
+    //colorNum = 103;
+    colorNum = 17;
+  }
+  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_3) {
+    //colorNum = 103;
+    colorNum = 18;
+  }
+  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_4) {
+    //colorNum = 99;
+    colorNum = 17;
+  }
+  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_5) {
+    //colorNum = 99;
+    colorNum = 18;
+  }
+  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_6) {
+    //colorNum = 125;
+    colorNum = 17;
+  }
+  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_7) {
+    //colorNum = 125;
+    colorNum = 18;
+  }
+  else if (circNodeTypeNum == CircuitNodeTypes.PHASE_8) {
+    //colorNum = 18;
+    colorNum = 17;
+  }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_9) {
+    //colorNum = 18;
     colorNum = 18;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_10) {
-    colorNum = 19;
+    //colorNum = 19;
+    colorNum = 17;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_11) {
-    colorNum = 19;
+    //colorNum = 19;
+    colorNum = 18;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_12) {
-    colorNum = 24;
+    //colorNum = 24;
+    colorNum = 17;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_13) {
-    colorNum = 24;
+    //colorNum = 24;
+    colorNum = 18;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_14) {
-    colorNum = 113;
+    //colorNum = 113;
+    colorNum = 17;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_15) {
-    colorNum = 113;
+    //colorNum = 113;
+    colorNum = 18;
   }
-
   return colorNum;
 }
 

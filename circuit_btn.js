@@ -105,7 +105,8 @@ function draw() {
     if ((curNodeType >= qpo.js.CircuitNodeTypes.RX_0 && curNodeType <= qpo.js.CircuitNodeTypes.RX_7) ||
       (curNodeType >= qpo.js.CircuitNodeTypes.RX_9 && curNodeType <= qpo.js.CircuitNodeTypes.RX_15)) {
       moveto(0.0, 0.0);
-      glcolor(0.621, 0.098, 0.32, 1.0);
+      glcolor(0.008, 0.176, 0.609, 1.0);
+      //glcolor(0.621, 0.098, 0.32, 1.0);
       plane(0.8, 0.8, 0.8, 0.8);
       glcolor(1.0, 1.0, 1.0, 1.0);
     }
