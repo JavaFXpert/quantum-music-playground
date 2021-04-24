@@ -81,11 +81,23 @@ function draw() {
     else if (midiNum == 90) {
       // CircuitNodeTypes.RX_8
       moveto(0.0, 0.0);
-      glcolor(0.621, 0.098, 0.32, 1.0);
+      glcolor(0.008, 0.176, 0.609, 1.0);
       plane(0.75, 0.75, 0.75, 0.75);
       glcolor(1.0, 1.0, 1.0, 1.0);
-      moveto(-0.25, -0.4);
-      text("X");
+      gllinewidth(1.0);
+      framecircle(0.5, 0, 360);
+      moveto(-0.4, 0.0);
+      lineto(0.4, 0.0);
+      moveto(0.0, -0.4);
+      lineto(0.0, 0.4);
+      gllinewidth(defLineWidth);
+
+      // moveto(0.0, 0.0);
+      // glcolor(0.621, 0.098, 0.32, 1.0);
+      // plane(0.75, 0.75, 0.75, 0.75);
+      // glcolor(1.0, 1.0, 1.0, 1.0);
+      // moveto(-0.25, -0.4);
+      // text("X");
     }
     else if (midiNum == 91) {
       // CircuitNodeTypes.PHASE_4
