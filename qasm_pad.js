@@ -2198,7 +2198,8 @@ function circNodeType2Color(circNodeTypeNum) {
     colorNum = 0;
   }
   if (circNodeTypeNum == CircuitNodeTypes.H) {
-    colorNum = 122;
+    //colorNum = 122;
+    colorNum = 24;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.CTRL) {
     colorNum = 123;
@@ -2340,7 +2341,7 @@ function circNodeType2Color(circNodeTypeNum) {
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_1) {
     //colorNum = 95;
-    colorNum = 18;
+    colorNum = 16;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_2) {
     //colorNum = 103;
@@ -2348,7 +2349,7 @@ function circNodeType2Color(circNodeTypeNum) {
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_3) {
     //colorNum = 103;
-    colorNum = 18;
+    colorNum = 16;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_4) {
     //colorNum = 99;
@@ -2356,7 +2357,7 @@ function circNodeType2Color(circNodeTypeNum) {
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_5) {
     //colorNum = 99;
-    colorNum = 18;
+    colorNum = 16;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_6) {
     //colorNum = 125;
@@ -2364,7 +2365,7 @@ function circNodeType2Color(circNodeTypeNum) {
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_7) {
     //colorNum = 125;
-    colorNum = 18;
+    colorNum = 16;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_8) {
     //colorNum = 18;
@@ -2372,7 +2373,7 @@ function circNodeType2Color(circNodeTypeNum) {
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_9) {
     //colorNum = 18;
-    colorNum = 18;
+    colorNum = 16;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_10) {
     //colorNum = 19;
@@ -2380,7 +2381,7 @@ function circNodeType2Color(circNodeTypeNum) {
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_11) {
     //colorNum = 19;
-    colorNum = 18;
+    colorNum = 16;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_12) {
     //colorNum = 24;
@@ -2396,7 +2397,7 @@ function circNodeType2Color(circNodeTypeNum) {
   }
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_15) {
     //colorNum = 113;
-    colorNum = 18;
+    colorNum = 16;
   }
   return colorNum;
 }
