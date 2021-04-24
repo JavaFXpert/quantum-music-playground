@@ -330,7 +330,6 @@ function msg_int(val) {
       var selNodeType = circGrid[selCircGridNum][selCircGridRow][selCircGridCol];
       var newNodeType = CircuitNodeTypes.EMPTY;
 
-      var rotateGateDial = this.patcher.getnamed("rotate_gate");
       var rotateGateSelected = true;
 
       if ((selNodeType >= CircuitNodeTypes.RX_0 && selNodeType <= CircuitNodeTypes.RX_15) ||
@@ -352,15 +351,8 @@ function msg_int(val) {
         var rotateGateSelected = false;
       }
 
-      // Conditionally disable rotate gate dial
-      rotateGateDial.setattr('ignoreclick', !rotateGateSelected);
-
-      var tc = rotateGateDial.getattr('textcolor', 1, 1, 1, 1);
-      var alpha = rotateGateSelected ? 1 : 0.2;
-      rotateGateDial.setattr('textcolor', tc[0], tc[1], tc[2], alpha);
-      rotateGateDial.setattr('slidercolor', tc[0], tc[1], tc[2], alpha);
-      rotateGateDial.setattr('tribordercolor', tc[0], tc[1], tc[2], alpha);
-
+      // Conditionally enable rotate gate dial
+      enableRotateGateDial(rotateGateSelected);
 
       if (newNodeType != CircuitNodeTypes.EMPTY) {
         circGrid[selCircGridNum][selCircGridRow][selCircGridCol] = newNodeType;
@@ -407,6 +399,23 @@ function list(lst) {
   if (inlet == 0) {
     setCircGridGate(arguments);
   }
+}
+
+
+function setCurCircNodeType(circuitNodeType) {
+  curCircNodeType = circuitNodeType;
+}
+
+function enableRotateGateDial(enableArg) {
+  // Conditionally disable rotate gate dial
+  var rotateGateDial = this.patcher.getnamed("rotate_gate");
+  rotateGateDial.setattr('ignoreclick', !enableArg);
+
+  var tc = rotateGateDial.getattr('textcolor', 1, 1, 1, 1);
+  var alpha = enableArg ? 1 : 0.2;
+  rotateGateDial.setattr('textcolor', tc[0], tc[1], tc[2], alpha);
+  rotateGateDial.setattr('slidercolor', tc[0], tc[1], tc[2], alpha);
+  rotateGateDial.setattr('tribordercolor', tc[0], tc[1], tc[2], alpha);
 }
 
 

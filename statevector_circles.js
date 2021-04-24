@@ -85,7 +85,8 @@ this.inlets = 16;
 // Outlet 13 sends indication of whether notes are to be stochastic
 // Outlet 14 sends indication of whether notes are to be quantized
 // Outlet 15 sends messages to the grid selection dial
-this.outlets = 16;
+// Outlet 16 sends messages to the gate rotator dial
+this.outlets = 17;
 
 sketch.default2d();
 var vbrgb = [1., 1., 1., 1.];
@@ -214,6 +215,13 @@ function msg_int(val) {
     // Because different clip is selected, select first circuit grid
     qpo.js.setSelCircGridNum(0);
     outlet(15, 'int', qpo.js.selCircGridNum);
+
+    // Zero and disable the rotator dial
+    outlet(16, 'int', 0);
+    qpo.js.enableRotateGateDial(false);
+
+    // Set setCurCircNodeType to HAND
+    qpo.js.setCurCircNodeType(qpo.js.CircuitNodeTypes.HAND);
   }
   else if (inlet == 4) {
     // Preserve either global phase, or first pitch with above threshold probability
