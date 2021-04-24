@@ -201,7 +201,7 @@ var padNoteNamesDirty = true;
 // when the CircuitNodeTypes.EMPTY key is net pressed
 var clearCircuitWhenEmptyKeyNextPressed = false;
 
-var curCircNodeType = CircuitNodeTypes.H;
+var curCircNodeType = CircuitNodeTypes.HAND;
 
 var highMidiPitch = (NUM_GRID_ROWS - 1) * CONTR_MAT_COLS + NUM_GRID_COLS + LOW_MIDI_PITCH - 1;
 
@@ -295,6 +295,9 @@ function bang() {
   if (inlet == 1) {
     // bang received to refresh list of clips
     populateMidiClipsList();
+
+    selCircGridNum = 0;
+    outlet(4, 'int', selCircGridNum);
   }
   else if (inlet == 3) {
     // bang received to shift all gates down
@@ -1647,8 +1650,6 @@ function refreshPadNoteNames() {
 
 
 function refreshControllerPads() {
-
-
   var controlSurface = new LiveAPI('control_surfaces 1'); //TODO: Inquire surface number
   //var controlNames = controlSurface.call('get_control_names');
   controlSurface.call('grab_midi');

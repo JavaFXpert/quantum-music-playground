@@ -84,7 +84,8 @@ this.inlets = 16;
 // Outlet 12 sends 0 if scales, or 1 if ragas, are to be displayed in the UI
 // Outlet 13 sends indication of whether notes are to be stochastic
 // Outlet 14 sends indication of whether notes are to be quantized
-this.outlets = 15;
+// Outlet 15 sends messages to the grid selection dial
+this.outlets = 16;
 
 sketch.default2d();
 var vbrgb = [1., 1., 1., 1.];
@@ -209,6 +210,10 @@ function msg_int(val) {
     populateCircGridFromClip();
 
     preserveGlobalPhaseShift = tempPreserveGlobalPhaseShift;
+
+    // Because different clip is selected, select first circuit grid
+    qpo.js.selCircGridNum = 0;
+    outlet(15, 'int', qpo.js.selCircGridNum);
   }
   else if (inlet == 4) {
     // Preserve either global phase, or first pitch with above threshold probability
