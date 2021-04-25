@@ -210,8 +210,6 @@ function msg_int(val) {
     qpo.js.padNoteNamesDirty = true;
     populateCircGridFromClip();
 
-    preserveGlobalPhaseShift = tempPreserveGlobalPhaseShift;
-
     // Because different clip is selected, select first circuit grid
     qpo.js.setSelCircGridNum(0);
     outlet(15, 'int', qpo.js.selCircGridNum);
@@ -222,6 +220,8 @@ function msg_int(val) {
 
     // Set setCurCircNodeType to HAND
     qpo.js.setCurCircNodeType(qpo.js.CircuitNodeTypes.HAND);
+
+    preserveGlobalPhaseShift = tempPreserveGlobalPhaseShift;
   }
   else if (inlet == 4) {
     // Preserve either global phase, or first pitch with above threshold probability
