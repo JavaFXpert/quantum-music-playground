@@ -242,9 +242,9 @@ var gateGrid = [
   [CircuitNodeTypes.RY_8, CircuitNodeTypes.PHASE_8],
   [CircuitNodeTypes.CTRL, CircuitNodeTypes.PHASE_12],
   [CircuitNodeTypes.ANTI_CTRL, CircuitNodeTypes.PHASE_14],
-  [CircuitNodeTypes.SWAP, CircuitNodeTypes.EMPTY],
+  [CircuitNodeTypes.IDEN, CircuitNodeTypes.EMPTY],
   [CircuitNodeTypes.QFT, CircuitNodeTypes.HAND],
-  [CircuitNodeTypes.IDEN, CircuitNodeTypes.ERASE]
+  [CircuitNodeTypes.SWAP, CircuitNodeTypes.ERASE]
 ];
 
 // Index of currently selected grid
@@ -785,7 +785,7 @@ function setCircGridGate(notePitchVelocity) {
           }
 
           else if (pitch == 58) {
-            curCircNodeType = CircuitNodeTypes.SWAP;
+            curCircNodeType = CircuitNodeTypes.IDEN;
           }
 
           else if (pitch == 50) {
@@ -793,8 +793,9 @@ function setCircGridGate(notePitchVelocity) {
           }
 
           else if (pitch == 42) {
-            curCircNodeType = CircuitNodeTypes.IDEN;
+            curCircNodeType = CircuitNodeTypes.SWAP;
           }
+
         }
         refreshControllerPads();
       }
@@ -2202,7 +2203,7 @@ function circNodeType2Color(circNodeTypeNum) {
     colorNum = 126;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.ERASE) {
-    colorNum = 0;
+    colorNum = 1;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.H) {
     //colorNum = 122;

@@ -168,7 +168,7 @@ function draw() {
       text("T\u2020");
     }
 
-    else if (midiNum == 58) {
+    else if (midiNum == 42) {
       // CircuitNodeTypes.SWAP
       moveto(0.0, 0.0);
       glcolor(1.0, 1.0, 1.0, 1.0);
@@ -201,7 +201,7 @@ function draw() {
       text("\u270b");
     }
 
-    else if (midiNum == 42) {
+    else if (midiNum == 58) {
       // CircuitNodeTypes.IDEN
       moveto(0.0, 0.0);
       glcolor(0.008, 0.176, 0.609, 1.0);
