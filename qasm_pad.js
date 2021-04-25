@@ -108,6 +108,7 @@ var svGridPosX = 547.0;
 var CircuitNodeTypes = {
   EMPTY: -1,
   HAND: 0,
+  ERASE: 1,
   H: 8,
   SWAP: 9,
   BARRIER: 10,
@@ -242,8 +243,8 @@ var gateGrid = [
   [CircuitNodeTypes.CTRL, CircuitNodeTypes.PHASE_12],
   [CircuitNodeTypes.ANTI_CTRL, CircuitNodeTypes.PHASE_14],
   [CircuitNodeTypes.SWAP, CircuitNodeTypes.EMPTY],
-  [CircuitNodeTypes.QFT, CircuitNodeTypes.EMPTY],
-  [CircuitNodeTypes.IDEN, CircuitNodeTypes.EMPTY]
+  [CircuitNodeTypes.QFT, CircuitNodeTypes.HAND],
+  [CircuitNodeTypes.IDEN, CircuitNodeTypes.ERASE]
 ];
 
 // Index of currently selected grid
@@ -1698,7 +1699,7 @@ function refreshControllerPads() {
     }
   }
 
-  // For development, display all colors on pads
+  //For development, display all colors on pads
   // for (var midiNum = 36; midiNum < 100; midiNum++) {
   // 	var padColor = midiNum - 36;
   // 	//controlSurface.call('send_midi', 144, midiNum, padColor + 64);
@@ -2197,7 +2198,13 @@ function circNodeType2Color(circNodeTypeNum) {
   if (circNodeTypeNum == CircuitNodeTypes.EMPTY) {
     colorNum = 0;
   }
-  if (circNodeTypeNum == CircuitNodeTypes.H) {
+  if (circNodeTypeNum == CircuitNodeTypes.HAND) {
+    colorNum = 126;
+  }
+  else if (circNodeTypeNum == CircuitNodeTypes.ERASE) {
+    colorNum = 0;
+  }
+  else if (circNodeTypeNum == CircuitNodeTypes.H) {
     //colorNum = 122;
     colorNum = 24;
   }
@@ -2205,20 +2212,22 @@ function circNodeType2Color(circNodeTypeNum) {
     colorNum = 123;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.ANTI_CTRL) {
-    colorNum = 7;
+    colorNum = 122;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.CTRL_X) {
     //colorNum = 2;
     colorNum = 125;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.IDEN) {
-    colorNum = 124;
+    //colorNum = 124;
+    colorNum = 7;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.SWAP) {
-    colorNum = 51;
+    colorNum = 3;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.QFT) {
-    colorNum = 43;
+    //colorNum = 43;
+    colorNum = 93;
   }
 
   else if (circNodeTypeNum == CircuitNodeTypes.RX_0) {
@@ -2287,52 +2296,68 @@ function circNodeType2Color(circNodeTypeNum) {
   }
 
   else if (circNodeTypeNum == CircuitNodeTypes.RY_0) {
-    colorNum = 8;
+    //colorNum = 8;
+    colorNum = 127;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_1) {
-    colorNum = 8;
+    //colorNum = 8;
+    colorNum = 25;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_2) {
-    colorNum = 10;
+    //colorNum = 10;
+    colorNum = 127;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_3) {
-    colorNum = 10;
+    //colorNum = 10;
+    colorNum = 25;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_4) {
-    colorNum = 11;
+    //colorNum = 11;
+    colorNum = 127;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_5) {
-    colorNum = 11;
+    //colorNum = 11;
+    colorNum = 25;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_6) {
-    colorNum = 31;
+    //colorNum = 31;
+    colorNum = 127;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_7) {
-    colorNum = 31;
+    //colorNum = 31;
+    colorNum = 25;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_8) {
-    colorNum = 32;
+    //colorNum = 32;
+    colorNum = 127;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_9) {
-    colorNum = 32;
+    //colorNum = 32;
+    colorNum = 25;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_10) {
-    colorNum = 89;
+    //colorNum = 89;
+    colorNum = 127;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_11) {
-    colorNum = 89;
+    //colorNum = 89;
+    colorNum = 25;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_12) {
-    colorNum = 93;
+    //colorNum = 93;
+    colorNum = 127;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_13) {
-    colorNum = 93;
+    //colorNum = 93;
+    colorNum = 25;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_14) {
-    colorNum = 97;
+    //colorNum = 97;
+    colorNum = 127;
   }
   else if (circNodeTypeNum == CircuitNodeTypes.RY_15) {
-    colorNum = 97;
+    //colorNum = 97;
+    colorNum = 25;
   }
 
   else if (circNodeTypeNum == CircuitNodeTypes.PHASE_0) {
