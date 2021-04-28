@@ -21,7 +21,7 @@
 
 // Number of values in addition to the circuit grid
 // stored as metadata in the clip
-var NUM_ADDITIONAL_METADATA_VALUES = 7;
+var NUM_ADDITIONAL_METADATA_VALUES = 8;
 
 // Threshold for regarding a state as having any probability
 var PROBABILITY_THRESHOLD = 0.24;
@@ -607,7 +607,12 @@ function computeProbsPhases() {
             successorNoteFound = true;
             successorPitchNum = pitchNums[remPnIdx];
             if (legato) {
-              duration = Math.max((remPnIdx - pnIdx) / beatsPerMeasure, 1.0);
+              if (quantizeNotes) {
+                duration = Math.max((remPnIdx - pnIdx) / beatsPerMeasure, 1.0);
+              }
+              else {
+                duration = (remPnIdx - pnIdx) / beatsPerMeasure;
+              }
             }
             break;
           }
@@ -616,7 +621,7 @@ function computeProbsPhases() {
           if (legato) {
             // No successor note was found so duration of final note extends
             // to the end of the loop
-            duration = Math.max((pitchNums.length - pnIdx) / beatsPerMeasure, 1.0);
+            duration = (pitchNums.length - pnIdx) / beatsPerMeasure;
           }
         }
 
@@ -1160,7 +1165,7 @@ function computeProbsPhases() {
     }
   );
 
-  // Encode flags
+  // Encode flags A
   // The value encoded is a binary representation, where:
   //   - 0b0000001 place represents legato
   //   - 0b0000010 place represents reverseScale
@@ -1169,34 +1174,47 @@ function computeProbsPhases() {
   //   - 0b0010000 place represents useRagasInsteadOfScales
   //   - 0b0100000 place represents stochasticPitches
   //   - 0b1000000 place represents quantizeNotes
-  //   - 0b1000000 place represents quantizeNotes
-  var miscFlagsVal = 0;
+  var miscFlagsValA = 0;
   if (legato) {
-    miscFlagsVal += 1;
+    miscFlagsValA += 1;
   }
   if (reverseScale) {
-    miscFlagsVal += 2;
+    miscFlagsValA += 2;
   }
   if (halfScale) {
-    miscFlagsVal += 4;
+    miscFlagsValA += 4;
   }
   if (restPitchNum15) {
-    miscFlagsVal += 8;
+    miscFlagsValA += 8;
   }
   if (useRagasInsteadOfScales) {
-    miscFlagsVal += 16;
+    miscFlagsValA += 16;
   }
   if (stochasticPitches) {
-    miscFlagsVal += 32;
+    miscFlagsValA += 32;
   }
   if (quantizeNotes) {
-    miscFlagsVal += 64;
+    miscFlagsValA += 64;
   }
-
   notesDict.notes.push(
     {
-      pitch: miscFlagsVal,
+      pitch: miscFlagsValA,
       start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 6) / beatsPerMeasure,
+      duration: 0.25,
+    }
+  );
+
+  // Encode flags B
+  // The value encoded is a binary representation, where:
+  //   - 0b0000001 place represents oneShot
+  var miscFlagsValB = 0;
+  if (oneShot) {
+    miscFlagsValB += 1;
+  }
+  notesDict.notes.push(
+    {
+      pitch: miscFlagsValB,
+      start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 7) / beatsPerMeasure,
       duration: 0.25,
     }
   );
@@ -1231,7 +1249,10 @@ function populateCircGridFromClip() {
 
   var notes = clip.call('get_notes', loopEnd, 0, (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES, 128);
 
-  if (notes[0] == 'notes' && notes[1] == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES) {
+  // TODO: Uncomment
+  //if (notes[0] == 'notes' && notes[1] == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES) {
+  if (notes[0] == 'notes' && notes[1] >= (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES - 1) {
+
     for (var noteIdx = 0; noteIdx < (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES; noteIdx++) {
       var noteMidi = notes[noteIdx * notesArrayPeriod + 3];
       var noteStart = notes[noteIdx * notesArrayPeriod + 4];
@@ -1302,6 +1323,12 @@ function populateCircGridFromClip() {
           // Send current scale type value, after useRagasInsteadOfScales is known.
           outlet(6, 'int', curScaleType);
         }
+        else if (adjNoteStart * 4 == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + 7) {
+          oneShot = (noteMidi & 1) == 1; // oneShot is represented in 0b0000001 place
+
+          // Send states to UI controls
+          outlet(17, 'int', oneShot ? 1 : 0);
+        }
         else {
           var notePos = adjNoteStart * 4;
           var noteGrid = Math.floor(notePos / qpo.js.NUM_GRID_CELLS);
@@ -1336,11 +1363,12 @@ function populateCircGridFromClip() {
     outlet(10, 'int', 0); // Lock by pitch
     outlet(12, 'int', 0); // Set to scales (rather than ragas)
     outlet(13, 'int', 0); // Set to non stochastic note generation
+    outlet(17, 'int', 0); // Set to one-shot (clip doesn't loop)
   }
 
   // TODO: Consider persisting oneShot
-  oneShot = false;
-  outlet(17, 'int', 0); // Set to one-shot (clip doesn't loop)
+  //oneShot = false;
+  //outlet(17, 'int', 0); // Set to one-shot (clip doesn't loop)
 
   // TODO: Refactor code below and its occurrence elsewhere into separate method
   //	 		 and ensure that it doesn't get call unnecessarily
