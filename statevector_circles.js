@@ -1249,10 +1249,7 @@ function populateCircGridFromClip() {
 
   var notes = clip.call('get_notes', loopEnd, 0, (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES, 128);
 
-  // TODO: Uncomment
-  //if (notes[0] == 'notes' && notes[1] == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES) {
-  if (notes[0] == 'notes' && notes[1] >= (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES - 1) {
-
+  if (notes[0] == 'notes' && notes[1] == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES) {
     for (var noteIdx = 0; noteIdx < (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + NUM_ADDITIONAL_METADATA_VALUES; noteIdx++) {
       var noteMidi = notes[noteIdx * notesArrayPeriod + 3];
       var noteStart = notes[noteIdx * notesArrayPeriod + 4];
