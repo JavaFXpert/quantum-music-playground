@@ -572,7 +572,10 @@ function computeProbsPhases() {
         }
 
         if (basisStatesProbs.length > pnIdx && highestProbability > 0.0) {
-          velocity = Math.floor((basisStatesProbs[pnIdx] / highestProbability) * 127);
+          velocity = Math.min(Math.floor((basisStatesProbs[pnIdx] / highestProbability) * 127), 127);
+
+          // Scale velocity a bit
+          velocity = Math.min(Math.floor(velocity + ((127 - velocity) * 0.8)));
         }
         else {
           velocity = 127;
