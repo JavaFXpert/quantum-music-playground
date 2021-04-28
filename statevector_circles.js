@@ -163,6 +163,8 @@ var notesDict = {
 // Array booleans indicating whether probability is above threshold
 var basisStatesSignificantProbs = [];
 
+var basisStatesProbs = [];
+
 // Array of cumulative probabilities for all basis states
 var accumBasisStatesProbs = [];
 
@@ -417,6 +419,9 @@ function computeProbsPhases() {
 
   var cumulativeProbs = 0;
 
+  var highestProbability = 0.0;
+
+  basisStatesProbs = [];
   accumBasisStatesProbs = [];
 
   basisStatePiOver8Phases = [];
@@ -437,7 +442,10 @@ function computeProbsPhases() {
       numBasisStatesWithNonZeroProbability++;
     }
 
-    // For stochastic option, store the probabilities of all the states
+    // Store the probabilities of all the states
+    basisStatesProbs.push(probability);
+
+    // For stochastic option, store the accumulated probabilities of all the states
     if (stochasticPitches) {
       cumulativeProbs += probability;
       accumBasisStatesProbs.push(cumulativeProbs);
@@ -450,6 +458,8 @@ function computeProbsPhases() {
 
     var amplitude = Math.sqrt(Math.pow(Math.abs(real), 2) + Math.pow(Math.abs(imag), 2));
     var probability = Math.pow(Math.abs(amplitude), 2);
+    highestProbability = Math.max(highestProbability, probability);
+
     var pitchNum = -1;
 
     if (probability > PROBABILITY_THRESHOLD / numBasisStatesWithNonZeroProbability) {
@@ -542,6 +552,8 @@ function computeProbsPhases() {
   // Tracks the beats in the loop
   var beatIdx = 0;
 
+  var velocity = 127;
+
   for (var pnIdx = 0; pnIdx < pitchNums.length; pnIdx++) {
     if (basisStateIncluded(pnIdx, numBasisStates, curCycleLengthA, curCycleLengthB)) {
       currentMidiNum = qpo.js.pitchIdxToMidi(pitchNums[pnIdx],
@@ -558,6 +570,14 @@ function computeProbsPhases() {
           prevPiOver8Phase = pitchNums[pnIdx];
           foundFirstPitch = true;
         }
+
+        if (basisStatesProbs.length > pnIdx && highestProbability > 0.0) {
+          velocity = Math.floor((basisStatesProbs[pnIdx] / highestProbability) * 127);
+        }
+        else {
+          velocity = 127;
+        }
+        //post('\nvelocity for pnIdx ' + pnIdx + ': ' + velocity);
 
         var duration = 0.25;
         var successorNoteFound = false;
@@ -593,7 +613,7 @@ function computeProbsPhases() {
               pitch: pitchNums[pnIdx] + 36,
               start_time: beatIdx / beatsPerMeasure,
               duration: duration,
-              velocity: 100
+              velocity: velocity
             }
           );
 
@@ -618,7 +638,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration * 0.30,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               notesDict.notes.push(
@@ -633,7 +653,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.25,
                   duration: duration * 0.75,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               gamakaPlayed = true;
@@ -655,7 +675,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration * 0.30,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               notesDict.notes.push(
@@ -670,7 +690,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.25,
                   duration: duration * 0.75,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               gamakaPlayed = true;
@@ -695,7 +715,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration * 0.50,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               // Slide up to pitch in the note following the gamaka
@@ -712,7 +732,7 @@ function computeProbsPhases() {
                   start_time: beatIdx / beatsPerMeasure + duration * 0.33, // 1/3
                   //duration: duration * 0.25,
                   duration: duration * 0.50,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               // Slide down to pitch in the gamaka note
@@ -730,7 +750,7 @@ function computeProbsPhases() {
                   start_time: beatIdx / beatsPerMeasure + duration * 0.66, // 2/3
                   //duration: duration * 0.25,
                   duration: duration * 0.34,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
 
@@ -748,7 +768,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.5625, // 9/16
                   duration: duration * 0.25,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               // Slide down to pitch in the gamaka note
@@ -764,7 +784,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.75, // 12/16
                   duration: duration * 0.25,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               */
@@ -790,7 +810,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration * 0.30,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               // Slide up to pitch of the gamaka note
@@ -806,7 +826,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.25,
                   duration: duration * 0.30,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               // Slide down to the previous note pitch
@@ -822,7 +842,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.5,
                   duration: duration * 0.30,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               // Slide back up to pitch of the gamaka note
@@ -838,7 +858,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.75,
                   duration: duration * 0.25,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               gamakaPlayed = true;
@@ -862,7 +882,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration * 0.30,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               // Slide up to pitch of the previous note
@@ -878,7 +898,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.25,
                   duration: duration * 0.30,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               // Slide down to the gamaka note pitch
@@ -894,7 +914,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.5,
                   duration: duration * 0.30,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               // Slide back up to pitch of the previous note
@@ -910,7 +930,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] <= formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure + duration * 0.75,
                   duration: duration * 0.25,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               gamakaPlayed = true;
@@ -932,7 +952,7 @@ function computeProbsPhases() {
                   start_time: beatIdx / beatsPerMeasure,
                   //duration: duration * 0.15,
                   duration: 0.15,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               notesDict.notes.push(
@@ -949,7 +969,7 @@ function computeProbsPhases() {
                   start_time: beatIdx / beatsPerMeasure + 0.10,
                   //duration: duration * 0.9,
                   duration: duration - 0.10,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               gamakaPlayed = true;
@@ -971,7 +991,7 @@ function computeProbsPhases() {
                   start_time: beatIdx / beatsPerMeasure,
                   //duration: duration * 0.15,
                   duration: 0.15,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               notesDict.notes.push(
@@ -988,7 +1008,7 @@ function computeProbsPhases() {
                   start_time: beatIdx / beatsPerMeasure + 0.10,
                   //duration: duration * 0.9,
                   duration: duration - 0.10,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
               gamakaPlayed = true;
@@ -1018,7 +1038,7 @@ function computeProbsPhases() {
                     pitchNums[pnIdx] < formerPitchNum),
                   start_time: beatIdx / beatsPerMeasure,
                   duration: duration,
-                  velocity: 100
+                  velocity: velocity
                 }
               );
             }
