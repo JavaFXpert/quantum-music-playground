@@ -67,7 +67,8 @@ var numSvGrids = 4;
 //   the Scales/Ragas slider in the UI.
 // Inlet 14 receives messages that indicate whether notes are to be stochastic
 // Inlet 15 receives messages that indicate whether notes are to be stochastic
-this.inlets = 16;
+// Inlet 16 receives messages that indicate whether clip is to play only once
+this.inlets = 17;
 
 // Outlet 0 sends global phase shift
 // Outlet 1 sends pitch transform index
@@ -86,7 +87,8 @@ this.inlets = 16;
 // Outlet 14 sends indication of whether notes are to be quantized
 // Outlet 15 sends messages to the grid selection dial
 // Outlet 16 sends messages to the gate rotator dial
-this.outlets = 17;
+// Outlet 17 sends indication of whether clip is to be played only once
+this.outlets = 18;
 
 sketch.default2d();
 var vbrgb = [1., 1., 1., 1.];
@@ -153,6 +155,9 @@ var beatsPerMeasure = 4.0;
 var curNumBasisStates = 4;
 
 var quantizeNotes = false;
+
+// When true, the clip won't loop
+var oneShot = false;
 
 // Dictionary for sending notes to Live
 var notesDict = {
@@ -321,6 +326,11 @@ function msg_int(val) {
   else if (inlet == 15) {
     // Quantize notes into harmonic intervals or chords
     quantizeNotes = (val > 0);
+    computeProbsPhases();
+  }
+  else if (inlet == 16) {
+    // Clip plays just once, or loops
+    oneShot = (val > 0);
     computeProbsPhases();
   }
 }
@@ -1053,6 +1063,8 @@ function computeProbsPhases() {
     }
   }
   var numBeats = beatIdx;
+  clip.set('looping', oneShot ? 0 : 1);
+  post('\nclip.get looping: ' + clip.get('looping'));
   clip.set('loop_end', numBeats / beatsPerMeasure);
 
   var qpo = this.patcher.getnamed("qasmpad");
@@ -1156,6 +1168,7 @@ function computeProbsPhases() {
   //   - 0b0001000 place represents restPitchNum15
   //   - 0b0010000 place represents useRagasInsteadOfScales
   //   - 0b0100000 place represents stochasticPitches
+  //   - 0b1000000 place represents quantizeNotes
   //   - 0b1000000 place represents quantizeNotes
   var miscFlagsVal = 0;
   if (legato) {
@@ -1324,6 +1337,10 @@ function populateCircGridFromClip() {
     outlet(12, 'int', 0); // Set to scales (rather than ragas)
     outlet(13, 'int', 0); // Set to non stochastic note generation
   }
+
+  // TODO: Consider persisting oneShot
+  oneShot = false;
+  outlet(17, 'int', 0); // Set to one-shot (clip doesn't loop)
 
   // TODO: Refactor code below and its occurrence elsewhere into separate method
   //	 		 and ensure that it doesn't get call unnecessarily

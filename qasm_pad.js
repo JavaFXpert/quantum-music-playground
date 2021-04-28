@@ -19,8 +19,6 @@
  * a Push 2 device is not connected.
  *
  * TODO: Implement one-shot (non-looping) clips
- * TODO: Control volume with probability amplitudes
- * TODO: When in Quantize and Legato, fix interval and chord duration
  * TODO: Implement undo button
  * TODO: Fix or remove padsToBlink functionality
  * TODO: Verify that musical modes are implemented correctly
