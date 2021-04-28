@@ -574,7 +574,7 @@ function computeProbsPhases() {
             successorNoteFound = true;
             successorPitchNum = pitchNums[remPnIdx];
             if (legato) {
-              duration = (remPnIdx - pnIdx) / beatsPerMeasure;
+              duration = Math.max((remPnIdx - pnIdx) / beatsPerMeasure, 1.0);
             }
             break;
           }
@@ -583,7 +583,7 @@ function computeProbsPhases() {
           if (legato) {
             // No successor note was found so duration of final note extends
             // to the end of the loop
-            duration = (pitchNums.length - pnIdx) / beatsPerMeasure;
+            duration = Math.max((pitchNums.length - pnIdx) / beatsPerMeasure, 1.0);
           }
         }
 

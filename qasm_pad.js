@@ -18,6 +18,9 @@
  * Quantum DJ device circuit pad that may be used even when
  * a Push 2 device is not connected.
  *
+ * TODO: Implement one-shot (non-looping) clips
+ * TODO: Control volume with probability amplitudes
+ * TODO: When in Quantize and Legato, fix interval and chord duration
  * TODO: Implement undo button
  * TODO: Fix or remove padsToBlink functionality
  * TODO: Verify that musical modes are implemented correctly
@@ -25,7 +28,6 @@
  * TODO: Inquire surface number for Push
  * TODO: Fix Swap gates, and implement controlled-Swap
  * TODO: Verify that fixing swap gates fixed QFTs
- * TODO: Implement one-shot (non-looping) clips
  * TODO: Clear Push pad when switching between Note and Session
  * TODO: Use On/Off graphic on Push?
  * TODO: Implement rule-based composition constraints, e.g.:
