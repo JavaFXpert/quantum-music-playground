@@ -26,6 +26,12 @@ var NUM_ADDITIONAL_METADATA_VALUES = 8;
 // Threshold for regarding a state as having any probability
 var PROBABILITY_THRESHOLD = 0.24;
 
+// Value that adjusts velocity when probability affects velocity
+var PROBABILITY_VELOCITY_SCALE = 0.75;
+
+// Note velocity when not affected by probability
+var CONSTANT_VELOCITY = 120;
+
 var SV_GRID_POS_Y = 5.0;
 var SV_GRID_HEIGHT = 160;
 var SV_GRID_STEP_WIDTH = 3.125;
@@ -68,7 +74,8 @@ var numSvGrids = 4;
 // Inlet 14 receives messages that indicate whether notes are to be stochastic
 // Inlet 15 receives messages that indicate whether notes are to be stochastic
 // Inlet 16 receives messages that indicate whether clip is to play only once
-this.inlets = 17;
+// Inlet 17 receives messages that indicate that probability amplitudes affect note velocity
+this.inlets = 18;
 
 // Outlet 0 sends global phase shift
 // Outlet 1 sends pitch transform index
@@ -88,7 +95,8 @@ this.inlets = 17;
 // Outlet 15 sends messages to the grid selection dial
 // Outlet 16 sends messages to the gate rotator dial
 // Outlet 17 sends indication of whether clip is to be played only once
-this.outlets = 18;
+// Outlet 18 sends indication that probability amplitudes affect note velocity
+this.outlets = 19;
 
 sketch.default2d();
 var vbrgb = [1., 1., 1., 1.];
@@ -158,6 +166,9 @@ var quantizeNotes = false;
 
 // When true, the clip won't loop
 var oneShot = false;
+
+// When true, probability amplitudes affect velocity
+var probsAffectVelocity = true;
 
 // Dictionary for sending notes to Live
 var notesDict = {
@@ -333,6 +344,11 @@ function msg_int(val) {
     oneShot = (val > 0);
     computeProbsPhases();
   }
+  else if (inlet == 17) {
+    // Probabilities affect note velocities
+    probsAffectVelocity = (val > 0);
+    computeProbsPhases();
+  }
 }
 
 
@@ -504,7 +520,7 @@ function computeProbsPhases() {
       }
       else {
         post('\nUnexpected basisStatePiOver8Phases length: ' + basisStatePiOver8Phases.length +
-        ' or basisStatesSignificantProbs length: ' + basisStatesSignificantProbs.length);
+          ' or basisStatesSignificantProbs length: ' + basisStatesSignificantProbs.length);
       }
 
       if (!stochasticPitches) {
@@ -562,7 +578,7 @@ function computeProbsPhases() {
   // Tracks the beats in the loop
   var beatIdx = 0;
 
-  var velocity = 127;
+  var velocity = CONSTANT_VELOCITY;
 
   for (var pnIdx = 0; pnIdx < pitchNums.length; pnIdx++) {
     if (basisStateIncluded(pnIdx, numBasisStates, curCycleLengthA, curCycleLengthB)) {
@@ -581,14 +597,16 @@ function computeProbsPhases() {
           foundFirstPitch = true;
         }
 
-        if (basisStatesProbs.length > pnIdx && highestProbability > 0.0) {
-          velocity = Math.min(Math.floor((basisStatesProbs[pnIdx] / highestProbability) * 127), 127);
+        if (probsAffectVelocity) {
+          if (basisStatesProbs.length > pnIdx && highestProbability > 0.0) {
+            velocity = Math.min(Math.floor((basisStatesProbs[pnIdx] / highestProbability) * 127), 127);
 
-          // Scale velocity a bit
-          velocity = Math.min(Math.floor(velocity + ((127 - velocity) * 0.8)));
+            // Scale velocity so that volumes drop out more gradually
+            velocity = Math.min(Math.floor(velocity + ((127 - velocity) * PROBABILITY_VELOCITY_SCALE)));
+          }
         }
         else {
-          velocity = 127;
+          velocity = CONSTANT_VELOCITY;
         }
         //post('\nvelocity for pnIdx ' + pnIdx + ': ' + velocity);
 
@@ -1104,6 +1122,7 @@ function computeProbsPhases() {
             pitch: gateMidi,
             start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + (colIdx * qpo.js.NUM_GRID_ROWS + rowIdx)) / beatsPerMeasure,
             duration: 0.25,
+            velocity: 127
           }
         );
 
@@ -1117,6 +1136,7 @@ function computeProbsPhases() {
       pitch: globalPhaseShiftMidi,
       start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS)) / beatsPerMeasure,
       duration: 0.25,
+      velocity: 127
     }
   );
 
@@ -1126,6 +1146,7 @@ function computeProbsPhases() {
       pitch: pitchTransformIndex,
       start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 1) / beatsPerMeasure,
       duration: 0.25,
+      velocity: 127
     }
   );
 
@@ -1135,6 +1156,7 @@ function computeProbsPhases() {
       pitch: numTransposeSemitones,
       start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 2) / beatsPerMeasure,
       duration: 0.25,
+      velocity: 127
     }
   );
 
@@ -1144,6 +1166,7 @@ function computeProbsPhases() {
       pitch: curScaleType,
       start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 3) / beatsPerMeasure,
       duration: 0.25,
+      velocity: 127
     }
   );
 
@@ -1153,6 +1176,7 @@ function computeProbsPhases() {
       pitch: curCycleLengthA,
       start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 4) / beatsPerMeasure,
       duration: 0.25,
+      velocity: 127
     }
   );
 
@@ -1162,6 +1186,7 @@ function computeProbsPhases() {
       pitch: curCycleLengthB,
       start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 5) / beatsPerMeasure,
       duration: 0.25,
+      velocity: 127
     }
   );
 
@@ -1201,21 +1226,27 @@ function computeProbsPhases() {
       pitch: miscFlagsValA,
       start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 6) / beatsPerMeasure,
       duration: 0.25,
+      velocity: 127
     }
   );
 
   // Encode flags B
   // The value encoded is a binary representation, where:
   //   - 0b0000001 place represents oneShot
+  //   - 0b0000010 place represents probsAffectVelocity
   var miscFlagsValB = 0;
   if (oneShot) {
     miscFlagsValB += 1;
+  }
+  if (probsAffectVelocity) {
+    miscFlagsValB += 2;
   }
   notesDict.notes.push(
     {
       pitch: miscFlagsValB,
       start_time: (startIdx + (gridIdx * qpo.js.NUM_GRID_CELLS) + 7) / beatsPerMeasure,
       duration: 0.25,
+      velocity: 127
     }
   );
 
@@ -1322,9 +1353,11 @@ function populateCircGridFromClip() {
         }
         else if (adjNoteStart * 4 == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + 7) {
           oneShot = (noteMidi & 1) == 1; // oneShot is represented in 0b0000001 place
+          probsAffectVelocity = (noteMidi & 2) == 2; // probsAffectVelocity is represented in 0b0000010 place
 
           // Send states to UI controls
           outlet(17, 'int', oneShot ? 1 : 0);
+          outlet(18, 'int', probsAffectVelocity ? 1 : 0);
         }
         else {
           var notePos = adjNoteStart * 4;
@@ -1361,11 +1394,8 @@ function populateCircGridFromClip() {
     outlet(12, 'int', 0); // Set to scales (rather than ragas)
     outlet(13, 'int', 0); // Set to non stochastic note generation
     outlet(17, 'int', 0); // Set to one-shot (clip doesn't loop)
+    outlet(18, 'int', 1); // Set to probability amplitudes affect velocity
   }
-
-  // TODO: Consider persisting oneShot
-  //oneShot = false;
-  //outlet(17, 'int', 0); // Set to one-shot (clip doesn't loop)
 
   // TODO: Refactor code below and its occurrence elsewhere into separate method
   //	 		 and ensure that it doesn't get call unnecessarily
