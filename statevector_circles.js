@@ -1390,12 +1390,14 @@ function populateCircGridFromClip() {
     outlet(7, 'int', 2);
     outlet(8, 'int', 0);
     outlet(9, 'int', 2);
-    outlet(10, 'int', 0); // Lock by pitch
+    //outlet(10, 'int', 0); // Lock by pitch
     outlet(12, 'int', 0); // Set to scales (rather than ragas)
     outlet(13, 'int', 0); // Set to non stochastic note generation
     outlet(17, 'int', 0); // Set to one-shot (clip doesn't loop)
     outlet(18, 'int', 1); // Set to probability amplitudes affect velocity
   }
+
+  outlet(10, 'int', 0); // Lock by pitch
 
   // TODO: Refactor code below and its occurrence elsewhere into separate method
   //	 		 and ensure that it doesn't get call unnecessarily
