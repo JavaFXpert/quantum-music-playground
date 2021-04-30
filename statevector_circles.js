@@ -1397,8 +1397,6 @@ function populateCircGridFromClip() {
     outlet(18, 'int', 1); // Set to probability amplitudes affect velocity
   }
 
-  outlet(10, 'int', 0); // Lock by pitch
-
   // TODO: Refactor code below and its occurrence elsewhere into separate method
   //	 		 and ensure that it doesn't get call unnecessarily
   // Get truncated path that only includes track (e.g. live_set tracks 2)
