@@ -27,7 +27,7 @@ var NUM_ADDITIONAL_METADATA_VALUES = 8;
 var PROBABILITY_THRESHOLD = 0.24;
 
 // Value that adjusts velocity when probability affects velocity
-var PROBABILITY_VELOCITY_SCALE = 0.75;
+var PROBABILITY_VELOCITY_SCALE = 0.6;
 
 // Note velocity when not affected by probability
 var CONSTANT_VELOCITY = 120;
