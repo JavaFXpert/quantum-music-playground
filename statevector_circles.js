@@ -1087,7 +1087,6 @@ function computeProbsPhases() {
   }
   var numBeats = beatIdx;
   clip.set('looping', oneShot ? 0 : 1);
-  post('\nclip.get looping: ' + clip.get('looping'));
   clip.set('loop_end', numBeats / beatsPerMeasure);
 
   var qpo = this.patcher.getnamed("qasmpad");
