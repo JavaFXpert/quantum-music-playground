@@ -7,6 +7,10 @@ Playground for composing music using quantum states. Implemented as a Max for Li
 
 
 
+Here is a short [video of expressing a portion of Canon in D](https://youtu.be/Vpp364Sgivk) with Quantum Music Playground.
+
+
+
 > Please note that it is ***not*** necessary to have prior knowledge of quantum computing in order to use Quantum Music Playground. We'll sneak in what you need to know as we go along, and will reference helpful (but not essential to internalize) resources.
 >
 > It is necessary to have a version of Ableton Live that supports Max for Live devices, which is [available as a 90 day free trial](https://www.ableton.com/en/trial/) at the time of this writing. Ableton Live 11 Suite will work, and so will Ableton Live 11 Standard plus Max for Live.
