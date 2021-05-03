@@ -416,6 +416,8 @@ In this example the quantization occurs among basis states whose bit in position
 
 In each example, the bit position to use for quantization is ascertained by adding 2 to the position of the lowest occupied wire. In the first example, the lowest occupied wire is 1, so quantization occurs among basis states whose bit in position 3 is the same. In the second example, the lowest occupied wire is 0, so quantization occurs among basis states whose bit in position 2 is the same.
 
+Here is a [video of expressing Canon in D](https://youtu.be/Vpp364Sgivk) that demonstrates how to quantize notes into chords. 
+
 
 
 ### Implementing time cycles
