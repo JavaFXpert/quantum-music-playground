@@ -1392,6 +1392,7 @@ function populateCircGridFromClip() {
     //outlet(10, 'int', 0); // Lock by pitch
     outlet(12, 'int', 0); // Set to scales (rather than ragas)
     outlet(13, 'int', 0); // Set to non stochastic note generation
+    outlet(14, 'int', 0); // Set to not quantized
     outlet(17, 'int', 0); // Set to one-shot (clip doesn't loop)
     outlet(18, 'int', 1); // Set to probability amplitudes affect velocity
   }
