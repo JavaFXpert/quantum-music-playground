@@ -1316,7 +1316,7 @@ function populateCircGridFromClip() {
 
           // Note that current scale type value is sent later,
           // after useRagasInsteadOfScales is known
-          //outlet(6, 'int', curScaleType);
+          outlet(6, 'int', curScaleType);
         }
         else if (adjNoteStart * 4 == (qpo.js.NUM_GRID_CELLS * qpo.js.NUM_GRIDS) + 4) {
           curCycleLengthA = noteMidi;
