@@ -76,6 +76,24 @@ var numSvGrids = 4;
 // Inlet 16 receives messages that indicate whether clip is to play only once
 // Inlet 17 receives messages that indicate that probability amplitudes affect note velocity
 this.inlets = 18;
+setinletassist(0, "receives 'viz' messages with a statevector to display");
+setinletassist(1, "receives global phase shift integer from 0 - NUM_PITCHES");
+setinletassist(2, "receives instrument type selection (0 to 8)");
+setinletassist(3, "receives name of current clip");
+setinletassist(4, "0 to shift global phase, 1 lock global phase");
+setinletassist(5, "receives number of semitones to transpose");
+setinletassist(6, "receives messages that indicate whether notes are to be legato");
+setinletassist(7, "receives messages that indicate whether scale is to be reversed");
+setinletassist(8, "receives messages that indicate whether scale is to be halved");
+setinletassist(9, "receives messages that indicate current scale type");
+setinletassist(10, "receives messages that indicate current beats in cycle A");
+setinletassist(11, "receives messages that indicate whether pitch num 15 is a rest");
+setinletassist(12, "receives messages that indicate current beats in cycle B");
+setinletassist(13, "receives 0 for scales, and 1 for ragas");
+setinletassist(14, "receives messages that indicate whether notes are to be stochastic");
+setinletassist(15, "receives messages that indicate whether notes are to be stochastic");
+setinletassist(16, "receives messages that indicate whether clip is to play only once");
+setinletassist(17, "receives messages that indicate that probability amplitudes affect note velocity");
 
 // Outlet 0 sends global phase shift
 // Outlet 1 sends pitch transform index
@@ -97,6 +115,25 @@ this.inlets = 18;
 // Outlet 17 sends indication of whether clip is to be played only once
 // Outlet 18 sends indication that probability amplitudes affect note velocity
 this.outlets = 19;
+setoutletassist(0, "sends global phase shift");
+setoutletassist(1, "sends pitch transform index");
+setoutletassist(2, "sends number of semitones transposition");
+setoutletassist(3, "sends indication of whether notes are to be legato");
+setoutletassist(4, "sends indication of whether scale is to be reversed");
+setoutletassist(5, "sends indication of whether scale is to be halved");
+setoutletassist(6, "sends the current scale type value");
+setoutletassist(7, "sends the current beats in cycle A");
+setoutletassist(8, "sends indication of whether pitch num 15 is a rest");
+setoutletassist(9, "sends the current beats in a cycle B");
+setoutletassist(10, "sends 0 if pitch is to be locked, or 1 if phase is to be locked");
+setoutletassist(11, "sends width messages to this.device");
+setoutletassist(12, "sends 0 if scales, or 1 if ragas, are to be displayed in the UI");
+setoutletassist(13, "sends indication of whether notes are to be stochastic");
+setoutletassist(14, "sends indication of whether notes are to be quantized");
+setoutletassist(15, "sends messages to the grid selection dial");
+setoutletassist(16, "sends messages to the gate rotator dial");
+setoutletassist(17, "sends indication of whether clip is to be played only once");
+setoutletassist(18, "sends indication that probability amplitudes affect note velocity");
 
 sketch.default2d();
 var vbrgb = [1., 1., 1., 1.];

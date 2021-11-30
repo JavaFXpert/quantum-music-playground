@@ -30,7 +30,7 @@ Here is a [video that shows performing these steps on a Mac](https://youtu.be/8t
 
 
 
-Here is a [video of Twinkle Twinkle Little Star](https://youtu.be/5D2mmwkyJVM) paying in Ableton Live, using Piano, Bass and various percussion instruments, whose clips are expressed using quantum circuits.
+Here is a [video of Twinkle Twinkle Little Star](https://youtu.be/5D2mmwkyJVM) playing in Ableton Live, using Piano, Bass and various percussion instruments, whose clips are expressed using quantum circuits.
 
 At the bottom of the screenshot is the Quantum Music Playground device, shown here expressing the kick drum part contained in the **Kick** clip in one of the tracks labeled **808 Core Kit**. In the center of the device is a [quantum circuit](https://qiskit.org/documentation/qc_intro.html#quantum-circuits), shown by itself in the following image.
 
@@ -472,7 +472,7 @@ As discussed previously, Quantum Music Playground supports nested time cycles, s
 
 
 
-Here is a [video of Alankara 3](https://youtu.be/abA6kk_AmIM) paying in Ableton Live, using Veena, Mridangam and Tabla (instruments) whose clips are expressed using quantum circuits.
+Here is a [video of Alankara 3](https://youtu.be/abA6kk_AmIM) playing in Ableton Live, using Veena, Mridangam and Tabla (instruments) whose clips are expressed using quantum circuits.
 
  
 

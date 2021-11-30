@@ -22,11 +22,13 @@ var math = require("math.min.js").math;
 
 // Inlet 0 receives simulator messages that include a QASM string
 this.inlets = 1;
+setinletassist(0, "receives simulator messages that include a QASM string");
 
 // Outlet 0 sends a statevector as a list of floats, with each pair of floats
 // expressing one complex number (without a character such as i that symbolizes
 // an imaginary component.
 this.outlets = 1;
+setinletassist(0, "sends a statevector as a list of floats");
 
 sketch.default2d();
 var val = 0;

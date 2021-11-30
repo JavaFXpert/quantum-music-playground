@@ -184,6 +184,14 @@ var CircuitNodeTypes = {
 // Inlet 6 receives shift gates left messages
 // Inlet 7 receives selected grid (0 or 1) messages
 this.inlets = 8;
+setinletassist(0, "receives note messages that include velocity.");
+setinletassist(1, "receives bang message to update clips");
+setinletassist(2, "receives gate rotation messages");
+setinletassist(3, "receives shift gates down messages");
+setinletassist(4, "receives shift gates up messages");
+setinletassist(5, "receives shift gates right messages");
+setinletassist(6, "receives shift gates left messages");
+setinletassist(7, "receives selected grid (0 or 1) messages");
 
 // Outlet 0 sends message to a simulator with generated QASM
 // Outlet 1 sends messages to the midi clips list box
@@ -191,6 +199,11 @@ this.inlets = 8;
 // Outlet 3 sends messages to the gate rotator dial
 // Outlet 4 sends messages to the grid selection dial
 this.outlets = 5;
+setoutletassist(0, "sends message to a simulator with generated QASM");
+setoutletassist(1, "sends messages to the midi clips list box");
+setoutletassist(2, "sends messages to the clip selector dial");
+setoutletassist(3, "sends messages to the gate rotator dial");
+setoutletassist(4, "sends messages to the grid selection dial");
 
 
 // Flag that indicates whether the currently displayed pads/notes
