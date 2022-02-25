@@ -1,6 +1,6 @@
 ## Quantum Music Playground Tutorial
 
-The Quantum Music Playground represents one of many possible approaches for leveraging quantum computing to composing music. It is Implemented as a Max for Live device in Ableton Live 11, and includes a MicroQiskit quantum simulator. It is free Apache 2.0 licensed open source software, developed by James L. Weaver, and available at `qisk.it/qmp`. Quantum Music Playground takes an approach that rendering beats and melodies from statevectors that model quantum states. For example, Figure 1 shows a four qubit quantum circuit and quantum state whose basis state amplitudes are all the same. The phases of the basis states differ, however, progressing from 0 radians to 15π/8 radians. 
+Quantum Music Playground represents one of many possible approaches for leveraging quantum computing to compose music. It is implemented as a Max for Live device in Ableton Live 11, and includes a MicroQiskit quantum simulator. It is Apache 2.0 licensed open source software, developed by James L. Weaver, and freely available at `qisk.it/qmp`. Quantum Music Playground takes the approach of rendering beats and melodies from statevectors that model quantum states. For example, Figure 1 shows a four qubit quantum circuit in the IBM Quantum Circuit Composer. The basis state amplitudes (denoted by the heights of the bars) from the resultant quantum state are all equivalent. The phases of the basis states (denoted by the shading of the bars) differ, however, progressing from 0 radians to 15π/8 radians. 
 
 <img src="/Users/James.Weaver@ibm.com/Music/Ableton/User Library/Presets/MIDI Effects/Max MIDI Effect/quantum-dj-max/images/scale_circuit_composer.png" alt="Quantum Music Playground screenshot" width=100%/>
 
@@ -8,7 +8,7 @@ The Quantum Music Playground represents one of many possible approaches for leve
 
 
 
-The quantum circuit and state shown in Figure 1 may be created in the Quantum Music Playground as shown in Figure 2. The notes corresponding to each of the basis states are played in sequence. The amplitude of a given basis states controls the likelihood that a given basis state will be played, and its phase controls the pitch played.
+The quantum circuit and state shown in Figure 1 may also be created in the Quantum Music Playground as shown in Figure 2. The notes corresponding to each of the basis states are played in sequence. The amplitude of a given basis states controls the likelihood that a given basis state will be played, and its phase controls the pitch played.
 
 <img src="/Users/James.Weaver@ibm.com/Music/Ableton/User Library/Presets/MIDI Effects/Max MIDI Effect/quantum-dj-max/images/scale_qmp.png" alt="Quantum Music Playground screenshot" width=100%/>
 
@@ -16,7 +16,7 @@ The quantum circuit and state shown in Figure 1 may be created in the Quantum Mu
 
 
 
-The Quantum Music Playground is not only a tool for composing music, but it is also an enjoyable way of gaining intuition about quantum circuits and states. It is implemented as a Max for Live device in the Ableton Live 11 digital audio workstation (DAW), and includes a MicroQiskit quantum simulator. As an example, Figure 3 shows an Ableton Live Session View that contains MIDI clips that play an arrangement of the well known song entitled *Twinkle Twinkle Little Star*. 
+Quantum Music Playground is not only a tool for composing music, but it is also an enjoyable way of gaining intuition about quantum circuits and states in the process. As an example, Figure 3 shows an Ableton Live Session View that contains MIDI clips that play an arrangement of the well known song entitled *Twinkle Twinkle Little Star*. 
 
 
 
@@ -86,7 +86,7 @@ Up to this point we've created a simple bass drum beat pattern by placing Hadama
 
 
 
-Let's examine the Quantum Music Playground device by itself in the following image.
+Let's examine the Quantum Music Playground device by itself in Figure 8.
 
 ![Quantum Music Playground screenshot](/Users/James.Weaver@ibm.com/Music/Ableton/User Library/Presets/MIDI Effects/Max MIDI Effect/quantum-dj-max/images/v095/twinkle_crash_qmp.png)
 
@@ -164,7 +164,7 @@ Finally, to play the **Open Hi-hat** on the fourth sixteenth note of every beat,
 
 
 
-The **S†** gate rotates the phase on a wire by 12π/8 radians. However, when a control gate modifier is placed in the same column, the **S†** gate only operates when the control wire has a value of 1. This rotates the phase on each of the basis states whose positions corresponding to the **S†** gate and the control gate modifier both contain a 1. This is seen more clearly in the Figure 17, in which the rotation is performed on every basis state whose bits in positions 0 and 1 are both 1.
+The **S†** gate rotates the phase on a wire by 12π/8 radians. However, when a control gate modifier is placed in the same column, the **S†** gate only operates when the control wire has a value of 1. This rotates the phase on each of the basis states whose positions corresponding to the **S†** gate and the control gate modifier both contain a 1. This is seen more clearly in Figure 17, in which the rotation is performed on every basis state whose bits in positions 0 and 1 are both 1.
 
 <img src="/Users/James.Weaver@ibm.com/Music/Ableton/User Library/Presets/MIDI Effects/Max MIDI Effect/quantum-dj-max/images/twinkle_hats_musical_sequence_sdg.png" alt="Twinkle Crash musical sequence" width=80%/>
 
@@ -174,7 +174,7 @@ The **S†** gate rotates the phase on a wire by 12π/8 radians. However, when a
 
 ## Playing with rhythm
 
-So far, the rhythms we've created have consisted of instruments playing at consistent time intervals. For example, our **Kick** clip played the bass drum on the four beats of the measure, and the **Hats A** clip played the hi-hats on each sixteenth note. Now we'll discuss how to create syncopated rhythms, beginning with playing on the off-beats. To demonstrate this, we'll play a snare drum on beat two of a measure, and a hand clap on beat four of the measure, but neither will be played on beats one and three. The bottom of the Figure 18 shows the Quantum Music Playground device, now expressing the **Snare Drum** and **Hand Clap** parts contained in the **Snare/Clap** clip in another one of the tracks labeled **808 Core Kit**.
+So far, the rhythms we've created have consisted of instruments playing at consistent time intervals. For example, our **Kick** clip played the bass drum on the four beats of the measure, and the **Hats A** clip played the hi-hats on each sixteenth note. Now we'll discuss how to create syncopated rhythms, beginning with playing on the off-beats. To demonstrate this, we'll play a snare drum on beat two of a measure, and a hand clap on beat four of the measure, but neither will be played on beats one and three. The bottom of Figure 18 shows the Quantum Music Playground device, now expressing the **Snare Drum** and **Hand Clap** parts contained in the **Snare/Clap** clip in another one of the tracks labeled **808 Core Kit**.
 
 ![Twinkle song cymbal part](/Users/James.Weaver@ibm.com/Music/Ableton/User Library/Presets/MIDI Effects/Max MIDI Effect/quantum-dj-max/images/v095/twinkle_snare_full_screenshot.png)
 
@@ -182,7 +182,7 @@ So far, the rhythms we've created have consisted of instruments playing at consi
 
 
 
-Looking at the Figure 19, we see that there are some similarities to the previous example in which open and closed hi-hats were played, but there are some differences to point out as well. 
+Looking at Figure 19, we see that there are some similarities to the previous example in which open and closed hi-hats were played, but there are some differences to point out as well. 
 
 ![Quantum Music Playground screenshot](/Users/James.Weaver@ibm.com/Music/Ableton/User Library/Presets/MIDI Effects/Max MIDI Effect/quantum-dj-max/images/v095/twinkle_snare_qmp.png)
 
@@ -256,7 +256,7 @@ Taking a closer look at Quantum Music Playground in Figure 26, you'll notice a c
 
 
 
-These are examples of the more general [RY gate](https://quantum-computing.ibm.com/composer/docs/operations-glossary/operations-glossary#ry-gate), which is defined by its amount of rotation on the Y axis of a [Bloch sphere](https://javafxpert.github.io/grok-bloch/). With the exception of the **Y** gate itself, the RY gates are expressed in Quantum Music Playground with a lower case **y** and the number of π/8 radians by which they rotate the on the Y axis.
+These are examples of the more general **RY** gate, which is defined by its amount of rotation on the Y axis of a Bloch sphere. With the exception of the **Y** gate itself, the RY gates are expressed in Quantum Music Playground with a lower case **y** and the number of π/8 radians by which they rotate the on the Y axis.
 
 An effect of rotating a wire with an RY gate is that its probability amplitude may increase or decrease. We leverage this effect in Quantum Music Playground by making the MIDI velocity proportional to the probability amplitude. Consequently, the volumes of the notes vary according to their probability amplitudes. 
 
@@ -281,7 +281,7 @@ In general, the following technique may be used to express basis states to drop 
 
 #### Dropping out a note by putting it in pitch 15
 
-Another way to drop out a note is to select the **Rest 15** toggle button, and use some method (usually a phase gate) to make the desired note appear on the top row of the sequence grid. This technique is demonstrated in the Figure 28, where the top row of the sequence grid is now labeled **REST**.
+Another way to drop out a note is to select the **Rest 15** toggle button, and use some method (usually a phase gate) to make the desired note appear on the top row of the sequence grid. This technique is demonstrated in Figure 28, where the top row of the sequence grid is now labeled **REST**.
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/twinkle_lead_c_qmp.png?lastModify=1645808687)
 
@@ -303,7 +303,7 @@ We've used control gate modifiers with various gates in several of the examples,
 
 
 
-The following table shows which gates in Quantum Music Playground may have control (and anti-control) gate modifiers, as well as how many modifiers may be used with the gate.
+The Table 1 shows which gates in Quantum Music Playground may have control (and anti-control) gate modifiers, as well as how many modifiers may be used with the gate.
 
 | Gate                                                         | Max control modifiers |
 | ------------------------------------------------------------ | --------------------- |
@@ -322,11 +322,11 @@ Please note that if a column on a quantum circuit contains more than one of thes
 
 ## Exploring additional musical functionality
 
-Up to this point we've focused on creating quantum circuits to select instruments and pitches, and to express rhythm patterns. When composing a song, of course, there are countless choices involving things such as instrument banks, octaves, musical scales, and time signatures. These choices help implement abstract musical sequences expressed by your quantum circuits. They are located in the left side of the Quantum Music Playground device, shown in the following Figure 30.
+Up to this point we've focused on creating quantum circuits to select instruments and pitches, and to express rhythm patterns. When composing a song, of course, there are countless choices involving things such as instrument banks, octaves, musical scales, and time signatures. These choices help implement abstract musical sequences expressed by your quantum circuits. They are located in the left side of the Quantum Music Playground device, shown in Figure 30.
 
 ![Twinkle lead B musical sequence](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/qmp_control_panel.png?lastModify=1645808687)
 
-*Figure 30. Using the Rest p15 toggle button to drop out notes* 
+*Figure 30. Additional musical functionality in Quantum Music Composer* 
 
 
 
@@ -342,7 +342,7 @@ In Ableton Live, a track may contain either a rack of instruments (e.g. a drum k
 
 The instrument names displayed in the column to the left of the musical sequence grid are from the drum kit placed on the same track as the **Hats A** clip resides. The MIDI note values generated when **Kit** is selected range from 36 through 51, which often correspond to the main instruments in an instrument rack.
 
-By contrast, in Figure 32, showing the previous example of the **Bass B** clip, the vertical slider labeled **Octave** has **0** selected.
+By contrast, in the previous example of the **Bass B** clip, the vertical slider labeled **Octave** has **0** selected. This is shown in Figure 32.
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/twinkle_bass_b_qmp.png?lastModify=1645808687)
 
@@ -504,7 +504,7 @@ When the Quantum Music Playground device starts, it identifies all of the clips 
 
 #### QMP metadata in MIDI clips
 
-MIDI clips in Ableton Live store MIDI data that includes note pitches, start times, and durations. In addition to the playable notes in a clip, Quantum Music Playground stores metadata in the MIDI clip that expresses the quantum circuit, slider values, and button toggle states. This may be seen in the following image of the Ableton MIDI Clip View for the **Twinkle A** clip, whose measure numbers across the top will now be used as we discuss their contents.
+MIDI clips in Ableton Live store MIDI data that includes note pitches, start times, and durations. In addition to the playable notes in a clip, Quantum Music Playground stores metadata in the MIDI clip that expresses the quantum circuit, slider values, and button toggle states. This may be seen in the Ableton MIDI Clip View for the **Twinkle A** clip (Figure 43), whose measure numbers across the top will now be used as we discuss their contents.
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/midi_clip_twinkle_a.png?lastModify=1645808687)
 
@@ -512,7 +512,7 @@ MIDI clips in Ableton Live store MIDI data that includes note pitches, start tim
 
 
 
-For reference during this discussion, please also refer to the Figure 44 containing the **Twinkle A** clip in Quantum Music Playground. In the previous image, measures 1 & 2 contain the MIDI notes for the notes to be played. Measures 3 - 5 contain a MIDI representation of the quantum circuit, beginning with the first column, with each note encoding either a blank cell or operation. Measure 6 contains slider values, with its final MIDI notes encoding the binary states of the toggle buttons. Please consult the Quantum Music Playground source code for more details on this metadata representation. 
+For reference during this discussion, please also refer to Figure 44 containing the **Twinkle A** clip in Quantum Music Playground. In the previous image, measures 1 & 2 contain the MIDI notes for the notes to be played. Measures 3 - 5 contain a MIDI representation of the quantum circuit, beginning with the first column, with each note encoding either a blank cell or operation. Measure 6 contains slider values, with its final MIDI notes encoding the binary states of the toggle buttons. Please consult the Quantum Music Playground source code for more details on this metadata representation. 
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/qmp_0_95_screenshot.png?lastModify=1645808687)
 
@@ -530,5 +530,5 @@ It is often desirable to move all of the operations in a quantum circuit to the 
 
 ### Conclusion
 
-This has been a tour and tutorial of the Quantum Music Playground, which represents just one approach for leveraging quantum computing to composing music. For more information, including videos that contain examples in this tutorial, visit the Quantum Music Playground repository qisk.it/qmp
+This has been a tour and tutorial of the Quantum Music Playground, which represents just one approach for leveraging quantum computing to compose music. For more information, including videos that contain examples in this tutorial, visit the Quantum Music Playground repository at qisk.it/qmp
 
