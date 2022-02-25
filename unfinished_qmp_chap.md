@@ -1,6 +1,6 @@
 ## Quantum Music Playground Tutorial
 
-The Quantum Music Playground represents one of many possible approaches for leveraging quantum computing to composing music. Quantum Music Playground take an approach that rendering beats and melodies from statevectors that model quantum states. For example, Figure 1 shows a four qubit quantum circuit and quantum state whose basis state amplitudes are all the same. The phases of the basis states differ, however, progressing from 0 radians to 15π/8 radians. 
+The Quantum Music Playground represents one of many possible approaches for leveraging quantum computing to composing music. It is Implemented as a Max for Live device in Ableton Live 11, and includes a MicroQiskit quantum simulator. It is free Apache 2.0 licensed open source software, developed by James L. Weaver, and available at `qisk.it/qmp`. Quantum Music Playground takes an approach that rendering beats and melodies from statevectors that model quantum states. For example, Figure 1 shows a four qubit quantum circuit and quantum state whose basis state amplitudes are all the same. The phases of the basis states differ, however, progressing from 0 radians to 15π/8 radians. 
 
 <img src="/Users/James.Weaver@ibm.com/Music/Ableton/User Library/Presets/MIDI Effects/Max MIDI Effect/quantum-dj-max/images/scale_circuit_composer.png" alt="Quantum Music Playground screenshot" width=100%/>
 
@@ -384,9 +384,11 @@ When using a diatonic scale it is sometimes convenient for the pitches to range 
 
 ### Inverting a musical scale 
 
-The pitches the musical sequence grid my be inverted by selecting the **Inverted** toggle button. As shown in the following image, the pitches in the column to the left of the musical sequence grid change accordingly.
+The pitches the musical sequence grid my be inverted by selecting the **Inverted** toggle button. As shown in Figure 36, the pitches in the column to the left of the musical sequence grid change accordingly.
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/qmp_inverted_toggle.png?lastModify=1645808687)
+
+*Figure 36. Inverting a musical scale* 
 
 
 
@@ -398,9 +400,13 @@ Notes play for a duration of one quarter note by default. To make notes play wit
 
 ### Playing harmonic intervals and chords
 
-By default, notes are played melodically (one after another). Notes may be played harmonically by selecting the **Quantize** toggle button, producing intervals or chords. In the following example, a jazzy chord progression is played harmonically, as their individual notes are quantized into chords.
+By default, notes are played melodically (one after another). Notes may be played harmonically by selecting the **Quantize** toggle button, producing intervals or chords. In the example shown in Figure 37, a jazzy chord progression is played harmonically, as their individual notes are quantized into chords.
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/jazz_quantize_qmp.png?lastModify=1645808687)
+
+*Figure 37. Playing chords harmonically* 
+
+
 
 In this example the quantization occurs among basis states whose bit in position 3 are the same. Consequently, the following groups of notes are played harmonically:
 
@@ -411,9 +417,13 @@ In this example the quantization occurs among basis states whose bit in position
 
 
 
-Similarly, the following example  demonstrates playing intervals harmonically.
+Similarly, the example in Figure 38 demonstrates playing intervals harmonically.
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/intervals_quantize_qmp.png?lastModify=1645808687)
+
+*Figure 38. Playing intervals harmonically* 
+
+
 
 In this example the quantization occurs among basis states whose bit in position 2 are the same. Consequently, the following pairs of notes are played harmonically:
 
@@ -430,15 +440,15 @@ In this example the quantization occurs among basis states whose bit in position
 
 In each example, the bit position to use for quantization is ascertained by adding 2 to the position of the lowest occupied wire. In the first example, the lowest occupied wire is 1, so quantization occurs among basis states whose bit in position 3 is the same. In the second example, the lowest occupied wire is 0, so quantization occurs among basis states whose bit in position 2 is the same.
 
-Here is a [video of expressing Canon in D](https://youtu.be/Vpp364Sgivk) that demonstrates how to quantize notes into chords. 
-
 
 
 ### Implementing time cycles
 
-Some of the most common time signatures and loop lengths in music are some power of 2. When other time cycles are desired (e.g. playing in 5/4 time signature, or in some Indian classical time cycles), a different length may be selected. For example, the following image shows part of the *Twinkle Twinkle Little Star* melody in clip **Twinkle A** being played in 7/8 time. 
+Some of the most common time signatures and loop lengths in music are some power of 2. When other time cycles are desired (e.g. playing in 5/4 time signature, or in some Indian classical time cycles), a different length may be selected. For example, Figure 39 shows part of the *Twinkle Twinkle Little Star* melody in clip **Twinkle A** being played in 7/8 time. 
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/qmp_time_cycle_selection.png?lastModify=1645808687)
+
+*Figure 39. Playing in 7/8 time* 
 
 
 
@@ -446,9 +456,11 @@ This is achieved by selecting 14 in the **Cycle A** slider, which removes all mu
 
 ### Generating stochastic pitches
 
-All of the Quantum Music Playground functionality covered so far has been deterministic, which leverages that fact that we have access to the probability amplitudes and phases of the basis states in a quantum state. We only have access to this information because Quantum Music Playground uses a quantum simulator. Using a real quantum computer, information about an underlying quantum state is more opaque, and may only be glimpsed at via repeated measurements. To introduce some quantum measurement randomness, select the **Stochastic** toggle button as shown in the following image of the **Twinkle Stoch** clip.
+All of the Quantum Music Playground functionality covered so far has been deterministic, which leverages that fact that we have access to the probability amplitudes and phases of the basis states in a quantum state. We only have access to this information because Quantum Music Playground uses a quantum simulator. Using a real quantum computer, information about an underlying quantum state is more opaque, and may only be glimpsed at via repeated measurements. To introduce some quantum measurement randomness, select the **Stochastic** toggle button as shown in Figure 40.
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/qmp_stochastic_toggle.png?lastModify=1645808687)
+
+*Figure 40. Playing pitches stochastically* 
 
 
 
@@ -464,25 +476,21 @@ Quantum Music Playground contains some limited functionality that supports compo
 
 ### Selecting ragas
 
-The following image of Quantum Music Playground shows the first of the fundamental sequences (Sarali Varisai 1), used to teach Carnatic music. It is played in the Mayamalavagowla raga, which is number 15 in the [Melakarta ragas](https://en.wikipedia.org/wiki/Melakarta#Table_of_Melakarta_ragas). To select this raga, first press the **Raga** button, after which the **Scales** slider becomes a **Ragas** slider. Then select **Raga15** from the **Ragas** slider.
+Figure 41 shows the first of the fundamental sequences (Sarali Varisai 1), used to teach Carnatic music. It is played in the Mayamalavagowla raga, which is number 15 in the Melakarta ragas. To select this raga, first press the **Raga** button, after which the **Scales** slider becomes a **Ragas** slider. Then select **Raga15** from the **Ragas** slider.
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/qmp_v_sar_var_1.png?lastModify=1645808687)
 
-
-
-Here is a [video of Sarali Varisai 1](https://youtu.be/q5gl7wVJjks) playing in Ableton Live, using Veena, Mridangam and Tabla (instruments) whose clips are expressed using quantum circuits. 
+*Figure 41. Selecting a Carnatic Raga* 
 
 
 
 ### Controlling lengths of time cycles
 
-As discussed previously, Quantum Music Playground supports nested time cycles, such as required by the multi-cycle sequences in Carnatic lessons known as Alankaras. In the following example, the **Cycle B** slider is used in conjunction with **Cycle A** to implement the time cycles for Alankara 3.
+As discussed previously, Quantum Music Playground supports nested time cycles, such as required by the multi-cycle sequences in Carnatic lessons known as Alankaras. In the example shown in Figure 42, the **Cycle B** slider is used in conjunction with **Cycle A** to implement the time cycles for Alankara 3.
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/qmp_v_alan_3.png?lastModify=1645808687)
 
-
-
-Here is a [video of Alankara 3](https://youtu.be/abA6kk_AmIM) playing in Ableton Live, using Veena, Mridangam and Tabla (instruments) whose clips are expressed using quantum circuits.
+*Figure 42. Implementing nested time cycles* 
 
  
 
@@ -500,11 +508,15 @@ MIDI clips in Ableton Live store MIDI data that includes note pitches, start tim
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/midi_clip_twinkle_a.png?lastModify=1645808687)
 
+*Figure 43. QMP metadata in MIDI clips* 
 
 
-For reference during this discussion, please also refer to the following image of the **Twinkle A** clip in Quantum Music Playground. In the previous image, measures 1 & 2 contain the MIDI notes for the notes to be played. Measures 3 - 5 contain a MIDI representation of the quantum circuit, beginning with the first column, with each note encoding either a blank cell or operation. Measure 6 contains slider values, with its final MIDI notes encoding the binary states of the toggle buttons. Please consult the [Quantum Music Playground source code](https://github.com/JavaFXpert/quantum-music-playground) for more details on this metadata representation. 
+
+For reference during this discussion, please also refer to the Figure 44 containing the **Twinkle A** clip in Quantum Music Playground. In the previous image, measures 1 & 2 contain the MIDI notes for the notes to be played. Measures 3 - 5 contain a MIDI representation of the quantum circuit, beginning with the first column, with each note encoding either a blank cell or operation. Measure 6 contains slider values, with its final MIDI notes encoding the binary states of the toggle buttons. Please consult the Quantum Music Playground source code for more details on this metadata representation. 
 
 ![Quantum Music Playground screenshot](file:///Users/James.Weaver@ibm.com/Music/Ableton/User%20Library/Presets/MIDI%20Effects/Max%20MIDI%20Effect/quantum-dj-max/images/v095/qmp_0_95_screenshot.png?lastModify=1645808687)
+
+*Figure 44. Twinkle A clip in Quantum Music Playground* 
 
 
 
@@ -518,6 +530,5 @@ It is often desirable to move all of the operations in a quantum circuit to the 
 
 ### Conclusion
 
-The Quantum Music Playground represents one of many possible approaches for leveraging quantum computing to composing music.
+This has been a tour and tutorial of the Quantum Music Playground, which represents just one approach for leveraging quantum computing to composing music. For more information, including videos that contain examples in this tutorial, visit the Quantum Music Playground repository qisk.it/qmp
 
-TODO: Finish Conclusion
