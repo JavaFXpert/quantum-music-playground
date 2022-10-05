@@ -9,6 +9,8 @@ Here is a [video presentation of Quantum Music Playground](https://www.youtube.c
 
 Here is a [Quantum Music Playground presentation video](https://youtu.be/E3CMhdUY1hE) given at IBM Quantum Educators Summit on 4-Aug-2021.
 
+Quantum Music Playground has rudimentary support for using an Ableton Push to manipulate quantum circuits and other musical functioality. Here a [brief video by Brian Ingmanson that contains excerpts of how it may be used](https://youtu.be/mfNVDmtKYD0).
+
 Here is a short [video of expressing a portion of Canon in D](https://youtu.be/Vpp364Sgivk) with Quantum Music Playground.
 
 
