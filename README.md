@@ -5,7 +5,7 @@ Playground for composing music using quantum states. Implemented as a Max for Li
 
 ![Quantum Music Playground screenshot](./images/v095/qmp_0_95_screenshot.png)
 
-Here is a [video presentation of Quantum Music Playground](https://www.youtube.com/watch?v=8j4gxfJQxtk) at the 1st International Symposium on Quantum Computing and Musical Creativity on 20 Nov 2021.
+Here is a [video presentation of Quantum Music Playground](https://youtu.be/7l_Nmu5Azs0?si=eZFMtlmAcKE09Qdt) during the Quantum Sounds Symposium at the Institute of Photonic Sciences (ICFO) in Barcelona on June 7, 2023.
 
 Here is a [Quantum Music Playground presentation video](https://youtu.be/E3CMhdUY1hE) given at IBM Quantum Educators Summit on 4-Aug-2021.
 
